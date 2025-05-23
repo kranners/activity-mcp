@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@octokit/graphql-schema": "^15.26.0",
     "@types/node": "^22.15.17",
     "typescript": "^5.8.3"
   },
