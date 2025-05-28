@@ -11,5 +11,10 @@
     "skipLibCheck": true,
     "outDir": "./dist",
     "rootDir": "./src"
-  }
+  },
+  "exclude": [
+    ".api",
+    "dist",
+    "node_modules"
+  ]
 }

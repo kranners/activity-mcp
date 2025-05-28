@@ -15,12 +15,13 @@ export const getUserId = async () => {
 }
 
 type MessagesFromUserInput = {
-  userId: string;
   before: string;
   after: string;
 }
 
-export const getMessagesFromUser = async ({ userId, before, after }: MessagesFromUserInput) => {
+export const getMessagesFromUser = async ({ before, after }: MessagesFromUserInput) => {
+  const userId = await getUserId();
+
   return web.search.messages({
     query: `from:@${userId} before:${before} after:${after}`,
     sort: "timestamp",
