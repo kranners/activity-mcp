@@ -5,10 +5,18 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { CallToolResult, CallToolResultSchema } from "@modelcontextprotocol/sdk/types.js";
 import { getMessagesFromUser } from "./slack";
-import { getTasks } from "./clickup";
+import { ClickUpTasksAPIInputBody, getTasks } from "./clickup";
 import { queryActivities } from "./timing";
 import { getNowAsMillis, getNowAsSeconds, getNowAsYyyyMmDd } from "./time";
 import { createTimeEntry, getMe, getProjectAssignments } from "./harvest";
+import { GetFilteredTeamTasks } from "@api/clickup/schemas";
+import { GetFilteredTeamTasksMetadataParam } from "@api/clickup/types";
+
+const createToolResult = (result: unknown) => CallToolResultSchema.parse({
+  content: [
+    { type: "text", text: JSON.stringify(result) }
+  ]
+});
 
 const server = new McpServer({
   name: "activity-mcp",
@@ -25,33 +33,14 @@ const start = async () => {
       before: z.string().describe("Day in YYYY-MM-DD BEFORE desired date range."),
       after: z.string().describe("Day in YYYY-MM-DD AFTER desired date range."),
     },
-    async ({ before, after }): Promise<CallToolResult> => {
-      const messages = await getMessagesFromUser({ before, after });
-
-      return CallToolResultSchema.parse({
-        content: [
-          { type: "text", text: JSON.stringify(messages) }
-        ]
-      });
-    },
+    async (params) => createToolResult((await getMessagesFromUser(params))),
   );
 
   server.tool(
     "getClickUpTasks",
     "Get ClickUp tasks",
-    {
-      dateUpdatedGt: z.number().describe("Number timestamp in millis. Lower bound for when the ticket was last updated."),
-      dateUpdatedLt: z.number().describe("Number timestamp in millis. Upper bound for when the ticket was last updated."),
-    },
-    async ({ dateUpdatedGt, dateUpdatedLt }): Promise<CallToolResult> => {
-      const tasks = await getTasks({ dateUpdatedGt, dateUpdatedLt });
-
-      return CallToolResultSchema.parse({
-        content: [
-          { type: "text", text: JSON.stringify(tasks) }
-        ]
-      });
-    },
+    ClickUpTasksAPIInputBody,
+    async (params: ClickUpTasksAPIInputBody) => createToolResult((await getTasks(params))),
   );
 
   await server.connect(transport);
@@ -66,49 +55,37 @@ server.tool(
     limit: z.number().describe("SQLite LIMIT."),
     page: z.number().describe("SQLite OFFSET = SQLite LIMIT * page"),
   },
-  ({ start, end, limit, page }): CallToolResult => {
-    const activities = queryActivities({ start, end, limit, page });
-
-    return CallToolResultSchema.parse({
-      content: [
-        { type: "text", text: JSON.stringify(activities) }
-      ]
-    });
-  },
+  (params) => createToolResult(queryActivities(params)),
 );
 
 server.tool(
   "getCurrentTimeMillis",
   "Get the current time as a number timestamp in millis.",
-  (): CallToolResult => ({ content: [{ type: "text", text: getNowAsMillis() }] })
+  () => createToolResult(getNowAsMillis()),
 );
 
 server.tool(
   "getCurrentTimeSeconds",
   "Get the current time as a number timestamp in seconds.",
-  (): CallToolResult => ({ content: [{ type: "text", text: getNowAsSeconds().toString() }] })
+  () => createToolResult(getNowAsSeconds()),
 );
 
 server.tool(
   "getCurrentTimeYyyyMmDd",
   "Get the current time in YYYY-MM-DD format.",
-  (): CallToolResult => ({ content: [{ type: "text", text: getNowAsYyyyMmDd() }] })
+  () => createToolResult(getNowAsYyyyMmDd()),
 );
 
 server.tool(
   "getHarvestProjectAssignments",
   "Get all Harvest projects and their billables.",
-  async (): Promise<CallToolResult> => ({
-    content: [{ type: "text", text: await getProjectAssignments() }],
-  })
+  async () => createToolResult((await getProjectAssignments())),
 );
 
 server.tool(
   "getMe",
   "Get information about the authenticated user according to Harvest.",
-  async (): Promise<CallToolResult> => ({
-    content: [{ type: "text", text: await getMe() }],
-  })
+  async () => createToolResult((await getMe())),
 );
 
 server.tool(
@@ -121,17 +98,7 @@ server.tool(
     hours: z.number().describe("Spent hours as a number."),
     notes: z.string().describe("Description of time spent."),
   },
-  async ({ project_id, task_id, spent_date, hours, notes }): Promise<CallToolResult> => ({
-    content: [{
-      type: "text", text: await createTimeEntry({
-        project_id,
-        task_id,
-        spent_date,
-        hours,
-        notes,
-      })
-    }],
-  })
+  async (params) => createToolResult((await createTimeEntry(params))),
 );
 
 start().catch(console.error);
