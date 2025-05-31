@@ -6,8 +6,9 @@ import { z } from "zod";
 import { CallToolResult, CallToolResultSchema } from "@modelcontextprotocol/sdk/types.js";
 import { getMessagesFromUser } from "./slack";
 import { getTasks } from "./clickup";
-
-const getNowAsYyyyMmDd = () => new Intl.DateTimeFormat('en-CA').format(new Date());
+import { queryActivities } from "./timing";
+import { getNowAsMillis, getNowAsSeconds, getNowAsYyyyMmDd } from "./time";
+import { createTimeEntry, getMe, getProjectAssignments } from "./harvest";
 
 const server = new McpServer({
   name: "activity-mcp",
@@ -27,16 +28,11 @@ const start = async () => {
     async ({ before, after }): Promise<CallToolResult> => {
       const messages = await getMessagesFromUser({ before, after });
 
-      const result = {
+      return CallToolResultSchema.parse({
         content: [
-          {
-            type: "text",
-            text: JSON.stringify(messages),
-          }
+          { type: "text", text: JSON.stringify(messages) }
         ]
-      };
-
-      return CallToolResultSchema.parse(result);
+      });
     },
   );
 
@@ -44,23 +40,17 @@ const start = async () => {
     "getClickUpTasks",
     "Get ClickUp tasks",
     {
-      teamId: z.number().describe("ClickUp team ID"),
       dateUpdatedGt: z.number().describe("Number timestamp in millis. Lower bound for when the ticket was last updated."),
       dateUpdatedLt: z.number().describe("Number timestamp in millis. Upper bound for when the ticket was last updated."),
     },
-    async ({ teamId, dateUpdatedGt, dateUpdatedLt }): Promise<CallToolResult> => {
-      const tasks = await getTasks({ teamId, dateUpdatedGt, dateUpdatedLt });
+    async ({ dateUpdatedGt, dateUpdatedLt }): Promise<CallToolResult> => {
+      const tasks = await getTasks({ dateUpdatedGt, dateUpdatedLt });
 
-      const result = {
+      return CallToolResultSchema.parse({
         content: [
-          {
-            type: "text",
-            text: JSON.stringify(tasks),
-          }
+          { type: "text", text: JSON.stringify(tasks) }
         ]
-      };
-
-      return CallToolResultSchema.parse(result);
+      });
     },
   );
 
@@ -68,15 +58,80 @@ const start = async () => {
 };
 
 server.tool(
+  "queryActivities",
+  "Get titles, applications, paths of all activities between two timestamps. Is paginated.",
+  {
+    start: z.number().describe("SQLite timestamp in seconds. Lower bound for the activity."),
+    end: z.number().describe("SQLite timestamp in seconds. Upper bound for the activity."),
+    limit: z.number().describe("SQLite LIMIT."),
+    page: z.number().describe("SQLite OFFSET = SQLite LIMIT * page"),
+  },
+  ({ start, end, limit, page }): CallToolResult => {
+    const activities = queryActivities({ start, end, limit, page });
+
+    return CallToolResultSchema.parse({
+      content: [
+        { type: "text", text: JSON.stringify(activities) }
+      ]
+    });
+  },
+);
+
+server.tool(
   "getCurrentTimeMillis",
   "Get the current time as a number timestamp in millis.",
-  (): CallToolResult => ({ content: [{ type: "text", text: Date.now().toString() }] })
+  (): CallToolResult => ({ content: [{ type: "text", text: getNowAsMillis() }] })
+);
+
+server.tool(
+  "getCurrentTimeSeconds",
+  "Get the current time as a number timestamp in seconds.",
+  (): CallToolResult => ({ content: [{ type: "text", text: getNowAsSeconds().toString() }] })
 );
 
 server.tool(
   "getCurrentTimeYyyyMmDd",
   "Get the current time in YYYY-MM-DD format.",
   (): CallToolResult => ({ content: [{ type: "text", text: getNowAsYyyyMmDd() }] })
+);
+
+server.tool(
+  "getHarvestProjectAssignments",
+  "Get all Harvest projects and their billables.",
+  async (): Promise<CallToolResult> => ({
+    content: [{ type: "text", text: await getProjectAssignments() }],
+  })
+);
+
+server.tool(
+  "getMe",
+  "Get information about the authenticated user according to Harvest.",
+  async (): Promise<CallToolResult> => ({
+    content: [{ type: "text", text: await getMe() }],
+  })
+);
+
+server.tool(
+  "createTimeEntry",
+  "Create a time entry in Harvest",
+  {
+    project_id: z.number().describe("The project ID in Harvest."),
+    task_id: z.number().describe("The task ID in Harvest."),
+    spent_date: z.string().describe("Day in YYYY-MM-DD for time entry."),
+    hours: z.number().describe("Spent hours as a number."),
+    notes: z.string().describe("Description of time spent."),
+  },
+  async ({ project_id, task_id, spent_date, hours, notes }): Promise<CallToolResult> => ({
+    content: [{
+      type: "text", text: await createTimeEntry({
+        project_id,
+        task_id,
+        spent_date,
+        hours,
+        notes,
+      })
+    }],
+  })
 );
 
 start().catch(console.error);

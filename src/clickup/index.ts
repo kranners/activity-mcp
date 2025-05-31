@@ -10,18 +10,23 @@ const auth = () => {
 }
 
 type GetTasksInput = {
-  teamId: number;
   dateUpdatedGt: number;
   dateUpdatedLt: number;
 };
 
 export const getTasks = async ({
-  teamId, dateUpdatedGt, dateUpdatedLt
+  dateUpdatedGt, dateUpdatedLt
 }: GetTasksInput) => {
   auth();
 
   const currentUser = await clickup.getAuthorizedUser();
   const currentUserId = currentUser.data.user?.id;
+
+  const teamId = Number(process.env.CLICKUP_TEAM_ID);
+
+  if (teamId === undefined || Number.isNaN(teamId)) {
+    throw new Error("CLICKUP_TEAM_ID must be set to a number.")
+  }
 
   if (currentUserId === undefined) {
     throw new Error("Was unable to read current ClickUp user. Please check your CLICKUP_TOKEN.");
@@ -29,7 +34,7 @@ export const getTasks = async ({
 
   const response = await clickup.getFilteredTeamTasks({
     order_by: 'updated',
-    assignees: [currentUserId.toString(), currentUserId.toString()],
+    // assignees: [currentUserId.toString(), currentUserId.toString()],
     date_updated_gt: dateUpdatedGt,
     date_updated_lt: dateUpdatedLt,
     team_Id: teamId,
