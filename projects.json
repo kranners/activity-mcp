@@ -1,0 +1,4216 @@
+{
+  "project_assignments": [
+    {
+      "id": 516619527,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2025-05-13T02:50:12Z",
+      "updated_at": "2025-05-13T02:50:12Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 44688773,
+        "name": "Make-A-Wish - Support (Apr'25 - Mar'26)",
+        "code": "MAW017",
+        "is_billable": true
+      },
+      "client": {
+        "id": 7129968,
+        "name": "Make-A-Wish",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 495125249,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:50:12Z",
+          "updated_at": "2025-05-13T02:50:12Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16193230,
+            "name": "Chief Commercial Officer"
+          }
+        },
+        {
+          "id": 495125250,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:50:12Z",
+          "updated_at": "2025-05-13T02:50:12Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 7625481,
+            "name": "Client Partner"
+          }
+        },
+        {
+          "id": 495125251,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:50:12Z",
+          "updated_at": "2025-05-13T02:50:12Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19233408,
+            "name": "Delivery Director"
+          }
+        },
+        {
+          "id": 495125252,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:50:12Z",
+          "updated_at": "2025-05-13T02:50:12Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169659,
+            "name": "Design Director"
+          }
+        },
+        {
+          "id": 495125253,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:50:12Z",
+          "updated_at": "2025-05-13T02:50:12Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169660,
+            "name": "Designer"
+          }
+        },
+        {
+          "id": 495125254,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:50:12Z",
+          "updated_at": "2025-05-13T02:50:12Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4570988,
+            "name": "Dev Ops"
+          }
+        },
+        {
+          "id": 495125255,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:50:12Z",
+          "updated_at": "2025-05-13T02:50:12Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 6981217,
+            "name": "Developer"
+          }
+        },
+        {
+          "id": 495125256,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:50:12Z",
+          "updated_at": "2025-05-13T02:50:12Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16012305,
+            "name": "Engineering Manager"
+          }
+        },
+        {
+          "id": 495125257,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2025-05-13T02:50:12Z",
+          "updated_at": "2025-05-13T02:50:12Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23385995,
+            "name": "Partnerships Director"
+          }
+        },
+        {
+          "id": 495125258,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:50:12Z",
+          "updated_at": "2025-05-13T02:50:12Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16282226,
+            "name": "Product Strategist"
+          }
+        },
+        {
+          "id": 495125259,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:50:12Z",
+          "updated_at": "2025-05-13T02:50:12Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267495,
+            "name": "Project Management"
+          }
+        },
+        {
+          "id": 495125260,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:50:12Z",
+          "updated_at": "2025-05-13T02:50:12Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18877055,
+            "name": "Senior Designer"
+          }
+        },
+        {
+          "id": 495125261,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:50:12Z",
+          "updated_at": "2025-05-13T02:50:12Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18836211,
+            "name": "Senior Developer"
+          }
+        },
+        {
+          "id": 495125262,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:50:12Z",
+          "updated_at": "2025-05-13T02:50:12Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 495125263,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:50:12Z",
+          "updated_at": "2025-05-13T02:50:12Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267510,
+            "name": "Tester"
+          }
+        }
+      ]
+    },
+    {
+      "id": 516619435,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2025-05-13T02:45:25Z",
+      "updated_at": "2025-05-13T02:45:25Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 44688753,
+        "name": "Make-A-Wish - Maintenance (Apr '25 - Mar '26)",
+        "code": "MAW017",
+        "is_billable": true
+      },
+      "client": {
+        "id": 7129968,
+        "name": "Make-A-Wish",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 495125159,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:45:25Z",
+          "updated_at": "2025-05-13T02:45:25Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16193230,
+            "name": "Chief Commercial Officer"
+          }
+        },
+        {
+          "id": 495125160,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:45:25Z",
+          "updated_at": "2025-05-13T02:45:25Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 7625481,
+            "name": "Client Partner"
+          }
+        },
+        {
+          "id": 495125161,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:45:25Z",
+          "updated_at": "2025-05-13T02:45:25Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19233408,
+            "name": "Delivery Director"
+          }
+        },
+        {
+          "id": 495125162,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:45:25Z",
+          "updated_at": "2025-05-13T02:45:25Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169659,
+            "name": "Design Director"
+          }
+        },
+        {
+          "id": 495125163,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:45:25Z",
+          "updated_at": "2025-05-13T02:45:25Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169660,
+            "name": "Designer"
+          }
+        },
+        {
+          "id": 495125164,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:45:25Z",
+          "updated_at": "2025-05-13T02:45:25Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4570988,
+            "name": "Dev Ops"
+          }
+        },
+        {
+          "id": 495125165,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:45:25Z",
+          "updated_at": "2025-05-13T02:45:25Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 6981217,
+            "name": "Developer"
+          }
+        },
+        {
+          "id": 495125166,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:45:25Z",
+          "updated_at": "2025-05-13T02:45:25Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16012305,
+            "name": "Engineering Manager"
+          }
+        },
+        {
+          "id": 495125167,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2025-05-13T02:45:25Z",
+          "updated_at": "2025-05-13T02:45:25Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23385995,
+            "name": "Partnerships Director"
+          }
+        },
+        {
+          "id": 495125168,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:45:25Z",
+          "updated_at": "2025-05-13T02:45:25Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16282226,
+            "name": "Product Strategist"
+          }
+        },
+        {
+          "id": 495125169,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:45:25Z",
+          "updated_at": "2025-05-13T02:45:25Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267495,
+            "name": "Project Management"
+          }
+        },
+        {
+          "id": 495125170,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:45:25Z",
+          "updated_at": "2025-05-13T02:45:25Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18877055,
+            "name": "Senior Designer"
+          }
+        },
+        {
+          "id": 495125171,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:45:25Z",
+          "updated_at": "2025-05-13T02:45:25Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18836211,
+            "name": "Senior Developer"
+          }
+        },
+        {
+          "id": 495125172,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:45:25Z",
+          "updated_at": "2025-05-13T02:45:25Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 495125173,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-13T02:45:25Z",
+          "updated_at": "2025-05-13T02:45:25Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267510,
+            "name": "Tester"
+          }
+        }
+      ]
+    },
+    {
+      "id": 516017261,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2025-05-07T07:00:53Z",
+      "updated_at": "2025-05-07T07:00:53Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 44637116,
+        "name": "AAF - Whitelabel - Make",
+        "code": null,
+        "is_billable": true
+      },
+      "client": {
+        "id": 12293797,
+        "name": "Angle Auto",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 494526759,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-07T07:00:53Z",
+          "updated_at": "2025-05-07T07:00:53Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16193230,
+            "name": "Chief Commercial Officer"
+          }
+        },
+        {
+          "id": 494526760,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-07T07:00:53Z",
+          "updated_at": "2025-05-07T07:00:53Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 7625481,
+            "name": "Client Partner"
+          }
+        },
+        {
+          "id": 494526761,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-07T07:00:53Z",
+          "updated_at": "2025-05-07T07:00:53Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19233408,
+            "name": "Delivery Director"
+          }
+        },
+        {
+          "id": 494526762,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-07T07:00:53Z",
+          "updated_at": "2025-05-07T07:00:53Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169659,
+            "name": "Design Director"
+          }
+        },
+        {
+          "id": 494526763,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-07T07:00:53Z",
+          "updated_at": "2025-05-07T07:00:53Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169660,
+            "name": "Designer"
+          }
+        },
+        {
+          "id": 494526764,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-07T07:00:53Z",
+          "updated_at": "2025-05-07T07:00:53Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4570988,
+            "name": "Dev Ops"
+          }
+        },
+        {
+          "id": 494526765,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-07T07:00:53Z",
+          "updated_at": "2025-05-07T07:00:53Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 6981217,
+            "name": "Developer"
+          }
+        },
+        {
+          "id": 494526766,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-07T07:00:53Z",
+          "updated_at": "2025-05-07T07:00:53Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16012305,
+            "name": "Engineering Manager"
+          }
+        },
+        {
+          "id": 494526767,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2025-05-07T07:00:53Z",
+          "updated_at": "2025-05-07T07:00:53Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23385995,
+            "name": "Partnerships Director"
+          }
+        },
+        {
+          "id": 494526768,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-07T07:00:53Z",
+          "updated_at": "2025-05-07T07:00:53Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16282226,
+            "name": "Product Strategist"
+          }
+        },
+        {
+          "id": 494526769,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-07T07:00:53Z",
+          "updated_at": "2025-05-07T07:00:53Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267495,
+            "name": "Project Management"
+          }
+        },
+        {
+          "id": 494526770,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-07T07:00:53Z",
+          "updated_at": "2025-05-07T07:00:53Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18877055,
+            "name": "Senior Designer"
+          }
+        },
+        {
+          "id": 494526771,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-07T07:00:53Z",
+          "updated_at": "2025-05-07T07:00:53Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18836211,
+            "name": "Senior Developer"
+          }
+        },
+        {
+          "id": 494526772,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-07T07:00:53Z",
+          "updated_at": "2025-05-07T07:00:53Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 494526773,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-07T07:00:53Z",
+          "updated_at": "2025-05-07T07:00:53Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267510,
+            "name": "Tester"
+          }
+        }
+      ]
+    },
+    {
+      "id": 515794259,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2025-05-06T06:44:37Z",
+      "updated_at": "2025-05-06T06:44:37Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 44607414,
+        "name": "Maintenance (Apr 21 - Jul 20)",
+        "code": "COR002",
+        "is_billable": true
+      },
+      "client": {
+        "id": 15048770,
+        "name": "CorePlus",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 494201411,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:52Z",
+          "updated_at": "2025-05-04T23:44:52Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16193230,
+            "name": "Chief Commercial Officer"
+          }
+        },
+        {
+          "id": 494201412,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:52Z",
+          "updated_at": "2025-05-04T23:44:52Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 7625481,
+            "name": "Client Partner"
+          }
+        },
+        {
+          "id": 494201413,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:52Z",
+          "updated_at": "2025-05-04T23:44:52Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19233408,
+            "name": "Delivery Director"
+          }
+        },
+        {
+          "id": 494201414,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:52Z",
+          "updated_at": "2025-05-04T23:44:52Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169659,
+            "name": "Design Director"
+          }
+        },
+        {
+          "id": 494201415,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:52Z",
+          "updated_at": "2025-05-04T23:44:52Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169660,
+            "name": "Designer"
+          }
+        },
+        {
+          "id": 494201416,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:52Z",
+          "updated_at": "2025-05-04T23:44:52Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4570988,
+            "name": "Dev Ops"
+          }
+        },
+        {
+          "id": 494201417,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:52Z",
+          "updated_at": "2025-05-04T23:44:52Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 6981217,
+            "name": "Developer"
+          }
+        },
+        {
+          "id": 494201418,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:52Z",
+          "updated_at": "2025-05-04T23:44:52Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16012305,
+            "name": "Engineering Manager"
+          }
+        },
+        {
+          "id": 494201419,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:52Z",
+          "updated_at": "2025-05-04T23:44:52Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23385995,
+            "name": "Partnerships Director"
+          }
+        },
+        {
+          "id": 494201420,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:52Z",
+          "updated_at": "2025-05-04T23:44:52Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16282226,
+            "name": "Product Strategist"
+          }
+        },
+        {
+          "id": 494201421,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:52Z",
+          "updated_at": "2025-05-04T23:44:52Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267495,
+            "name": "Project Management"
+          }
+        },
+        {
+          "id": 494201422,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:52Z",
+          "updated_at": "2025-05-04T23:44:52Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18877055,
+            "name": "Senior Designer"
+          }
+        },
+        {
+          "id": 494201423,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:52Z",
+          "updated_at": "2025-05-04T23:44:52Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18836211,
+            "name": "Senior Developer"
+          }
+        },
+        {
+          "id": 494201424,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:52Z",
+          "updated_at": "2025-05-04T23:44:52Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 494201425,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:52Z",
+          "updated_at": "2025-05-04T23:44:52Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267510,
+            "name": "Tester"
+          }
+        }
+      ]
+    },
+    {
+      "id": 515593820,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2025-05-04T23:44:37Z",
+      "updated_at": "2025-05-04T23:44:37Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 44607412,
+        "name": "Support (Apr 21 - Jul 20)",
+        "code": "COR002",
+        "is_billable": true
+      },
+      "client": {
+        "id": 15048770,
+        "name": "CorePlus",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 494201390,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:37Z",
+          "updated_at": "2025-05-04T23:44:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16193230,
+            "name": "Chief Commercial Officer"
+          }
+        },
+        {
+          "id": 494201391,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:37Z",
+          "updated_at": "2025-05-04T23:44:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 7625481,
+            "name": "Client Partner"
+          }
+        },
+        {
+          "id": 494201392,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:37Z",
+          "updated_at": "2025-05-04T23:44:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19233408,
+            "name": "Delivery Director"
+          }
+        },
+        {
+          "id": 494201393,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:37Z",
+          "updated_at": "2025-05-04T23:44:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169659,
+            "name": "Design Director"
+          }
+        },
+        {
+          "id": 494201394,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:37Z",
+          "updated_at": "2025-05-04T23:44:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169660,
+            "name": "Designer"
+          }
+        },
+        {
+          "id": 494201395,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:37Z",
+          "updated_at": "2025-05-04T23:44:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4570988,
+            "name": "Dev Ops"
+          }
+        },
+        {
+          "id": 494201396,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:37Z",
+          "updated_at": "2025-05-04T23:44:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 6981217,
+            "name": "Developer"
+          }
+        },
+        {
+          "id": 494201397,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:37Z",
+          "updated_at": "2025-05-04T23:44:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16012305,
+            "name": "Engineering Manager"
+          }
+        },
+        {
+          "id": 494201398,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:37Z",
+          "updated_at": "2025-05-04T23:44:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23385995,
+            "name": "Partnerships Director"
+          }
+        },
+        {
+          "id": 494201399,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:37Z",
+          "updated_at": "2025-05-04T23:44:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16282226,
+            "name": "Product Strategist"
+          }
+        },
+        {
+          "id": 494201400,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:37Z",
+          "updated_at": "2025-05-04T23:44:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267495,
+            "name": "Project Management"
+          }
+        },
+        {
+          "id": 494201401,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:37Z",
+          "updated_at": "2025-05-04T23:44:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18877055,
+            "name": "Senior Designer"
+          }
+        },
+        {
+          "id": 494201402,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:37Z",
+          "updated_at": "2025-05-04T23:44:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18836211,
+            "name": "Senior Developer"
+          }
+        },
+        {
+          "id": 494201403,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:37Z",
+          "updated_at": "2025-05-04T23:44:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 494201404,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-05-04T23:44:37Z",
+          "updated_at": "2025-05-04T23:44:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267510,
+            "name": "Tester"
+          }
+        }
+      ]
+    },
+    {
+      "id": 513184335,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2025-04-14T06:46:37Z",
+      "updated_at": "2025-04-14T06:46:37Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 44398536,
+        "name": "CR02 - Global colour update",
+        "code": "COR003",
+        "is_billable": true
+      },
+      "client": {
+        "id": 15048770,
+        "name": "CorePlus",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 492008139,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:46:37Z",
+          "updated_at": "2025-04-14T06:46:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16193230,
+            "name": "Chief Commercial Officer"
+          }
+        },
+        {
+          "id": 492008140,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:46:37Z",
+          "updated_at": "2025-04-14T06:46:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 7625481,
+            "name": "Client Partner"
+          }
+        },
+        {
+          "id": 492008141,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:46:37Z",
+          "updated_at": "2025-04-14T06:46:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19233408,
+            "name": "Delivery Director"
+          }
+        },
+        {
+          "id": 492008169,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:47:48Z",
+          "updated_at": "2025-04-14T06:47:48Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18599733,
+            "name": "Delivery Lead"
+          }
+        },
+        {
+          "id": 492008397,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:51:45Z",
+          "updated_at": "2025-04-14T06:51:45Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 20978220,
+            "name": "Design"
+          }
+        },
+        {
+          "id": 492008142,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:46:37Z",
+          "updated_at": "2025-04-14T06:46:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169659,
+            "name": "Design Director"
+          }
+        },
+        {
+          "id": 492008143,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:46:37Z",
+          "updated_at": "2025-04-14T06:46:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169660,
+            "name": "Designer"
+          }
+        },
+        {
+          "id": 492008144,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:46:37Z",
+          "updated_at": "2025-04-14T06:46:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4570988,
+            "name": "Dev Ops"
+          }
+        },
+        {
+          "id": 492008145,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:46:37Z",
+          "updated_at": "2025-04-14T06:46:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 6981217,
+            "name": "Developer"
+          }
+        },
+        {
+          "id": 492008146,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:46:37Z",
+          "updated_at": "2025-04-14T06:46:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16012305,
+            "name": "Engineering Manager"
+          }
+        },
+        {
+          "id": 492008147,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2025-04-14T06:46:37Z",
+          "updated_at": "2025-04-14T06:46:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23385995,
+            "name": "Partnerships Director"
+          }
+        },
+        {
+          "id": 492008148,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:46:37Z",
+          "updated_at": "2025-04-14T06:46:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16282226,
+            "name": "Product Strategist"
+          }
+        },
+        {
+          "id": 492008149,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:46:37Z",
+          "updated_at": "2025-04-14T06:46:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267495,
+            "name": "Project Management"
+          }
+        },
+        {
+          "id": 492008150,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:46:37Z",
+          "updated_at": "2025-04-14T06:46:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18877055,
+            "name": "Senior Designer"
+          }
+        },
+        {
+          "id": 492008151,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:46:37Z",
+          "updated_at": "2025-04-14T06:46:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18836211,
+            "name": "Senior Developer"
+          }
+        },
+        {
+          "id": 492008152,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:46:37Z",
+          "updated_at": "2025-04-14T06:46:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 492008153,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:46:37Z",
+          "updated_at": "2025-04-14T06:46:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267510,
+            "name": "Tester"
+          }
+        }
+      ]
+    },
+    {
+      "id": 513182373,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2025-04-14T06:43:43Z",
+      "updated_at": "2025-04-14T06:43:43Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 44398516,
+        "name": "CR01 - Additional Upgrades",
+        "code": "COR003",
+        "is_billable": true
+      },
+      "client": {
+        "id": 15048770,
+        "name": "CorePlus",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 492007988,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:43:43Z",
+          "updated_at": "2025-04-14T06:43:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16193230,
+            "name": "Chief Commercial Officer"
+          }
+        },
+        {
+          "id": 492007989,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:43:43Z",
+          "updated_at": "2025-04-14T06:43:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 7625481,
+            "name": "Client Partner"
+          }
+        },
+        {
+          "id": 492007990,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:43:43Z",
+          "updated_at": "2025-04-14T06:43:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19233408,
+            "name": "Delivery Director"
+          }
+        },
+        {
+          "id": 492008342,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:50:43Z",
+          "updated_at": "2025-04-14T06:50:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18599733,
+            "name": "Delivery Lead"
+          }
+        },
+        {
+          "id": 492007991,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:43:43Z",
+          "updated_at": "2025-04-14T06:43:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169659,
+            "name": "Design Director"
+          }
+        },
+        {
+          "id": 492007992,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:43:43Z",
+          "updated_at": "2025-04-14T06:43:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169660,
+            "name": "Designer"
+          }
+        },
+        {
+          "id": 492007993,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:43:43Z",
+          "updated_at": "2025-04-14T06:43:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4570988,
+            "name": "Dev Ops"
+          }
+        },
+        {
+          "id": 492007994,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:43:43Z",
+          "updated_at": "2025-04-14T06:43:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 6981217,
+            "name": "Developer"
+          }
+        },
+        {
+          "id": 492007995,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:43:43Z",
+          "updated_at": "2025-04-14T06:43:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16012305,
+            "name": "Engineering Manager"
+          }
+        },
+        {
+          "id": 492007996,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2025-04-14T06:43:43Z",
+          "updated_at": "2025-04-14T06:43:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23385995,
+            "name": "Partnerships Director"
+          }
+        },
+        {
+          "id": 492007997,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:43:43Z",
+          "updated_at": "2025-04-14T06:43:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16282226,
+            "name": "Product Strategist"
+          }
+        },
+        {
+          "id": 492007998,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:43:43Z",
+          "updated_at": "2025-04-14T06:43:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267495,
+            "name": "Project Management"
+          }
+        },
+        {
+          "id": 492007999,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:43:43Z",
+          "updated_at": "2025-04-14T06:43:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18877055,
+            "name": "Senior Designer"
+          }
+        },
+        {
+          "id": 492008000,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:43:43Z",
+          "updated_at": "2025-04-14T06:43:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18836211,
+            "name": "Senior Developer"
+          }
+        },
+        {
+          "id": 492008001,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:43:43Z",
+          "updated_at": "2025-04-14T06:43:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 492008002,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-04-14T06:43:43Z",
+          "updated_at": "2025-04-14T06:43:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267510,
+            "name": "Tester"
+          }
+        }
+      ]
+    },
+    {
+      "id": 510099479,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2025-03-19T23:41:01Z",
+      "updated_at": "2025-03-19T23:41:01Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 44102792,
+        "name": "Strategic Projects FY26-FY28 planning",
+        "code": null,
+        "is_billable": true
+      },
+      "client": {
+        "id": 7233364,
+        "name": "Transport Accident Commission (TAC)",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 488835508,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-03-19T23:41:01Z",
+          "updated_at": "2025-03-19T23:41:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16193230,
+            "name": "Chief Commercial Officer"
+          }
+        },
+        {
+          "id": 488835509,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-03-19T23:41:01Z",
+          "updated_at": "2025-03-19T23:41:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 7625481,
+            "name": "Client Partner"
+          }
+        },
+        {
+          "id": 488835510,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-03-19T23:41:01Z",
+          "updated_at": "2025-03-19T23:41:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19233408,
+            "name": "Delivery Director"
+          }
+        },
+        {
+          "id": 488835511,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-03-19T23:41:01Z",
+          "updated_at": "2025-03-19T23:41:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169659,
+            "name": "Design Director"
+          }
+        },
+        {
+          "id": 488835512,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-03-19T23:41:01Z",
+          "updated_at": "2025-03-19T23:41:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169660,
+            "name": "Designer"
+          }
+        },
+        {
+          "id": 488835513,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-03-19T23:41:01Z",
+          "updated_at": "2025-03-19T23:41:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4570988,
+            "name": "Dev Ops"
+          }
+        },
+        {
+          "id": 488835514,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-03-19T23:41:01Z",
+          "updated_at": "2025-03-19T23:41:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 6981217,
+            "name": "Developer"
+          }
+        },
+        {
+          "id": 488835515,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-03-19T23:41:01Z",
+          "updated_at": "2025-03-19T23:41:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16012305,
+            "name": "Engineering Manager"
+          }
+        },
+        {
+          "id": 488835516,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2025-03-19T23:41:01Z",
+          "updated_at": "2025-03-19T23:41:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23385995,
+            "name": "Partnerships Director"
+          }
+        },
+        {
+          "id": 488835517,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-03-19T23:41:01Z",
+          "updated_at": "2025-03-19T23:41:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16282226,
+            "name": "Product Strategist"
+          }
+        },
+        {
+          "id": 488835518,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-03-19T23:41:01Z",
+          "updated_at": "2025-03-19T23:41:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267495,
+            "name": "Project Management"
+          }
+        },
+        {
+          "id": 488835519,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-03-19T23:41:01Z",
+          "updated_at": "2025-03-19T23:41:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18877055,
+            "name": "Senior Designer"
+          }
+        },
+        {
+          "id": 488835520,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-03-19T23:41:01Z",
+          "updated_at": "2025-03-19T23:41:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18836211,
+            "name": "Senior Developer"
+          }
+        },
+        {
+          "id": 488835521,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-03-19T23:41:01Z",
+          "updated_at": "2025-03-19T23:41:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 488835522,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2025-03-19T23:41:01Z",
+          "updated_at": "2025-03-19T23:41:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267510,
+            "name": "Tester"
+          }
+        }
+      ]
+    },
+    {
+      "id": 508781373,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2025-03-10T23:05:36Z",
+      "updated_at": "2025-03-10T23:05:36Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 41487506,
+        "name": "FY25 - Maintenance",
+        "code": null,
+        "is_billable": true
+      },
+      "client": {
+        "id": 8695071,
+        "name": "Linfox",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 457915668,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T03:50:49Z",
+          "updated_at": "2024-07-24T03:50:49Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 20560655,
+            "name": "Account Management"
+          }
+        },
+        {
+          "id": 455912831,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-04T08:21:58Z",
+          "updated_at": "2024-07-24T03:50:49Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16193230,
+            "name": "Chief Commercial Officer"
+          }
+        },
+        {
+          "id": 455912832,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-04T08:21:58Z",
+          "updated_at": "2024-07-24T03:50:49Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19233408,
+            "name": "Delivery Director"
+          }
+        },
+        {
+          "id": 457915666,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T03:50:49Z",
+          "updated_at": "2024-07-24T03:50:49Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18599733,
+            "name": "Delivery Lead"
+          }
+        },
+        {
+          "id": 455912833,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-04T08:21:58Z",
+          "updated_at": "2024-07-24T03:50:49Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169659,
+            "name": "Design Director"
+          }
+        },
+        {
+          "id": 455912834,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-04T08:21:58Z",
+          "updated_at": "2024-07-24T03:50:49Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169660,
+            "name": "Designer"
+          }
+        },
+        {
+          "id": 455912835,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-04T08:21:58Z",
+          "updated_at": "2024-07-24T03:50:49Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4570988,
+            "name": "Dev Ops"
+          }
+        },
+        {
+          "id": 455912836,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-04T08:21:58Z",
+          "updated_at": "2024-07-24T03:50:49Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 6981217,
+            "name": "Developer"
+          }
+        },
+        {
+          "id": 455912837,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-04T08:21:58Z",
+          "updated_at": "2024-07-24T03:50:49Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16012305,
+            "name": "Engineering Manager"
+          }
+        },
+        {
+          "id": 457915667,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T03:50:49Z",
+          "updated_at": "2024-07-24T03:50:49Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 22929015,
+            "name": "Producer"
+          }
+        },
+        {
+          "id": 455912840,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-04T08:21:58Z",
+          "updated_at": "2024-07-24T03:50:49Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18877055,
+            "name": "Senior Designer"
+          }
+        },
+        {
+          "id": 455912841,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-04T08:21:58Z",
+          "updated_at": "2024-07-24T03:50:49Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18836211,
+            "name": "Senior Developer"
+          }
+        },
+        {
+          "id": 455912842,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-04T08:21:58Z",
+          "updated_at": "2024-07-24T03:50:49Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 455912843,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-04T08:21:58Z",
+          "updated_at": "2024-07-24T03:50:49Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267510,
+            "name": "Tester"
+          }
+        },
+        {
+          "id": 465509899,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-09-25T08:14:57Z",
+          "updated_at": "2024-09-25T08:14:57Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4147592,
+            "name": "Unassigned"
+          }
+        },
+        {
+          "id": 463724746,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-09-09T03:26:49Z",
+          "updated_at": "2024-09-09T03:26:49Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23143114,
+            "name": "non-billable"
+          }
+        }
+      ]
+    },
+    {
+      "id": 508781362,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2025-03-10T23:04:30Z",
+      "updated_at": "2025-03-10T23:04:30Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 41657143,
+        "name": "Linfox FY25 - Support",
+        "code": null,
+        "is_billable": true
+      },
+      "client": {
+        "id": 8695071,
+        "name": "Linfox",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 465509404,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-09-25T08:07:35Z",
+          "updated_at": "2024-09-25T08:07:35Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2607329,
+            "name": "Administrative task"
+          }
+        },
+        {
+          "id": 457916001,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T04:01:09Z",
+          "updated_at": "2024-07-24T04:01:09Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16193230,
+            "name": "Chief Commercial Officer"
+          }
+        },
+        {
+          "id": 457916002,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T04:01:09Z",
+          "updated_at": "2024-07-24T04:01:09Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19233408,
+            "name": "Delivery Director"
+          }
+        },
+        {
+          "id": 457916012,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T04:01:09Z",
+          "updated_at": "2024-07-24T04:01:09Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18599733,
+            "name": "Delivery Lead"
+          }
+        },
+        {
+          "id": 457916003,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T04:01:09Z",
+          "updated_at": "2024-07-24T04:01:09Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169659,
+            "name": "Design Director"
+          }
+        },
+        {
+          "id": 457916004,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T04:01:09Z",
+          "updated_at": "2024-07-24T04:01:09Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169660,
+            "name": "Designer"
+          }
+        },
+        {
+          "id": 457916005,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T04:01:09Z",
+          "updated_at": "2024-07-24T04:01:09Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4570988,
+            "name": "Dev Ops"
+          }
+        },
+        {
+          "id": 457916006,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T04:01:09Z",
+          "updated_at": "2024-07-24T04:01:09Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 6981217,
+            "name": "Developer"
+          }
+        },
+        {
+          "id": 457916007,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T04:01:09Z",
+          "updated_at": "2024-07-24T04:01:09Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16012305,
+            "name": "Engineering Manager"
+          }
+        },
+        {
+          "id": 465509840,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-09-25T08:14:00Z",
+          "updated_at": "2024-09-25T08:14:00Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 12553457,
+            "name": "Linfox"
+          }
+        },
+        {
+          "id": 457916013,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T04:01:09Z",
+          "updated_at": "2024-07-24T04:01:09Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 22929015,
+            "name": "Producer"
+          }
+        },
+        {
+          "id": 457916008,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T04:01:09Z",
+          "updated_at": "2024-07-24T04:01:09Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18877055,
+            "name": "Senior Designer"
+          }
+        },
+        {
+          "id": 457916009,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T04:01:09Z",
+          "updated_at": "2024-07-24T04:01:09Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18836211,
+            "name": "Senior Developer"
+          }
+        },
+        {
+          "id": 457916010,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T04:01:09Z",
+          "updated_at": "2024-07-24T04:01:09Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 457916011,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-07-24T04:01:09Z",
+          "updated_at": "2024-07-24T04:01:09Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267510,
+            "name": "Tester"
+          }
+        },
+        {
+          "id": 465510653,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-09-25T08:27:44Z",
+          "updated_at": "2024-09-25T08:27:44Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4147592,
+            "name": "Unassigned"
+          }
+        },
+        {
+          "id": 463724734,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-09-09T03:23:26Z",
+          "updated_at": "2024-09-09T03:23:26Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23143114,
+            "name": "non-billable"
+          }
+        }
+      ]
+    },
+    {
+      "id": 508781344,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2025-03-10T23:02:55Z",
+      "updated_at": "2025-03-10T23:02:55Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 42344338,
+        "name": "TAC SAM (Sep '24 - Aug '25)",
+        "code": "TAC012",
+        "is_billable": true
+      },
+      "client": {
+        "id": 7233364,
+        "name": "Transport Accident Commission (TAC)",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 466553843,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-10-03T00:04:55Z",
+          "updated_at": "2024-10-03T00:04:55Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16193230,
+            "name": "Chief Commercial Officer"
+          }
+        },
+        {
+          "id": 466553842,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-10-03T00:04:55Z",
+          "updated_at": "2024-10-03T00:04:55Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 7625481,
+            "name": "Client Partner"
+          }
+        },
+        {
+          "id": 466553844,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-10-03T00:04:55Z",
+          "updated_at": "2024-10-03T00:04:55Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19233408,
+            "name": "Delivery Director"
+          }
+        },
+        {
+          "id": 466825941,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-10-06T20:31:00Z",
+          "updated_at": "2024-10-06T20:31:00Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18599733,
+            "name": "Delivery Lead"
+          }
+        },
+        {
+          "id": 466553845,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-10-03T00:04:55Z",
+          "updated_at": "2024-10-03T00:04:55Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169659,
+            "name": "Design Director"
+          }
+        },
+        {
+          "id": 466553846,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-10-03T00:04:55Z",
+          "updated_at": "2024-10-03T00:04:55Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169660,
+            "name": "Designer"
+          }
+        },
+        {
+          "id": 466553847,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-10-03T00:04:55Z",
+          "updated_at": "2024-10-03T00:04:55Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4570988,
+            "name": "Dev Ops"
+          }
+        },
+        {
+          "id": 466553848,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-10-03T00:04:55Z",
+          "updated_at": "2024-10-03T00:04:55Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 6981217,
+            "name": "Developer"
+          }
+        },
+        {
+          "id": 466553849,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-10-03T00:04:55Z",
+          "updated_at": "2024-10-03T00:04:55Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16012305,
+            "name": "Engineering Manager"
+          }
+        },
+        {
+          "id": 466553851,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-10-03T00:04:55Z",
+          "updated_at": "2024-10-03T00:04:55Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267495,
+            "name": "Project Management"
+          }
+        },
+        {
+          "id": 466553852,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-10-03T00:04:55Z",
+          "updated_at": "2024-10-03T00:04:55Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18877055,
+            "name": "Senior Designer"
+          }
+        },
+        {
+          "id": 466553853,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-10-03T00:04:55Z",
+          "updated_at": "2024-10-03T00:04:55Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18836211,
+            "name": "Senior Developer"
+          }
+        },
+        {
+          "id": 474985072,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-12-19T01:26:41Z",
+          "updated_at": "2024-12-19T01:26:41Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 10998031,
+            "name": "TAC"
+          }
+        },
+        {
+          "id": 466553854,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-10-03T00:04:55Z",
+          "updated_at": "2024-10-03T00:04:55Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 466553855,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-10-03T00:04:55Z",
+          "updated_at": "2024-10-03T00:04:55Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267510,
+            "name": "Tester"
+          }
+        },
+        {
+          "id": 474001456,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-12-10T23:35:37Z",
+          "updated_at": "2024-12-10T23:35:37Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23143114,
+            "name": "non-billable"
+          }
+        }
+      ]
+    },
+    {
+      "id": 481787628,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": false,
+      "budget": null,
+      "created_at": "2024-08-20T01:34:22Z",
+      "updated_at": "2024-08-20T01:34:22Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 39102388,
+        "name": "ahm - FY24 - OKTA project",
+        "code": null,
+        "is_billable": true
+      },
+      "client": {
+        "id": 2524359,
+        "name": "ahm",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 420287390,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2023-11-16T23:58:17Z",
+          "updated_at": "2023-11-16T23:58:17Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16193230,
+            "name": "Chief Commercial Officer"
+          }
+        },
+        {
+          "id": 420287389,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2023-11-16T23:58:17Z",
+          "updated_at": "2023-11-16T23:58:17Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 7625481,
+            "name": "Client Partner"
+          }
+        },
+        {
+          "id": 420287391,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2023-11-16T23:58:17Z",
+          "updated_at": "2023-11-16T23:58:17Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19233408,
+            "name": "Delivery Director"
+          }
+        },
+        {
+          "id": 420287392,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2023-11-16T23:58:17Z",
+          "updated_at": "2023-11-16T23:58:17Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169659,
+            "name": "Design Director"
+          }
+        },
+        {
+          "id": 420287393,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2023-11-16T23:58:17Z",
+          "updated_at": "2023-11-16T23:58:17Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169660,
+            "name": "Designer"
+          }
+        },
+        {
+          "id": 420287394,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2023-11-16T23:58:17Z",
+          "updated_at": "2023-11-16T23:58:17Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4570988,
+            "name": "Dev Ops"
+          }
+        },
+        {
+          "id": 420287395,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2023-11-16T23:58:17Z",
+          "updated_at": "2023-11-16T23:58:17Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 6981217,
+            "name": "Developer"
+          }
+        },
+        {
+          "id": 420287396,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2023-11-16T23:58:17Z",
+          "updated_at": "2023-11-16T23:58:17Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16012305,
+            "name": "Engineering Manager"
+          }
+        },
+        {
+          "id": 420287397,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2023-11-16T23:58:17Z",
+          "updated_at": "2023-11-16T23:58:17Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16282226,
+            "name": "Product Strategist"
+          }
+        },
+        {
+          "id": 420287398,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2023-11-16T23:58:17Z",
+          "updated_at": "2023-11-16T23:58:17Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267495,
+            "name": "Project Management"
+          }
+        },
+        {
+          "id": 420287399,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2023-11-16T23:58:17Z",
+          "updated_at": "2023-11-16T23:58:17Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18877055,
+            "name": "Senior Designer"
+          }
+        },
+        {
+          "id": 420287400,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2023-11-16T23:58:17Z",
+          "updated_at": "2023-11-16T23:58:17Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18836211,
+            "name": "Senior Developer"
+          }
+        },
+        {
+          "id": 420287401,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2023-11-16T23:58:17Z",
+          "updated_at": "2023-11-16T23:58:17Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 420287402,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2023-11-16T23:58:17Z",
+          "updated_at": "2023-11-16T23:58:17Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267510,
+            "name": "Tester"
+          }
+        }
+      ]
+    },
+    {
+      "id": 466091906,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2024-05-02T22:59:00Z",
+      "updated_at": "2024-05-02T22:59:00Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 40835630,
+        "name": "SAM FY25 (opex stream)",
+        "code": "NAN085",
+        "is_billable": true
+      },
+      "client": {
+        "id": 8819158,
+        "name": "Nando's",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 448647486,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-05-01T00:23:26Z",
+          "updated_at": "2024-05-07T22:12:11Z",
+          "hourly_rate": null,
+          "budget": 7.5,
+          "task": {
+            "id": 16193230,
+            "name": "Chief Commercial Officer"
+          }
+        },
+        {
+          "id": 448647485,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-05-01T00:23:26Z",
+          "updated_at": "2024-05-07T22:12:11Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 7625481,
+            "name": "Client Partner"
+          }
+        },
+        {
+          "id": 448647487,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-05-01T00:23:26Z",
+          "updated_at": "2024-05-02T22:59:00Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19233408,
+            "name": "Delivery Director"
+          }
+        },
+        {
+          "id": 448647488,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-05-01T00:23:26Z",
+          "updated_at": "2024-05-02T22:59:00Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169659,
+            "name": "Design Director"
+          }
+        },
+        {
+          "id": 448647489,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-05-01T00:23:26Z",
+          "updated_at": "2024-05-02T22:59:00Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169660,
+            "name": "Designer"
+          }
+        },
+        {
+          "id": 448647490,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-05-01T00:23:26Z",
+          "updated_at": "2024-05-02T22:59:00Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4570988,
+            "name": "Dev Ops"
+          }
+        },
+        {
+          "id": 448647491,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-05-01T00:23:26Z",
+          "updated_at": "2024-05-02T22:59:00Z",
+          "hourly_rate": null,
+          "budget": 150,
+          "task": {
+            "id": 6981217,
+            "name": "Developer"
+          }
+        },
+        {
+          "id": 448647492,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-05-01T00:23:26Z",
+          "updated_at": "2024-05-02T22:59:00Z",
+          "hourly_rate": null,
+          "budget": 11.25,
+          "task": {
+            "id": 16012305,
+            "name": "Engineering Manager"
+          }
+        },
+        {
+          "id": 474619653,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-12-17T03:14:48Z",
+          "updated_at": "2024-12-17T03:14:48Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23647601,
+            "name": "Handover with Adrenalin"
+          }
+        },
+        {
+          "id": 448647493,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-05-01T00:23:26Z",
+          "updated_at": "2024-05-02T22:59:00Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16282226,
+            "name": "Product Strategist"
+          }
+        },
+        {
+          "id": 448647494,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-05-01T00:23:26Z",
+          "updated_at": "2024-05-02T22:59:00Z",
+          "hourly_rate": null,
+          "budget": 11.25,
+          "task": {
+            "id": 2267495,
+            "name": "Project Management"
+          }
+        },
+        {
+          "id": 448647495,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-05-01T00:23:26Z",
+          "updated_at": "2024-05-31T04:28:24Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18877055,
+            "name": "Senior Designer"
+          }
+        },
+        {
+          "id": 448647496,
+          "billable": true,
+          "is_active": true,
+          "created_at": "2024-05-01T00:23:26Z",
+          "updated_at": "2024-05-31T04:28:24Z",
+          "hourly_rate": null,
+          "budget": 150,
+          "task": {
+            "id": 18836211,
+            "name": "Senior Developer"
+          }
+        },
+        {
+          "id": 448647497,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-05-01T00:23:26Z",
+          "updated_at": "2024-05-02T22:59:00Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 448647498,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-05-01T00:23:26Z",
+          "updated_at": "2024-05-02T22:59:00Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267510,
+            "name": "Tester"
+          }
+        }
+      ]
+    },
+    {
+      "id": 422667641,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2023-09-03T21:24:52Z",
+      "updated_at": "2023-09-03T21:24:52Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 8065608,
+        "name": "Inlight - Sales",
+        "code": null,
+        "is_billable": false
+      },
+      "client": {
+        "id": 1824750,
+        "name": "Inlight",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 409424549,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-08-16T06:53:39Z",
+          "updated_at": "2023-08-16T06:53:39Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21168982,
+            "name": "Altius"
+          }
+        },
+        {
+          "id": 356587267,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2022-06-14T22:52:59Z",
+          "updated_at": "2022-06-14T22:52:59Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18934651,
+            "name": "Angle Auto"
+          }
+        },
+        {
+          "id": 422326437,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-12-06T05:46:47Z",
+          "updated_at": "2023-12-06T05:46:47Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21758250,
+            "name": "Asahi"
+          }
+        },
+        {
+          "id": 352226997,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2022-05-09T23:22:06Z",
+          "updated_at": "2022-05-09T23:22:06Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18740207,
+            "name": "BMW Group"
+          }
+        },
+        {
+          "id": 464273435,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-09-13T02:57:01Z",
+          "updated_at": "2024-09-13T02:57:01Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23175098,
+            "name": "EMAC"
+          }
+        },
+        {
+          "id": 426454412,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-01-11T23:05:05Z",
+          "updated_at": "2024-01-11T23:05:05Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21924376,
+            "name": "ESSSuper"
+          }
+        },
+        {
+          "id": 375386134,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2022-11-24T00:47:35Z",
+          "updated_at": "2022-11-24T00:47:35Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19741994,
+            "name": "Governance"
+          }
+        },
+        {
+          "id": 389161396,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-03-06T05:33:29Z",
+          "updated_at": "2023-03-06T05:33:29Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 20277067,
+            "name": "Heritage Victoria"
+          }
+        },
+        {
+          "id": 456111665,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-07-08T07:07:14Z",
+          "updated_at": "2024-07-08T07:07:14Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 22849303,
+            "name": "Ingenia"
+          }
+        },
+        {
+          "id": 323411762,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2021-09-22T05:19:50Z",
+          "updated_at": "2021-09-22T05:19:50Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 17368527,
+            "name": "Inlight - sales assets"
+          }
+        },
+        {
+          "id": 364778360,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2022-08-25T03:58:02Z",
+          "updated_at": "2022-08-25T03:58:02Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19286953,
+            "name": "Intertek"
+          }
+        },
+        {
+          "id": 333150249,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2021-12-12T22:30:54Z",
+          "updated_at": "2021-12-12T22:30:54Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 17890368,
+            "name": "Introductions & early qualification"
+          }
+        },
+        {
+          "id": 322799621,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2021-09-16T05:10:47Z",
+          "updated_at": "2021-09-16T05:10:47Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 17334212,
+            "name": "JLL"
+          }
+        },
+        {
+          "id": 364641242,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2022-08-24T05:17:35Z",
+          "updated_at": "2022-08-24T05:17:35Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19281244,
+            "name": "KIC"
+          }
+        },
+        {
+          "id": 375386132,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2022-11-24T00:47:35Z",
+          "updated_at": "2022-11-24T00:47:35Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19741993,
+            "name": "Lead Generation"
+          }
+        },
+        {
+          "id": 234016156,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2019-07-09T01:22:31Z",
+          "updated_at": "2019-07-09T01:22:31Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 12553457,
+            "name": "Linfox"
+          }
+        },
+        {
+          "id": 305033953,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2021-04-13T11:34:17Z",
+          "updated_at": "2021-04-13T11:34:17Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16452532,
+            "name": "MINI"
+          }
+        },
+        {
+          "id": 418540924,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-11-02T05:05:24Z",
+          "updated_at": "2023-11-02T05:05:24Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21585916,
+            "name": "MONA"
+          }
+        },
+        {
+          "id": 192757788,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2018-07-02T00:32:23Z",
+          "updated_at": "2021-06-01T07:09:48Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 10118117,
+            "name": "Make a Wish"
+          }
+        },
+        {
+          "id": 375386133,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2022-11-24T00:47:35Z",
+          "updated_at": "2022-11-24T00:47:35Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 13823276,
+            "name": "Marketing"
+          }
+        },
+        {
+          "id": 161228171,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2017-08-29T06:06:34Z",
+          "updated_at": "2021-09-23T00:39:51Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 8385531,
+            "name": "Movember"
+          }
+        },
+        {
+          "id": 233855101,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2019-07-08T03:33:58Z",
+          "updated_at": "2019-07-08T03:33:58Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 12545358,
+            "name": "Nandos"
+          }
+        },
+        {
+          "id": 390307404,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-03-14T03:50:38Z",
+          "updated_at": "2023-03-14T03:50:38Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 20323991,
+            "name": "Now Finance"
+          }
+        },
+        {
+          "id": 464273434,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-09-13T02:57:00Z",
+          "updated_at": "2024-09-13T02:57:00Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23175097,
+            "name": "Nutrien"
+          }
+        },
+        {
+          "id": 364641241,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2022-08-24T05:17:35Z",
+          "updated_at": "2022-08-24T05:17:35Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19281243,
+            "name": "Powershop"
+          }
+        },
+        {
+          "id": 301616862,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2021-03-15T00:12:29Z",
+          "updated_at": "2021-03-15T00:12:29Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16282226,
+            "name": "Product Strategist"
+          }
+        },
+        {
+          "id": 315381385,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2021-07-13T07:41:30Z",
+          "updated_at": "2021-07-13T07:41:30Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267495,
+            "name": "Project Management"
+          }
+        },
+        {
+          "id": 450865221,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-05-21T00:01:00Z",
+          "updated_at": "2024-05-21T00:01:00Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 22614597,
+            "name": "RACQ"
+          }
+        },
+        {
+          "id": 304183766,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2021-04-06T00:33:00Z",
+          "updated_at": "2021-04-06T00:33:00Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16408624,
+            "name": "RACT"
+          }
+        },
+        {
+          "id": 427803692,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-01-23T06:19:29Z",
+          "updated_at": "2024-01-23T06:19:29Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21991118,
+            "name": "Regis"
+          }
+        },
+        {
+          "id": 444404493,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-03-26T23:51:51Z",
+          "updated_at": "2024-03-26T23:51:51Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 22347033,
+            "name": "Stratton"
+          }
+        },
+        {
+          "id": 491564776,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2025-04-08T22:46:46Z",
+          "updated_at": "2025-04-08T22:46:46Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 24245694,
+            "name": "TIO"
+          }
+        },
+        {
+          "id": 419998363,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-11-15T00:56:41Z",
+          "updated_at": "2023-11-15T00:56:41Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 332164387,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2021-12-02T21:24:40Z",
+          "updated_at": "2021-12-02T21:24:40Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 17833082,
+            "name": "UWA - PBM app"
+          }
+        },
+        {
+          "id": 329433786,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2021-11-10T05:07:14Z",
+          "updated_at": "2021-11-10T05:07:14Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 17688837,
+            "name": "Urban Rest"
+          }
+        },
+        {
+          "id": 213170808,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2019-01-11T03:35:32Z",
+          "updated_at": "2019-01-11T03:35:32Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 7850513,
+            "name": "Vicinity"
+          }
+        },
+        {
+          "id": 465199479,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-09-23T05:27:54Z",
+          "updated_at": "2024-09-23T05:27:54Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23225132,
+            "name": "Zero Latency"
+          }
+        }
+      ]
+    },
+    {
+      "id": 422667640,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2023-09-03T21:24:52Z",
+      "updated_at": "2023-09-03T21:24:52Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 4250357,
+        "name": "Inlight - Leave",
+        "code": null,
+        "is_billable": false
+      },
+      "client": {
+        "id": 1824750,
+        "name": "Inlight",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 51732750,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2013-12-08T23:21:16Z",
+          "updated_at": "2013-12-08T23:21:16Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2513553,
+            "name": "Public holiday"
+          }
+        },
+        {
+          "id": 46523596,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2013-09-27T06:53:26Z",
+          "updated_at": "2014-11-06T00:14:57Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2430605,
+            "name": "Scheduled Leave"
+          }
+        },
+        {
+          "id": 51732749,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2013-12-08T23:21:10Z",
+          "updated_at": "2013-12-08T23:21:10Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2430607,
+            "name": "Sick leave"
+          }
+        },
+        {
+          "id": 419998362,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-11-15T00:56:41Z",
+          "updated_at": "2023-11-15T00:56:41Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        }
+      ]
+    },
+    {
+      "id": 422667639,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2023-09-03T21:24:52Z",
+      "updated_at": "2023-09-03T21:24:52Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 35353773,
+        "name": "Inlight - Client Growth",
+        "code": null,
+        "is_billable": false
+      },
+      "client": {
+        "id": 1824750,
+        "name": "Inlight",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 380775367,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-01-11T04:09:34Z",
+          "updated_at": "2023-01-11T04:09:34Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19862003,
+            "name": "Amplar Health"
+          }
+        },
+        {
+          "id": 380775368,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-01-11T04:09:34Z",
+          "updated_at": "2023-01-11T04:09:34Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18934651,
+            "name": "Angle Auto"
+          }
+        },
+        {
+          "id": 471198296,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-11-14T21:39:28Z",
+          "updated_at": "2024-11-14T21:39:28Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18740207,
+            "name": "BMW Group"
+          }
+        },
+        {
+          "id": 380775369,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-01-11T04:09:34Z",
+          "updated_at": "2023-01-11T04:09:34Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 8185107,
+            "name": "Benetas"
+          }
+        },
+        {
+          "id": 462615417,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-08-29T05:39:43Z",
+          "updated_at": "2024-08-29T05:39:43Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23092201,
+            "name": "CorePlus"
+          }
+        },
+        {
+          "id": 399265951,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-05-25T02:40:51Z",
+          "updated_at": "2023-05-25T02:40:51Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 20150498,
+            "name": "Energy Safe Victoria"
+          }
+        },
+        {
+          "id": 484746771,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2025-02-19T06:09:59Z",
+          "updated_at": "2025-02-19T06:09:59Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16012305,
+            "name": "Engineering Manager"
+          }
+        },
+        {
+          "id": 380775370,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-01-11T04:09:34Z",
+          "updated_at": "2023-01-11T04:09:34Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18056951,
+            "name": "Fancy Plants"
+          }
+        },
+        {
+          "id": 380775371,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-01-11T04:09:34Z",
+          "updated_at": "2023-01-11T04:09:34Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 13334313,
+            "name": "Hostplus"
+          }
+        },
+        {
+          "id": 463870445,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-09-10T02:24:50Z",
+          "updated_at": "2024-09-10T02:24:50Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 22849303,
+            "name": "Ingenia"
+          }
+        },
+        {
+          "id": 453490899,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-06-13T00:06:27Z",
+          "updated_at": "2024-06-13T00:06:27Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 22298614,
+            "name": "Internal"
+          }
+        },
+        {
+          "id": 380775372,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-01-11T04:09:34Z",
+          "updated_at": "2023-01-11T04:09:34Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 12553457,
+            "name": "Linfox"
+          }
+        },
+        {
+          "id": 380775373,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-01-11T04:09:34Z",
+          "updated_at": "2023-01-11T04:09:34Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 10538456,
+            "name": "Make-A-Wish"
+          }
+        },
+        {
+          "id": 393947535,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-04-11T23:12:32Z",
+          "updated_at": "2023-04-11T23:12:32Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 20492710,
+            "name": "Medibank"
+          }
+        },
+        {
+          "id": 380775374,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-01-11T04:09:34Z",
+          "updated_at": "2023-01-11T04:09:34Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 12545358,
+            "name": "Nandos"
+          }
+        },
+        {
+          "id": 471198297,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-11-14T21:39:28Z",
+          "updated_at": "2024-11-14T21:39:28Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23175097,
+            "name": "Nutrien"
+          }
+        },
+        {
+          "id": 380775375,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-01-11T04:09:34Z",
+          "updated_at": "2023-01-11T04:09:34Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 8077982,
+            "name": "OES"
+          }
+        },
+        {
+          "id": 415073128,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-10-04T07:56:28Z",
+          "updated_at": "2023-10-04T07:56:28Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19281243,
+            "name": "Powershop"
+          }
+        },
+        {
+          "id": 418860224,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-11-06T01:22:27Z",
+          "updated_at": "2023-11-06T01:22:27Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16282226,
+            "name": "Product Strategist"
+          }
+        },
+        {
+          "id": 447555029,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-04-23T03:27:35Z",
+          "updated_at": "2024-04-23T03:27:35Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267495,
+            "name": "Project Management"
+          }
+        },
+        {
+          "id": 380775376,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-01-11T04:09:34Z",
+          "updated_at": "2023-01-11T04:09:34Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 17441652,
+            "name": "RAC"
+          }
+        },
+        {
+          "id": 493750634,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2025-04-30T23:15:36Z",
+          "updated_at": "2025-04-30T23:15:36Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 22614597,
+            "name": "RACQ"
+          }
+        },
+        {
+          "id": 380775377,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-01-11T04:09:35Z",
+          "updated_at": "2023-01-11T04:09:35Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 16408624,
+            "name": "RACT"
+          }
+        },
+        {
+          "id": 463870446,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-09-10T02:24:50Z",
+          "updated_at": "2024-09-10T02:24:50Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 23153234,
+            "name": "San Churro"
+          }
+        },
+        {
+          "id": 473075307,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-12-03T03:10:39Z",
+          "updated_at": "2024-12-03T03:10:39Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18836211,
+            "name": "Senior Developer"
+          }
+        },
+        {
+          "id": 451023723,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-05-22T07:23:08Z",
+          "updated_at": "2024-05-22T07:23:08Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 22622245,
+            "name": "Solstice Energy"
+          }
+        },
+        {
+          "id": 380775378,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-01-11T04:09:35Z",
+          "updated_at": "2023-01-11T04:09:35Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 10998031,
+            "name": "TAC"
+          }
+        },
+        {
+          "id": 415073127,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-10-04T07:56:28Z",
+          "updated_at": "2023-10-04T07:56:28Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 20753171,
+            "name": "Tas Gas"
+          }
+        },
+        {
+          "id": 419998378,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-11-15T00:56:41Z",
+          "updated_at": "2023-11-15T00:56:41Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 380775379,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-01-11T04:09:35Z",
+          "updated_at": "2023-01-11T04:09:35Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 17688837,
+            "name": "Urban Rest"
+          }
+        },
+        {
+          "id": 398053131,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-05-15T03:52:16Z",
+          "updated_at": "2023-05-15T03:52:16Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 20670422,
+            "name": "VO"
+          }
+        },
+        {
+          "id": 380775380,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-01-11T04:09:35Z",
+          "updated_at": "2023-01-11T04:09:35Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 7850513,
+            "name": "Vicinity"
+          }
+        },
+        {
+          "id": 380775366,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-01-11T04:09:34Z",
+          "updated_at": "2023-01-11T04:09:34Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 7850515,
+            "name": "ahm"
+          }
+        }
+      ]
+    },
+    {
+      "id": 422667638,
+      "is_project_manager": false,
+      "is_active": true,
+      "use_default_rates": true,
+      "budget": null,
+      "created_at": "2023-09-03T21:24:52Z",
+      "updated_at": "2023-09-03T21:24:52Z",
+      "hourly_rate": null,
+      "project": {
+        "id": 3940514,
+        "name": "Inlight - Internal",
+        "code": null,
+        "is_billable": false
+      },
+      "client": {
+        "id": 1824750,
+        "name": "Inlight",
+        "currency": "AUD"
+      },
+      "task_assignments": [
+        {
+          "id": 51732745,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2013-12-08T23:19:14Z",
+          "updated_at": "2013-12-08T23:19:14Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2607329,
+            "name": "Administrative task"
+          }
+        },
+        {
+          "id": 464726428,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-09-18T05:26:57Z",
+          "updated_at": "2024-09-18T05:26:57Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 14562587,
+            "name": "Business Hours: Support & Fixes"
+          }
+        },
+        {
+          "id": 421453161,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-11-29T04:16:45Z",
+          "updated_at": "2023-11-29T04:16:45Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 7625481,
+            "name": "Client Partner"
+          }
+        },
+        {
+          "id": 376849036,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2022-12-07T06:31:32Z",
+          "updated_at": "2022-12-07T06:31:32Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 19801127,
+            "name": "Coaching, 1:1s"
+          }
+        },
+        {
+          "id": 421453043,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-11-29T04:15:58Z",
+          "updated_at": "2023-11-29T04:15:58Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 3169660,
+            "name": "Designer"
+          }
+        },
+        {
+          "id": 391385585,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-03-22T00:16:42Z",
+          "updated_at": "2023-03-22T00:16:42Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 8119110,
+            "name": "Hackathon"
+          }
+        },
+        {
+          "id": 257313927,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2020-02-06T05:24:23Z",
+          "updated_at": "2020-02-06T05:24:23Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 13823274,
+            "name": "Inlight Dev Ops"
+          }
+        },
+        {
+          "id": 257313928,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2020-02-06T05:24:23Z",
+          "updated_at": "2020-02-06T05:24:23Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 13823275,
+            "name": "Inlight Tech Ops"
+          }
+        },
+        {
+          "id": 443431254,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-03-18T23:30:55Z",
+          "updated_at": "2024-03-18T23:30:55Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21274775,
+            "name": "Maintenance"
+          }
+        },
+        {
+          "id": 257313929,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2020-02-06T05:24:23Z",
+          "updated_at": "2020-02-06T05:24:23Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 13823276,
+            "name": "Marketing"
+          }
+        },
+        {
+          "id": 257313930,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2020-02-06T05:24:23Z",
+          "updated_at": "2020-02-06T05:24:23Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 13823277,
+            "name": "Personal Development"
+          }
+        },
+        {
+          "id": 51975494,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2013-12-11T21:57:48Z",
+          "updated_at": "2015-04-17T08:24:08Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2620471,
+            "name": "Process Improvement"
+          }
+        },
+        {
+          "id": 76422559,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2014-11-11T22:33:28Z",
+          "updated_at": "2014-11-11T22:33:28Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2607327,
+            "name": "Recruitment"
+          }
+        },
+        {
+          "id": 421452960,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-11-29T04:12:00Z",
+          "updated_at": "2023-11-29T04:12:00Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 18836211,
+            "name": "Senior Developer"
+          }
+        },
+        {
+          "id": 51732684,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2013-12-08T23:17:22Z",
+          "updated_at": "2013-12-08T23:17:22Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2607318,
+            "name": "Staff meeting"
+          }
+        },
+        {
+          "id": 419998361,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2023-11-15T00:56:41Z",
+          "updated_at": "2023-11-15T00:56:41Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 21655052,
+            "name": "Technology Director / CTO"
+          }
+        },
+        {
+          "id": 439300435,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2024-02-15T00:43:14Z",
+          "updated_at": "2024-02-15T00:43:14Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 2267510,
+            "name": "Tester"
+          }
+        },
+        {
+          "id": 86527982,
+          "billable": false,
+          "is_active": true,
+          "created_at": "2015-04-14T01:56:20Z",
+          "updated_at": "2015-04-14T01:56:20Z",
+          "hourly_rate": null,
+          "budget": null,
+          "task": {
+            "id": 4147592,
+            "name": "Unassigned"
+          }
+        }
+      ]
+    }
+  ],
+  "per_page": 2000,
+  "total_pages": 1,
+  "total_entries": 17,
+  "next_page": null,
+  "previous_page": null,
+  "page": 1,
+  "links": {
+    "first": "https://api.harvestapp.com/v2/users/me/project_assignments?page=1&per_page=2000&ref=first",
+    "next": null,
+    "previous": null,
+    "last": "https://api.harvestapp.com/v2/users/me/project_assignments?page=1&per_page=2000&ref=last"
+  }
+}
