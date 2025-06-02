@@ -1,5 +1,5 @@
 import { graphql } from "@octokit/graphql";
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
 
 dotenv.config();
 
@@ -12,14 +12,14 @@ const graphqlWithAuth = graphql.defaults({
 });
 
 // Define the expected result type
-interface ViewerLoginResult {
+type ViewerLoginResult = {
   viewer: {
     login: string;
     repositories: {
       nodes: { name: string }[];
     };
   };
-}
+};
 
 const query = `
   query activity($username: String!, $from: DateTime!, $to: DateTime!) {
@@ -80,4 +80,4 @@ async function main() {
   console.log(JSON.stringify(result, null, 2));
 }
 
-main(); 
+main();

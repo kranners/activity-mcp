@@ -3,20 +3,17 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { CallToolResult, CallToolResultSchema } from "@modelcontextprotocol/sdk/types.js";
+import { CallToolResultSchema } from "@modelcontextprotocol/sdk/types.js";
 import { getMessagesFromUser } from "./slack";
 import { ClickUpTasksAPIInputBody, getTasks } from "./clickup";
 import { queryActivities } from "./timing";
 import { getNowAsMillis, getNowAsSeconds, getNowAsYyyyMmDd } from "./time";
 import { createTimeEntry, getMe, getProjectAssignments } from "./harvest";
-import { GetFilteredTeamTasks } from "@api/clickup/schemas";
-import { GetFilteredTeamTasksMetadataParam } from "@api/clickup/types";
 
-const createToolResult = (result: unknown) => CallToolResultSchema.parse({
-  content: [
-    { type: "text", text: JSON.stringify(result) }
-  ]
-});
+const createToolResult = (result: unknown) =>
+  CallToolResultSchema.parse({
+    content: [{ type: "text", text: JSON.stringify(result) }],
+  });
 
 const server = new McpServer({
   name: "activity-mcp",
@@ -30,17 +27,18 @@ const start = async () => {
     "getSlackMessages",
     "Get Slack messages sent by the current user between two dates",
     {
-      before: z.string().describe("Day in YYYY-MM-DD BEFORE desired date range."),
-      after: z.string().describe("Day in YYYY-MM-DD AFTER desired date range."),
+      before: z.string().describe("Day in YYYY-MM-DD BEFORE date range"),
+      after: z.string().describe("Day in YYYY-MM-DD AFTER date range"),
     },
-    async (params) => createToolResult((await getMessagesFromUser(params))),
+    async (params) => createToolResult(await getMessagesFromUser(params)),
   );
 
   server.tool(
     "getClickUpTasks",
     "Get ClickUp tasks",
     ClickUpTasksAPIInputBody,
-    async (params: ClickUpTasksAPIInputBody) => createToolResult((await getTasks(params))),
+    async (params: ClickUpTasksAPIInputBody) =>
+      createToolResult(await getTasks(params)),
   );
 
   await server.connect(transport);
@@ -50,8 +48,8 @@ server.tool(
   "queryActivities",
   "Get titles, applications, paths of all activities between two timestamps. Is paginated.",
   {
-    start: z.number().describe("SQLite timestamp in seconds. Lower bound for the activity."),
-    end: z.number().describe("SQLite timestamp in seconds. Upper bound for the activity."),
+    start: z.number().describe("Lower bound timestamp in seconds."),
+    end: z.number().describe("Upper bound timestamp in seconds."),
     limit: z.number().describe("SQLite LIMIT."),
     page: z.number().describe("SQLite OFFSET = SQLite LIMIT * page"),
   },
@@ -79,13 +77,13 @@ server.tool(
 server.tool(
   "getHarvestProjectAssignments",
   "Get all Harvest projects and their billables.",
-  async () => createToolResult((await getProjectAssignments())),
+  async () => createToolResult(await getProjectAssignments()),
 );
 
 server.tool(
   "getMe",
   "Get information about the authenticated user according to Harvest.",
-  async () => createToolResult((await getMe())),
+  async () => createToolResult(await getMe()),
 );
 
 server.tool(
@@ -98,7 +96,7 @@ server.tool(
     hours: z.number().describe("Spent hours as a number."),
     notes: z.string().describe("Description of time spent."),
   },
-  async (params) => createToolResult((await createTimeEntry(params))),
+  async (params) => createToolResult(await createTimeEntry(params)),
 );
 
 start().catch(console.error);

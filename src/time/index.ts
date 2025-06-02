@@ -1,4 +1,5 @@
-export const getNowAsYyyyMmDd = () => new Intl.DateTimeFormat('en-CA').format(new Date());
+export const getNowAsYyyyMmDd = () =>
+  new Intl.DateTimeFormat("en-CA").format(new Date());
 
 export const getNowAsMillis = () => Date.now().toString();
 

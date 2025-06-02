@@ -13,22 +13,22 @@ const harvestRequest = async (path: string, init?: Partial<RequestInit>) => {
     headers: {
       "Content-Type": "application/json",
       "User-Agent": "activity-mcp",
-      "Authorization": "Bearer " + process.env.HARVEST_ACCESS_TOKEN,
+      Authorization: "Bearer " + process.env.HARVEST_ACCESS_TOKEN,
       "Harvest-Account-ID": process.env.HARVEST_ACCOUNT_ID,
     },
     ...init,
   });
-}
+};
 
 export const getMe = async () => {
   const response = await harvestRequest("/users/me");
   return JSON.stringify(await response.json());
-}
+};
 
 export const getProjectAssignments = async () => {
   const response = await harvestRequest("/users/me/project_assignments");
   return JSON.stringify(await response.json());
-}
+};
 
 type TimeEntry = {
   project_id: number;
@@ -36,7 +36,7 @@ type TimeEntry = {
   spent_date: string;
   hours: number;
   notes: string;
-}
+};
 
 export const createTimeEntry = async (entry: TimeEntry) => {
   const response = await harvestRequest("/time_entries", {
@@ -49,4 +49,4 @@ export const createTimeEntry = async (entry: TimeEntry) => {
   }
 
   return `Failed to create time entry: ${await response.text()}`;
-}
+};
