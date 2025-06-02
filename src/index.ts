@@ -4,7 +4,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { CallToolResultSchema } from "@modelcontextprotocol/sdk/types.js";
-import { getMessagesFromUser } from "./slack";
+import { getAllChannels, getMessagesFromUser, getUserId } from "./slack";
 import { ClickUpTasksAPIInputBody, getTasks } from "./clickup";
 import { queryActivities } from "./timing";
 import { getNowAsMillis, getNowAsSeconds, getNowAsYyyyMmDd } from "./time";
@@ -24,21 +24,73 @@ const start = async () => {
   const transport = new StdioServerTransport();
 
   server.tool(
+    "getSlackUserId",
+    "Get currently authenticated users Slack User ID",
+    async () => {
+      return createToolResult(await getUserId());
+    },
+  );
+
+  server.tool(
+    "getAllSlackConversations",
+    "Get all available Slack conversations",
+    {
+      includeArchived: z
+        .boolean()
+        .describe(
+          "Whether to include archived channels or not. Default to true",
+        ),
+      includeDirectMessages: z
+        .boolean()
+        .describe("Whether to include direct messages"),
+      includePublicChannels: z
+        .boolean()
+        .describe("Whether to include public channels"),
+      includePrivateChannels: z
+        .boolean()
+        .describe("Whether to include private channels"),
+    },
+    async (params) => {
+      return createToolResult(await getAllChannels(params));
+    },
+  );
+
+  server.tool(
     "getSlackMessages",
     "Get Slack messages sent by the current user between two dates",
     {
-      before: z.string().describe("Day in YYYY-MM-DD BEFORE date range"),
-      after: z.string().describe("Day in YYYY-MM-DD AFTER date range"),
+      dayAfterRange: z
+        .string()
+        .describe(
+          "Day in YYYY-MM-DD which comes after the desired date range. Ensure this is OUTSIDE your day range. eg. Day before -> ( Desired date range ) -> Day after.",
+        ),
+      dayBeforeRange: z
+        .string()
+        .describe(
+          "Day in YYYY-MM-DD which comes before the desired date range. Ensure this is OUTSIDE your day range. eg. Day before -> ( Desired date range ) -> Day after.",
+        ),
+      page: z.number().describe("Page number. Starts at 1."),
+      channelNames: z
+        .array(z.string())
+        .describe("List of channel names to filter in.")
+        .optional(),
+      userIds: z
+        .array(z.string())
+        .describe("List of user IDs to filter to.")
+        .optional(),
     },
-    async (params) => createToolResult(await getMessagesFromUser(params)),
+    async (params) => {
+      return createToolResult(await getMessagesFromUser(params));
+    },
   );
 
   server.tool(
     "getClickUpTasks",
     "Get ClickUp tasks",
     ClickUpTasksAPIInputBody,
-    async (params: ClickUpTasksAPIInputBody) =>
-      createToolResult(await getTasks(params)),
+    async (params: ClickUpTasksAPIInputBody) => {
+      return createToolResult(await getTasks(params));
+    },
   );
 
   await server.connect(transport);
@@ -53,37 +105,49 @@ server.tool(
     limit: z.number().describe("SQLite LIMIT."),
     page: z.number().describe("SQLite OFFSET = SQLite LIMIT * page"),
   },
-  (params) => createToolResult(queryActivities(params)),
+  (params) => {
+    return createToolResult(queryActivities(params));
+  },
 );
 
 server.tool(
   "getCurrentTimeMillis",
   "Get the current time as a number timestamp in millis.",
-  () => createToolResult(getNowAsMillis()),
+  () => {
+    return createToolResult(getNowAsMillis());
+  },
 );
 
 server.tool(
   "getCurrentTimeSeconds",
   "Get the current time as a number timestamp in seconds.",
-  () => createToolResult(getNowAsSeconds()),
+  () => {
+    return createToolResult(getNowAsSeconds());
+  },
 );
 
 server.tool(
   "getCurrentTimeYyyyMmDd",
   "Get the current time in YYYY-MM-DD format.",
-  () => createToolResult(getNowAsYyyyMmDd()),
+  () => {
+    return createToolResult(getNowAsYyyyMmDd());
+  },
 );
 
 server.tool(
   "getHarvestProjectAssignments",
   "Get all Harvest projects and their billables.",
-  async () => createToolResult(await getProjectAssignments()),
+  async () => {
+    return createToolResult(await getProjectAssignments());
+  },
 );
 
 server.tool(
   "getMe",
   "Get information about the authenticated user according to Harvest.",
-  async () => createToolResult(await getMe()),
+  async () => {
+    return createToolResult(await getMe());
+  },
 );
 
 server.tool(
@@ -96,7 +160,9 @@ server.tool(
     hours: z.number().describe("Spent hours as a number."),
     notes: z.string().describe("Description of time spent."),
   },
-  async (params) => createToolResult(await createTimeEntry(params)),
+  async (params) => {
+    return createToolResult(await createTimeEntry(params));
+  },
 );
 
 start().catch(console.error);
