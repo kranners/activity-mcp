@@ -1,4 +1,4 @@
-import Database from 'better-sqlite3';
+import Database from "better-sqlite3";
 
 type ActivityResult = {
   title: string | null;
@@ -69,4 +69,3 @@ export const queryActivities = ({
   db.close();
   return { total, data };
 };
-

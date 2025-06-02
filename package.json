@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
+    "lint": "eslint",
     "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "inspect": "mcp-inspector node ./dist/index.js"
@@ -17,11 +18,17 @@
   "author": "",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
+    "@eslint/js": "^9.28.0",
     "@modelcontextprotocol/inspector": "^0.13.0",
     "@octokit/graphql-schema": "^15.26.0",
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^22.15.17",
-    "typescript": "^5.8.3"
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.1",
+    "jiti": "^2.4.2",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.33.0"
   },
   "dependencies": {
     "@api/clickup": "file:.api/apis/clickup",
