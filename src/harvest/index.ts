@@ -20,7 +20,7 @@ const harvestRequest = async (path: string, init?: Partial<RequestInit>) => {
   });
 };
 
-export const getMe = async () => {
+export const getHarvestUser = async () => {
   const response = await harvestRequest("/users/me");
   return JSON.stringify(await response.json());
 };

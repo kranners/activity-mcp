@@ -5,7 +5,12 @@ import { z } from "zod";
 const token = process.env.SLACK_USER_TOKEN;
 const web = new WebClient(token);
 
-export const getUserId = async () => {
+const SlackUser = z.object({
+  user: z.string().optional(),
+  user_id: z.string().optional(),
+});
+
+export const getSlackUser = async () => {
   const identity = await web.auth.test();
 
   if (identity.user_id === undefined) {
@@ -14,7 +19,7 @@ export const getUserId = async () => {
     );
   }
 
-  return identity.user_id;
+  return SlackUser.parse(identity);
 };
 
 const Channel = z.object({
@@ -48,6 +53,7 @@ type MessagesFromUserInput = {
   dayBeforeRange?: string;
   dayAfterRange?: string;
   page: number;
+  search?: string;
   channelNames?: string[];
   userIds?: string[];
 };
@@ -69,6 +75,7 @@ export const getMessagesFromUser = async ({
   dayBeforeRange,
   dayAfterRange,
   page,
+  search,
   channelNames = [],
   userIds = [],
 }: MessagesFromUserInput) => {
@@ -79,7 +86,7 @@ export const getMessagesFromUser = async ({
     dayAfterRange,
   });
 
-  const query = `${beforeAfterFilter} ${channelFilter}${userFilter}`;
+  const query = `${search} ${beforeAfterFilter} ${channelFilter}${userFilter}`;
 
   const response = await web.search.messages({
     query,
@@ -93,17 +100,26 @@ export const getMessagesFromUser = async ({
 
 const Conversation = z.object({
   id: z.string(),
-  name: z.string(),
+  name: z.string().optional(),
+  user: z.string().optional(),
   created: z.number(),
   is_archived: z.boolean(),
   updated: z.number(),
-  topic: z.object({
-    value: z.string(),
-  }),
+  topic: z
+    .object({
+      value: z.string(),
+    })
+    .optional(),
+});
+
+const ConversationsResponse = z.object({
+  channels: Conversation.array(),
+  ok: z.boolean().optional(),
 });
 
 type GetAllConversationsInput = {
   includeArchived: boolean;
+  includeGroupMessages: boolean;
   includeDirectMessages: boolean;
   includePublicChannels: boolean;
   includePrivateChannels: boolean;
@@ -111,23 +127,25 @@ type GetAllConversationsInput = {
 
 const buildChannelTypesQuery = ({
   includeDirectMessages,
+  includeGroupMessages,
   includePublicChannels,
   includePrivateChannels,
 }: GetAllConversationsInput) => {
   const types: string[] = [];
 
-  if (includeDirectMessages) types.push("im&mpim");
+  if (includeDirectMessages) types.push("im");
+  if (includeGroupMessages) types.push("mpim");
   if (includePublicChannels) types.push("public_channel");
   if (includePrivateChannels) types.push("private_channel");
 
   return types.join(",");
 };
 
-export const getAllChannels = async (params: GetAllConversationsInput) => {
+export const getAllConversations = async (params: GetAllConversationsInput) => {
   const conversations = await web.conversations.list({
     exclude_archived: !params.includeArchived,
     types: buildChannelTypesQuery(params),
   });
 
-  return Conversation.parse(conversations);
+  return ConversationsResponse.parse(conversations);
 };

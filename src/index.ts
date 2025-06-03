@@ -4,11 +4,19 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { CallToolResultSchema } from "@modelcontextprotocol/sdk/types.js";
-import { getAllChannels, getMessagesFromUser, getUserId } from "./slack";
-import { ClickUpTasksAPIInputBody, getTasks } from "./clickup";
+import {
+  getAllConversations,
+  getMessagesFromUser,
+  getSlackUser,
+} from "./slack";
+import { ClickUpTasksAPIInputBody, getClickUpUser, getTasks } from "./clickup";
 import { queryActivities } from "./timing";
 import { getNowAsMillis, getNowAsSeconds, getNowAsYyyyMmDd } from "./time";
-import { createTimeEntry, getMe, getProjectAssignments } from "./harvest";
+import {
+  createTimeEntry,
+  getHarvestUser,
+  getProjectAssignments,
+} from "./harvest";
 
 const createToolResult = (result: unknown) =>
   CallToolResultSchema.parse({
@@ -24,10 +32,10 @@ const start = async () => {
   const transport = new StdioServerTransport();
 
   server.tool(
-    "getSlackUserId",
-    "Get currently authenticated users Slack User ID",
+    "getSlackUser",
+    "Get currently authenticated Slack User information.",
     async () => {
-      return createToolResult(await getUserId());
+      return createToolResult(await getSlackUser());
     },
   );
 
@@ -43,6 +51,9 @@ const start = async () => {
       includeDirectMessages: z
         .boolean()
         .describe("Whether to include direct messages"),
+      includeGroupMessages: z
+        .boolean()
+        .describe("Whether to include group messages"),
       includePublicChannels: z
         .boolean()
         .describe("Whether to include public channels"),
@@ -51,7 +62,7 @@ const start = async () => {
         .describe("Whether to include private channels"),
     },
     async (params) => {
-      return createToolResult(await getAllChannels(params));
+      return createToolResult(await getAllConversations(params));
     },
   );
 
@@ -70,6 +81,12 @@ const start = async () => {
           "Day in YYYY-MM-DD which comes before the desired date range. Ensure this is OUTSIDE your day range. eg. Day before -> ( Desired date range ) -> Day after.",
         ),
       page: z.number().describe("Page number. Starts at 1."),
+      search: z
+        .string()
+        .describe(
+          "Search query. Matches messages that contain all words included in.",
+        )
+        .optional(),
       channelNames: z
         .array(z.string())
         .describe("List of channel names to filter in.")
@@ -85,9 +102,51 @@ const start = async () => {
   );
 
   server.tool(
+    "getClickUpUser",
+    "Get currently authenticated ClickUp User information.",
+    async () => {
+      return createToolResult(await getClickUpUser());
+    },
+  );
+
+  server.tool(
     "getClickUpTasks",
     "Get ClickUp tasks",
-    ClickUpTasksAPIInputBody,
+    {
+      page: z
+        .number()
+        .int()
+        .describe("Page to fetch (starts at 0).")
+        .optional(),
+      assignees: z
+        .array(z.string())
+        .describe("List of assignee IDs to filter by.")
+        .optional(),
+      project_ids: z
+        .array(z.string())
+        .describe("List of project IDs to filter by.")
+        .optional(),
+      space_ids: z
+        .array(z.string())
+        .describe("List of space IDs to filter by.")
+        .optional(),
+      list_ids: z
+        .array(z.string())
+        .describe("List of list IDs to filter by.")
+        .optional(),
+      date_updated_gt: z
+        .number()
+        .int()
+        .describe(
+          "Filter by date updated greater than Unix time in milliseconds.",
+        )
+        .optional(),
+      date_updated_lt: z
+        .number()
+        .int()
+        .describe("Filter by date updated less than Unix time in milliseconds.")
+        .optional(),
+    },
     async (params: ClickUpTasksAPIInputBody) => {
       return createToolResult(await getTasks(params));
     },
@@ -135,18 +194,18 @@ server.tool(
 );
 
 server.tool(
-  "getHarvestProjectAssignments",
-  "Get all Harvest projects and their billables.",
+  "getHarvestUser",
+  "Get currently authenticated Slack User information.",
   async () => {
-    return createToolResult(await getProjectAssignments());
+    return createToolResult(await getHarvestUser());
   },
 );
 
 server.tool(
-  "getMe",
-  "Get information about the authenticated user according to Harvest.",
+  "getHarvestProjectAssignments",
+  "Get all Harvest projects and their billables.",
   async () => {
-    return createToolResult(await getMe());
+    return createToolResult(await getProjectAssignments());
   },
 );
 
