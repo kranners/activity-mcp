@@ -71,11 +71,11 @@ const buildBeforeAfterFilter = ({
   return `before:${dayAfterRange} after:${dayBeforeRange}`;
 };
 
-export const getMessagesFromUser = async ({
+export const getMessages = async ({
   dayBeforeRange,
   dayAfterRange,
   page,
-  search,
+  search = "",
   channelNames = [],
   userIds = [],
 }: MessagesFromUserInput) => {
@@ -91,7 +91,7 @@ export const getMessagesFromUser = async ({
   const response = await web.search.messages({
     query,
     sort: "timestamp",
-    count: 50,
+    count: 100,
     page,
   });
 

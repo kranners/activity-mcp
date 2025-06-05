@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { z } from "zod";
 
 const harvestRequest = async (path: string, init?: Partial<RequestInit>) => {
   if (
@@ -25,9 +26,49 @@ export const getHarvestUser = async () => {
   return JSON.stringify(await response.json());
 };
 
-export const getProjectAssignments = async () => {
-  const response = await harvestRequest("/users/me/project_assignments");
-  return JSON.stringify(await response.json());
+const TaskAssignment = z.object({
+  id: z.number(),
+  task: z.object({
+    id: z.number(),
+    name: z.string(),
+  }),
+});
+
+const ProjectAssignment = z.object({
+  id: z.number(),
+  project: z.object({
+    id: z.number(),
+    name: z.string(),
+  }),
+  client: z.object({
+    id: z.number(),
+    name: z.string(),
+  }),
+  task_assignments: TaskAssignment.array(),
+});
+
+const UserProjectAssignmentsResponse = z.object({
+  project_assignments: ProjectAssignment.array(),
+  per_page: z.number(),
+  total_pages: z.number(),
+  total_entries: z.number(),
+  page: z.number(),
+});
+
+type GetProjectAssignmentsInput = {
+  page: number;
+};
+
+export const getProjectAssignments = async ({
+  page,
+}: GetProjectAssignmentsInput) => {
+  const response = await harvestRequest(
+    `/users/me/project_assignments?page=${page}`,
+  );
+
+  const body = await response.json();
+
+  return UserProjectAssignmentsResponse.parse(body);
 };
 
 type TimeEntry = {

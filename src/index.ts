@@ -4,24 +4,23 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { CallToolResultSchema } from "@modelcontextprotocol/sdk/types.js";
-import {
-  getAllConversations,
-  getMessagesFromUser,
-  getSlackUser,
-} from "./slack";
+import { getAllConversations, getMessages, getSlackUser } from "./slack";
 import { ClickUpTasksAPIInputBody, getClickUpUser, getTasks } from "./clickup";
 import { queryActivities } from "./timing";
-import { getNowAsMillis, getNowAsSeconds, getNowAsYyyyMmDd } from "./time";
+import { getNow } from "./time";
 import {
   createTimeEntry,
   getHarvestUser,
   getProjectAssignments,
 } from "./harvest";
+import { getAllRepositoriesReflogs, getLocalGitRepositories } from "./git";
+import { getGitHubUser, getUserContributions } from "./github";
 
-const createToolResult = (result: unknown) =>
-  CallToolResultSchema.parse({
+const createToolResult = (result: unknown) => {
+  return CallToolResultSchema.parse({
     content: [{ type: "text", text: JSON.stringify(result) }],
   });
+};
 
 const server = new McpServer({
   name: "activity-mcp",
@@ -97,7 +96,7 @@ const start = async () => {
         .optional(),
     },
     async (params) => {
-      return createToolResult(await getMessagesFromUser(params));
+      return createToolResult(await getMessages(params));
     },
   );
 
@@ -170,26 +169,10 @@ server.tool(
 );
 
 server.tool(
-  "getCurrentTimeMillis",
-  "Get the current time as a number timestamp in millis.",
+  "getCurrentDateTime",
+  "Get the current date & time. If in doubt, call this first.",
   () => {
-    return createToolResult(getNowAsMillis());
-  },
-);
-
-server.tool(
-  "getCurrentTimeSeconds",
-  "Get the current time as a number timestamp in seconds.",
-  () => {
-    return createToolResult(getNowAsSeconds());
-  },
-);
-
-server.tool(
-  "getCurrentTimeYyyyMmDd",
-  "Get the current time in YYYY-MM-DD format.",
-  () => {
-    return createToolResult(getNowAsYyyyMmDd());
+    return createToolResult(getNow());
   },
 );
 
@@ -204,8 +187,11 @@ server.tool(
 server.tool(
   "getHarvestProjectAssignments",
   "Get all Harvest projects and their billables.",
-  async () => {
-    return createToolResult(await getProjectAssignments());
+  {
+    page: z.number().describe("Page number, starts at 1."),
+  },
+  async (params) => {
+    return createToolResult(await getProjectAssignments(params));
   },
 );
 
@@ -221,6 +207,66 @@ server.tool(
   },
   async (params) => {
     return createToolResult(await createTimeEntry(params));
+  },
+);
+
+server.tool(
+  "getLocalGitRepositories",
+  "Get all local git repositories.",
+  async () => {
+    return createToolResult(
+      getLocalGitRepositories().map((dirent) => dirent.name),
+    );
+  },
+);
+
+server.tool(
+  "getAllRepositoriesReflogs",
+  "Get all available reflogs between two given dates.",
+  {
+    since: z.string().describe("YYYY-MM-DD HH:MM:SS lower bound of range."),
+    until: z.string().describe("YYYY-MM-DD HH:MM:SS upper bound of range."),
+    includeEmpty: z
+      .boolean()
+      .describe(
+        "Whether to include repositories with no activity. Default to false.",
+      ),
+  },
+  async (params) => {
+    return createToolResult(await getAllRepositoriesReflogs(params));
+  },
+);
+
+server.tool(
+  "getGitHubUser",
+  "Get currently authenticated username and name for GitHub.",
+  async () => {
+    return createToolResult(await getGitHubUser());
+  },
+);
+
+server.tool(
+  "getGitHubUserContributions",
+  "Get pull requests, reviews, and commit counts by repository on GitHub",
+  {
+    username: z
+      .string()
+      .describe(
+        "GitHub username for contributions. Use getGitHubUser under 'login' to see the current username.",
+      ),
+    from: z
+      .string()
+      .describe(
+        "ISO datetime for start of date range. Sample: 2025-05-26T09:49:07Z",
+      ),
+    to: z
+      .string()
+      .describe(
+        "ISO datetime for start of date range. Sample: 2025-05-26T09:49:07Z",
+      ),
+  },
+  async (params) => {
+    return createToolResult(await getUserContributions(params));
   },
 );
 
