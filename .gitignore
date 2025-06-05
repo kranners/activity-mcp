@@ -139,3 +139,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 .direnv
+
+# google integration files
+credentials.json
+token.json
