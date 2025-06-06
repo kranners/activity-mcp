@@ -4,8 +4,13 @@ import process from "process";
 import { authenticate } from "@google-cloud/local-auth";
 import { google, Auth } from "googleapis";
 import { existsSync } from "fs";
+import { z } from "zod";
 
-const SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
+const SCOPES = [
+  "https://www.googleapis.com/auth/calendar",
+  "https://www.googleapis.com/auth/userinfo.profile",
+  "https://www.googleapis.com/auth/userinfo.email",
+];
 const { GOOGLE_TOKEN_PATH, GOOGLE_CREDENTIALS_PATH } = process.env;
 
 const loadSavedCredentialsIfExist = async (): Promise<
@@ -21,6 +26,7 @@ const loadSavedCredentialsIfExist = async (): Promise<
 
   const content = await readFile(GOOGLE_TOKEN_PATH, { encoding: "utf8" });
   const credentials = JSON.parse(content);
+
   return google.auth.fromJSON(credentials) as Auth.OAuth2Client;
 };
 
@@ -35,12 +41,14 @@ const saveCredentials = async (client: Auth.OAuth2Client): Promise<void> => {
   const content = await readFile(GOOGLE_CREDENTIALS_PATH, { encoding: "utf8" });
   const keys = JSON.parse(content);
   const key = keys.installed || keys.web;
+
   const payload = JSON.stringify({
     type: "authorized_user",
     client_id: key.client_id,
     client_secret: key.client_secret,
     refresh_token: client.credentials.refresh_token,
   });
+
   await writeFile(GOOGLE_TOKEN_PATH, payload, {
     encoding: "utf8",
     flag: "w",
@@ -69,29 +77,146 @@ const authorize = async (): Promise<Auth.OAuth2Client> => {
   return client;
 };
 
-const listEvents = async (auth: Auth.OAuth2Client): Promise<void> => {
-  const calendar = google.calendar({ version: "v3", auth });
+const Name = z.object({
+  displayName: z.string().optional(),
+});
 
-  const response = await calendar.events.list({
-    calendarId: "primary",
-    timeMin: new Date().toISOString(),
-    maxResults: 10,
-    singleEvents: true,
-    orderBy: "startTime",
+const Email = z.object({
+  value: z.string().optional(),
+});
+
+const User = z.object({
+  names: Name.array().optional(),
+  emailAddresses: Email.array().optional(),
+});
+
+export const getGoogleUser = async () => {
+  const auth = await authorize();
+  const people = google.people({ version: "v1", auth });
+
+  const { data: user } = await people.people.get({
+    resourceName: "people/me",
+    personFields: "names,emailAddresses",
   });
 
-  const events = response.data.items;
-  if (!events || events.length === 0) {
-    console.log("No upcoming events found.");
-    return;
-  }
-
-  console.log("Upcoming 10 events:");
-  events.forEach((event) => {
-    const start = event.start?.dateTime || event.start?.date || "Unknown start";
-    console.log(`${start} - ${event.summary ?? "No summary"}`);
-  });
+  return User.parse(user);
 };
 
-// Entry point
-authorize().then(listEvents).catch(console.error);
+export const ResponseStatus = z.enum([
+  "declined",
+  "needsAction",
+  "accepted",
+  "tentative",
+]);
+
+type ResponseStatus = z.infer<typeof ResponseStatus>;
+
+const DateString = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
+
+const Creator = z.object({
+  email: z.string().email(),
+});
+
+const Organizer = z.object({
+  email: z.string().email(),
+  displayName: z.string().optional(),
+});
+
+const DateTimeOrDate = z.object({
+  dateTime: z.string().optional(),
+  date: DateString.optional(),
+  timeZone: z.string().optional(),
+});
+
+const Attendee = z.object({
+  email: z.string().email(),
+  responseStatus: ResponseStatus,
+  displayName: z.string().optional(),
+});
+
+const Reminders = z.any();
+
+const Event = z.object({
+  id: z.string(),
+  status: z.enum(["confirmed", "tentative", "cancelled"]),
+  htmlLink: z.string().url(),
+  created: z.string().optional(),
+  description: z.string().nullable().optional(),
+  summary: z.string().optional(),
+  creator: Creator.optional(),
+  organizer: Organizer.optional(),
+  start: DateTimeOrDate,
+  end: DateTimeOrDate,
+  recurringEventId: z.string().optional(),
+  originalStartTime: DateTimeOrDate.optional(),
+  attendees: z.array(Attendee).optional(),
+  reminders: Reminders.optional(),
+  transparency: z.enum(["opaque", "transparent"]).optional(),
+  location: z.string().optional(),
+});
+
+export const Events = z.array(Event);
+
+type GetGoogleCalendarEventsInput = {
+  calendarId: string;
+  pageToken?: string;
+  q?: string;
+  timeMax?: string;
+  timeMin?: string;
+  showDeleted?: boolean;
+};
+
+export const getCalendarEvents = async (
+  params: GetGoogleCalendarEventsInput,
+) => {
+  const auth = await authorize();
+  const calendar = google.calendar({ version: "v3", auth });
+
+  const response = await calendar.events.list(params);
+
+  const events = response.data.items;
+  return Events.parse(events);
+};
+
+type RespondToCalendarEventInputs = {
+  calendarId: string;
+  eventId?: string;
+  response: ResponseStatus;
+};
+
+export const respondToCalendarEvent = async ({
+  calendarId,
+  eventId,
+  response,
+}: RespondToCalendarEventInputs) => {
+  const auth = await authorize();
+  const calendar = google.calendar({ version: "v3", auth });
+  const { data: event } = await calendar.events.get({ calendarId, eventId });
+
+  if (!event.attendees || !event.attendees.length) {
+    throw new Error("No attendees found on this event.");
+  }
+
+  const me = await getGoogleUser();
+  const email = me.emailAddresses?.[0].value;
+
+  if (email === undefined) {
+    throw new Error(`Unable to get email of user, user: ${me}`);
+  }
+
+  const attendees = event.attendees.map((attendee) => {
+    if (attendee.email === email) {
+      return { ...attendee, responseStatus: response };
+    }
+
+    return attendee;
+  });
+
+  const { data: updatedEvent } = await calendar.events.patch({
+    calendarId,
+    eventId,
+    requestBody: { attendees },
+  });
+
+  return Event.parse(updatedEvent);
+};

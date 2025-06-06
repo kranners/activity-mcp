@@ -143,3 +143,6 @@ dist
 # google integration files
 credentials.json
 token.json
+
+# macos
+.DS_Store

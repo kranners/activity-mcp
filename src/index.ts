@@ -15,6 +15,12 @@ import {
 } from "./harvest";
 import { getAllRepositoriesReflogs, getLocalGitRepositories } from "./git";
 import { getGitHubUser, getUserContributions } from "./github";
+import {
+  getCalendarEvents,
+  getGoogleUser,
+  respondToCalendarEvent,
+  ResponseStatus,
+} from "./google";
 
 const createToolResult = (result: unknown) => {
   return CallToolResultSchema.parse({
@@ -267,6 +273,69 @@ server.tool(
   },
   async (params) => {
     return createToolResult(await getUserContributions(params));
+  },
+);
+
+server.tool(
+  "getGoogleCalendarEvents",
+  "Get events from Google Calendar.",
+  {
+    calendarId: z
+      .string()
+      .describe(
+        "Calendar ID. To get the main calendar of the current user, use 'primary'.",
+      ),
+    timeMax: z
+      .string()
+      .describe(
+        "Upper bound (exclusive) for an event's start time to filter by. Must be an RFC3339 timestamp with mandatory time zone offset",
+      ),
+    timeMin: z
+      .string()
+      .describe(
+        "Lower bound (exclusive) for an event's end time to filter by. Must be an RFC3339 timestamp with mandatory time zone offset.",
+      ),
+    q: z
+      .string()
+      .optional()
+      .describe(
+        "Free text search terms to find events that match these terms in the following fields: summary, description, location, attendee's displayName, attendee's email.",
+      ),
+    pageToken: z
+      .string()
+      .optional()
+      .describe("Token specifying which result page to return."),
+  },
+  async (params) => {
+    return createToolResult(await getCalendarEvents(params));
+  },
+);
+
+server.tool(
+  "respondToGoogleCalendarEvent",
+  "Update authorized user's response status for a given event. Returns the updated event.",
+  {
+    calendarId: z.string().describe("Calendar ID."),
+    eventId: z
+      .string()
+      .optional()
+      .describe(
+        "Event ID to respond to. Always prefer to use recurringEventID if available, unless specified otherwise.",
+      ),
+    response: ResponseStatus.describe(
+      "Status to respond with. One of declined, needsAction, accepted, or tentative",
+    ),
+  },
+  async (params) => {
+    return createToolResult(await respondToCalendarEvent(params));
+  },
+);
+
+server.tool(
+  "getGoogleUser",
+  "Get name and email associated with the logged in user.",
+  async () => {
+    return createToolResult(await getGoogleUser());
   },
 );
 
