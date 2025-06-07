@@ -16,8 +16,13 @@ import {
 import { getAllRepositoriesReflogs, getLocalGitRepositories } from "./git";
 import { getGitHubUser, getUserContributions } from "./github";
 import {
+  Attendee,
+  createCalendarEvent,
+  DateTimeOrDate,
   getCalendarEvents,
   getGoogleUser,
+  getGoogleDirectoryPeople,
+  Reminder,
   respondToCalendarEvent,
   ResponseStatus,
 } from "./google";
@@ -336,6 +341,44 @@ server.tool(
   "Get name and email associated with the logged in user.",
   async () => {
     return createToolResult(await getGoogleUser());
+  },
+);
+
+server.tool(
+  "getGoogleDirectoryPeople",
+  "Get names and email addresses for all people in the user's directory.",
+  async () => {
+    return createToolResult(await getGoogleDirectoryPeople());
+  },
+);
+
+server.tool(
+  "createGoogleCalendarEvent",
+  "Create a new ",
+  {
+    calendarId: z.string().describe("The calendar ID."),
+    attendeesEmails: z.string().array().describe("A list of attendees emails."),
+    description: z.string().describe("The description of the event."),
+    location: z.string().optional().describe("Where the event is. Optional."),
+    remindersMinutes: z.number().array().describe("Up to 5 numbers as minutes before the event to send a notification. Can send up to 4 weeks in advance."),
+    fullDayEventStartDate: z.string().optional().describe("Start date in YYYY-MM-DD if this is an all-day event."),
+    fullDayEventEndDate: z.string().optional().describe("End date in YYYY-MM-DD if this is an all-day event."),
+    nonFullDayEventStartDateTime: z.string().optional().describe("RFC3339 date-time value if this is not an all-day event."),
+    nonFullDayEventEndDateTime: z.string().optional().describe("RFC3339 date-time value if this is not an all-day event."),
+    timeZone: z.string().describe("IANA time zone for the event eg. Melbourne/Australia."),
+    summary: z
+      .string()
+      .describe("The summary or title of the event. Appears on calendar."),
+    recurrence: z
+      .string()
+      .array()
+      .optional()
+      .describe(
+        "List of RRULE, EXRULE, RDATE and EXDATE lines for a recurring event, as specified in RFC5545. Note that DTSTART and DTEND lines are not allowed in this field; event start and end times are specified in the start and end fields. This field is omitted for single events or instances of recurring events.",
+      ),
+  },
+  async (params) => {
+    return createToolResult(await createCalendarEvent(params));
   },
 );
 

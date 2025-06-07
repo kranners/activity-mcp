@@ -4,5 +4,6 @@ export const getNow = () => {
     iso: new Date().toISOString(),
     millis: Date.now().toString(),
     seconds: Date.now() / 1000,
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
   };
 };
