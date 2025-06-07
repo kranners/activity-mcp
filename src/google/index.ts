@@ -7,10 +7,12 @@ import { existsSync } from "fs";
 import { z } from "zod";
 
 const SCOPES = [
-  "https://www.googleapis.com/auth/calendar",
-  "https://www.googleapis.com/auth/userinfo.profile",
+  "https://www.googleapis.com/auth/directory.readonly",
   "https://www.googleapis.com/auth/userinfo.email",
+  "https://www.googleapis.com/auth/userinfo.profile",
+  "https://www.googleapis.com/auth/calendar",
 ];
+
 const { GOOGLE_TOKEN_PATH, GOOGLE_CREDENTIALS_PATH } = process.env;
 
 const loadSavedCredentialsIfExist = async (): Promise<
@@ -102,6 +104,22 @@ export const getGoogleUser = async () => {
   return User.parse(user);
 };
 
+const Directory = z.object({
+  people: User.array(),
+});
+
+export const getGoogleDirectoryPeople = async () => {
+  const auth = await authorize();
+  const people = google.people({ version: "v1", auth });
+
+  const { data: directory } = await people.people.listDirectoryPeople({
+    readMask: "names,emailAddresses",
+    sources: ["DIRECTORY_SOURCE_TYPE_DOMAIN_PROFILE"],
+  });
+
+  return Directory.parse(directory);
+};
+
 export const ResponseStatus = z.enum([
   "declined",
   "needsAction",
@@ -110,8 +128,6 @@ export const ResponseStatus = z.enum([
 ]);
 
 type ResponseStatus = z.infer<typeof ResponseStatus>;
-
-const DateString = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 
 const Creator = z.object({
   email: z.string().email(),
@@ -122,15 +138,15 @@ const Organizer = z.object({
   displayName: z.string().optional(),
 });
 
-const DateTimeOrDate = z.object({
+export const DateTimeOrDate = z.object({
   dateTime: z.string().optional(),
-  date: DateString.optional(),
+  date: z.string().optional(),
   timeZone: z.string().optional(),
 });
 
-const Attendee = z.object({
+export const Attendee = z.object({
   email: z.string().email(),
-  responseStatus: ResponseStatus,
+  responseStatus: ResponseStatus.optional(),
   displayName: z.string().optional(),
 });
 
@@ -219,4 +235,66 @@ export const respondToCalendarEvent = async ({
   });
 
   return Event.parse(updatedEvent);
+};
+
+export const Reminder = z.object({
+  method: z.literal("popup"),
+  minutes: z.number(),
+});
+
+type CreateCalendarEventInput = {
+  calendarId: string;
+  attendeesEmails: string[];
+  description: string;
+  fullDayEventStartDate?: string;
+  fullDayEventEndDate?: string;
+  nonFullDayEventStartDateTime?: string;
+  nonFullDayEventEndDateTime?: string;
+  timeZone: string;
+  location?: string;
+  summary: string;
+  recurrence?: string[];
+  remindersMinutes: number[];
+};
+
+export const createCalendarEvent = async ({
+  calendarId,
+  remindersMinutes,
+  fullDayEventStartDate,
+  fullDayEventEndDate,
+  nonFullDayEventStartDateTime,
+  nonFullDayEventEndDateTime,
+  timeZone,
+  attendeesEmails,
+  ...params
+}: CreateCalendarEventInput) => {
+  const auth = await authorize();
+  const calendar = google.calendar({ version: "v3", auth });
+  const attendees = attendeesEmails.map((email) => ({ email }));
+  const reminders = {
+    overrides: remindersMinutes.map((minutes) => ({
+      method: "popup",
+      minutes,
+    })),
+  };
+
+  const requestBody = {
+    start: {
+      date: fullDayEventStartDate,
+      dateTime: nonFullDayEventStartDateTime,
+      timeZone,
+    },
+    end: {
+      date: fullDayEventEndDate,
+      dateTime: nonFullDayEventEndDateTime,
+      timeZone,
+    },
+    attendees,
+    reminders,
+    ...params,
+  };
+
+  const newEvent = calendar.events.insert({ calendarId, requestBody });
+
+  return Event.parse(newEvent);
 };
