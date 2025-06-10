@@ -16,15 +16,13 @@ import {
 import { getAllRepositoriesReflogs, getLocalGitRepositories } from "./git";
 import { getGitHubUser, getUserContributions } from "./github";
 import {
-  Attendee,
   createCalendarEvent,
-  DateTimeOrDate,
   getCalendarEvents,
   getGoogleUser,
   getGoogleDirectoryPeople,
-  Reminder,
   respondToCalendarEvent,
   ResponseStatus,
+  getGoogleColors,
 } from "./google";
 
 const createToolResult = (result: unknown) => {
@@ -360,12 +358,31 @@ server.tool(
     attendeesEmails: z.string().array().describe("A list of attendees emails."),
     description: z.string().describe("The description of the event."),
     location: z.string().optional().describe("Where the event is. Optional."),
-    remindersMinutes: z.number().array().describe("Up to 5 numbers as minutes before the event to send a notification. Can send up to 4 weeks in advance."),
-    fullDayEventStartDate: z.string().optional().describe("Start date in YYYY-MM-DD if this is an all-day event."),
-    fullDayEventEndDate: z.string().optional().describe("End date in YYYY-MM-DD if this is an all-day event."),
-    nonFullDayEventStartDateTime: z.string().optional().describe("RFC3339 date-time value if this is not an all-day event."),
-    nonFullDayEventEndDateTime: z.string().optional().describe("RFC3339 date-time value if this is not an all-day event."),
-    timeZone: z.string().describe("IANA time zone for the event eg. Melbourne/Australia."),
+    remindersMinutes: z
+      .number()
+      .array()
+      .describe(
+        "Up to 5 numbers as minutes before the event to send a notification. Can send up to 4 weeks in advance.",
+      ),
+    fullDayEventStartDate: z
+      .string()
+      .optional()
+      .describe("Start date in YYYY-MM-DD if this is an all-day event."),
+    fullDayEventEndDate: z
+      .string()
+      .optional()
+      .describe("End date in YYYY-MM-DD if this is an all-day event."),
+    nonFullDayEventStartDateTime: z
+      .string()
+      .optional()
+      .describe("RFC3339 date-time value if this is not an all-day event."),
+    nonFullDayEventEndDateTime: z
+      .string()
+      .optional()
+      .describe("RFC3339 date-time value if this is not an all-day event."),
+    timeZone: z
+      .string()
+      .describe("IANA time zone for the event eg. Melbourne/Australia."),
     summary: z
       .string()
       .describe("The summary or title of the event. Appears on calendar."),
@@ -376,9 +393,23 @@ server.tool(
       .describe(
         "List of RRULE, EXRULE, RDATE and EXDATE lines for a recurring event, as specified in RFC5545. Note that DTSTART and DTEND lines are not allowed in this field; event start and end times are specified in the start and end fields. This field is omitted for single events or instances of recurring events.",
       ),
+    colorId: z
+      .string()
+      .optional()
+      .describe(
+        "Color for the event, see colors tool for color IDs and their corresponding hex codes.",
+      ),
   },
   async (params) => {
     return createToolResult(await createCalendarEvent(params));
+  },
+);
+
+server.tool(
+  "getGoogleCalendarColors",
+  "Get a record of event color IDs to their hex codes.",
+  async () => {
+    return createToolResult(await getGoogleColors());
   },
 );
 
