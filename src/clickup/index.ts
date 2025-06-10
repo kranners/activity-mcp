@@ -104,6 +104,8 @@ const ClickUpUser = z.object({
 });
 
 export const getClickUpUser = async () => {
+  auth();
+
   const response = await clickup.getAuthorizedUser();
   const { user } = response.data;
 

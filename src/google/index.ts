@@ -104,6 +104,19 @@ export const getGoogleUser = async () => {
   return User.parse(user);
 };
 
+const Color = z.object({
+  background: z.string(),
+});
+
+export const getGoogleColors = async () => {
+  const auth = await authorize();
+  const calendar = google.calendar({ version: "v3", auth });
+
+  const { data: colors } = await calendar.colors.get();
+
+  return z.record(Color).parse(colors.event);
+};
+
 const Directory = z.object({
   people: User.array(),
 });
@@ -276,6 +289,7 @@ export const createCalendarEvent = async ({
       method: "popup",
       minutes,
     })),
+    useDefault: false,
   };
 
   const requestBody = {
@@ -294,7 +308,10 @@ export const createCalendarEvent = async ({
     ...params,
   };
 
-  const newEvent = calendar.events.insert({ calendarId, requestBody });
+  const { data: event } = await calendar.events.insert({
+    calendarId,
+    requestBody,
+  });
 
-  return Event.parse(newEvent);
+  return Event.parse(event);
 };
