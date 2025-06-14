@@ -184,7 +184,7 @@ const Event = z.object({
   location: z.string().optional(),
 });
 
-export const Events = z.array(Event);
+type Event = z.infer<typeof Event>;
 
 type GetGoogleCalendarEventsInput = {
   calendarId: string;
@@ -192,7 +192,29 @@ type GetGoogleCalendarEventsInput = {
   q?: string;
   timeMax?: string;
   timeMin?: string;
-  showDeleted?: boolean;
+  attendeeEmail?: string;
+};
+
+const EventsPage = z.object({
+  items: z.array(Event),
+  nextPageToken: z.string().optional(),
+});
+
+const filterCancelledEvent = (event: Event) => {
+  return event.status !== "cancelled";
+};
+
+const filterEventAttendees = (event: Event, attendeeEmail?: string) => {
+  if (attendeeEmail === undefined) {
+    return event;
+  }
+
+  return {
+    ...event,
+    attendees: event.attendees?.filter(({ email }) => {
+      return email === attendeeEmail;
+    }),
+  };
 };
 
 export const getCalendarEvents = async (
@@ -201,10 +223,19 @@ export const getCalendarEvents = async (
   const auth = await authorize();
   const calendar = google.calendar({ version: "v3", auth });
 
-  const response = await calendar.events.list(params);
+  const response = await calendar.events.list({
+    ...params,
+    singleEvents: true,
+    showDeleted: false,
+  });
 
-  const events = response.data.items;
-  return Events.parse(events);
+  const page = EventsPage.parse(response.data);
+
+  const items = page.items.filter(filterCancelledEvent).map((event) => {
+    return filterEventAttendees(event, params.attendeeEmail);
+  });
+
+  return { ...page, items };
 };
 
 type RespondToCalendarEventInputs = {
