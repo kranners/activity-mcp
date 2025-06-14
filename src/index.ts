@@ -76,7 +76,7 @@ const start = async () => {
 
   server.tool(
     "getSlackMessages",
-    "Get Slack messages sent by the current user between two dates",
+    "Get Slack messages between two dates. Can filter to messages sent in particular channels, sent by particular users, or that contain a particular substring.",
     {
       dayAfterRange: z
         .string()
@@ -187,7 +187,7 @@ server.tool(
 
 server.tool(
   "getHarvestUser",
-  "Get currently authenticated Slack User information.",
+  "Get currently authenticated Harvest user information.",
   async () => {
     return createToolResult(await getHarvestUser());
   },
@@ -281,7 +281,7 @@ server.tool(
 
 server.tool(
   "getGoogleCalendarEvents",
-  "Get events from Google Calendar.",
+  "Get events from Google Calendar. If this tool contains a nextPageToken, then there are more pages of data available.",
   {
     calendarId: z
       .string()
@@ -308,6 +308,12 @@ server.tool(
       .string()
       .optional()
       .describe("Token specifying which result page to return."),
+    attendeeEmail: z
+      .string()
+      .optional()
+      .describe(
+        "Optionally filter to a single attendee. Prefer to do this with the email address from getGoogleUser.",
+      ),
   },
   async (params) => {
     return createToolResult(await getCalendarEvents(params));
@@ -352,7 +358,7 @@ server.tool(
 
 server.tool(
   "createGoogleCalendarEvent",
-  "Create a new ",
+  "Create a new calendar event, it can be recurring or non-recurring.",
   {
     calendarId: z.string().describe("The calendar ID."),
     attendeesEmails: z.string().array().describe("A list of attendees emails."),
