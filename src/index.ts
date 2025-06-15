@@ -6,7 +6,7 @@ import { z } from "zod";
 import { CallToolResultSchema } from "@modelcontextprotocol/sdk/types.js";
 import { getAllConversations, getMessages, getSlackUser } from "./slack";
 import { ClickUpTasksAPIInputBody, getClickUpUser, getTasks } from "./clickup";
-import { queryActivities } from "./timing";
+import { getDesktopActivitiesForTimeRange } from "./timing";
 import { getNow } from "./time";
 import {
   createTimeEntry,
@@ -164,16 +164,15 @@ const start = async () => {
 };
 
 server.tool(
-  "queryActivities",
-  "Get titles, applications, paths of all activities between two timestamps. Is paginated.",
+  "getDesktopActivitiesForTimeRange",
+  "Retrieves user desktop activities within a specified time window. Double-check the year and time zone when generating timestamps to avoid querying the wrong period. Page size of 200.",
   {
     start: z.number().describe("Lower bound timestamp in seconds."),
     end: z.number().describe("Upper bound timestamp in seconds."),
-    limit: z.number().describe("SQLite LIMIT."),
-    page: z.number().describe("SQLite OFFSET = SQLite LIMIT * page"),
+    page: z.number().describe("SQLite OFFSET = 200 * page"),
   },
   (params) => {
-    return createToolResult(queryActivities(params));
+    return createToolResult(getDesktopActivitiesForTimeRange(params));
   },
 );
 
