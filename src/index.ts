@@ -4,17 +4,28 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { CallToolResultSchema } from "@modelcontextprotocol/sdk/types.js";
-import { getAllConversations, getMessages, getSlackUser } from "./slack";
-import { ClickUpTasksAPIInputBody, getClickUpUser, getTasks } from "./clickup";
-import { getDesktopActivitiesForTimeRange } from "./timing";
-import { getNow } from "./time";
+import {
+  getAllConversations,
+  getMessages,
+  getSlackUser,
+} from "./slack/index.js";
+import {
+  ClickUpTasksAPIInputBody,
+  getClickUpUser,
+  getTasks,
+} from "./clickup/index.js";
+import { getDesktopActivitiesForTimeRange } from "./timing/index.js";
+import { getNow } from "./time/index.js";
 import {
   createTimeEntry,
   getHarvestUser,
   getProjectAssignments,
-} from "./harvest";
-import { getAllRepositoriesReflogs, getLocalGitRepositories } from "./git";
-import { getGitHubUser, getUserContributions } from "./github";
+} from "./harvest/index.js";
+import {
+  getAllRepositoriesReflogs,
+  getLocalGitRepositories,
+} from "./git/index.js";
+import { getGitHubUser, getUserContributions } from "./github/index.js";
 import {
   createCalendarEvent,
   getCalendarEvents,
@@ -23,7 +34,7 @@ import {
   respondToCalendarEvent,
   ResponseStatus,
   getGoogleColors,
-} from "./google";
+} from "./google/index.js";
 
 const createToolResult = (result: unknown) => {
   return CallToolResultSchema.parse({

@@ -1,19 +1,31 @@
 {
   "compilerOptions": {
     "target": "es2016",
-    "module": "commonjs",
+    "module": "es2022",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
     "skipLibCheck": true,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "paths": {
+      "@langchain/core/*": [
+        "./node_modules/@langchain/core/*"
+      ]
+    }
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
   },
   "exclude": [
     "eslint.config.ts",
+    "jest.config.ts",
     ".api",
     "dist",
     "node_modules"
