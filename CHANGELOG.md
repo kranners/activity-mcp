@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/kranners/activity-mcp/compare/v1.0.0...v1.0.1) (2025-06-22)
+
+
+### Bug Fixes
+
+* clarifying bin path ([f1eba94](https://github.com/kranners/activity-mcp/commit/f1eba94617c4869d2d039683b2b2bcdc34116b92))
+
 # 1.0.0 (2025-06-22)
 
 
