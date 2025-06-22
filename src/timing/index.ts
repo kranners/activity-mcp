@@ -1,7 +1,7 @@
 import "dotenv/config";
 import Database from "better-sqlite3";
 
-import { TZ_OFFSET_IN_SECONDS } from "../time";
+import { TZ_OFFSET_IN_SECONDS } from "../time/index.js";
 
 type Activity = {
   title: string | null;
