@@ -15,7 +15,7 @@ import {
   getTasks,
 } from "./clickup/index.js";
 import { getDesktopActivitiesForTimeRange } from "./timing/index.js";
-import { getNow } from "./time/index.js";
+import { getTime } from "./time/index.js";
 import {
   createTimeEntry,
   getHarvestUser,
@@ -176,11 +176,10 @@ const start = async () => {
 
 server.tool(
   "getDesktopActivitiesForTimeRange",
-  "Retrieves user desktop activities within a specified time window. Double-check the year and time zone when generating timestamps to avoid querying the wrong period. Page size of 200.",
+  "Retrieves an array of desktop activities. They contain a start and end ISO string, an application, the title as it appears in MacOS, and a path like an internal value. Often a website, screen, or page.",
   {
-    start: z.number().describe("Lower bound timestamp in seconds."),
-    end: z.number().describe("Upper bound timestamp in seconds."),
-    page: z.number().describe("SQLite OFFSET = 200 * page"),
+    start: z.string().describe("Lower bound of the time range as ISO"),
+    end: z.string().describe("Upper bound of the time range as ISO"),
   },
   (params) => {
     return createToolResult(getDesktopActivitiesForTimeRange(params));
@@ -188,10 +187,10 @@ server.tool(
 );
 
 server.tool(
-  "getCurrentDateTime",
-  "Get the current date & time. If in doubt, call this first.",
+  "getDateTime",
+  "Get current date and time in YYYY-MM-DD, ISO, timestamps in milliseconds and seconds, and the current timezone.",
   () => {
-    return createToolResult(getNow());
+    return createToolResult(getTime());
   },
 );
 

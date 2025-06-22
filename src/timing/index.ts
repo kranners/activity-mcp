@@ -1,55 +1,58 @@
 import "dotenv/config";
 import Database from "better-sqlite3";
 
+import { TZ_OFFSET_IN_SECONDS } from "../time";
+
 type Activity = {
   title: string | null;
-  applicationTitle: string | null;
+  app: string | null;
   path: string | null;
-  startDate: number;
-  endDate: number;
+  start: number;
+  end: number;
 };
 
 type QueryActivitiesInput = {
-  start: number;
-  end: number;
-  page: number;
+  start: string;
+  end: string;
 };
-
-const QUERY_LIMIT = 200;
 
 const ACTIVITY_QUERY = `
   SELECT
     Title.stringValue AS title,
-    Application.title AS applicationTitle,
+    Application.title AS app,
     Path.stringValue AS path,
-    AppActivity.startDate,
-    AppActivity.endDate
+    AppActivity.startDate AS start,
+    AppActivity.endDate AS end
   FROM AppActivity
   LEFT JOIN Title ON Title.id = AppActivity.titleID
   LEFT JOIN Path ON Path.id = AppActivity.pathID
   LEFT JOIN Application ON Application.id = AppActivity.applicationID
   WHERE AppActivity.isDeleted = 0
-    AND AppActivity.startDate <= ?
-    AND AppActivity.endDate >= ?
+    AND AppActivity.startDate >= ?
+    AND AppActivity.endDate <= ?
   ORDER BY AppActivity.startDate ASC
-  LIMIT ${QUERY_LIMIT} OFFSET ?
 `;
 
-const ACTIVITY_COUNT_QUERY = `
-  SELECT COUNT(*) as total
-  FROM AppActivity
-  LEFT JOIN Title ON Title.id = AppActivity.titleID
-  LEFT JOIN Path ON Path.id = AppActivity.pathID
-  LEFT JOIN Application ON Application.id = AppActivity.applicationID
-  WHERE AppActivity.isDeleted = 0
-    AND AppActivity.startDate <= ?
-    AND AppActivity.endDate >= ?
-`;
+const isoToSeconds = (iso: string) => {
+  return new Date(iso).getTime() / 1000;
+};
+
+const localSecondsToUtcIso = (seconds: number) => {
+  const millis = (seconds - TZ_OFFSET_IN_SECONDS) * 1000;
+  return new Date(millis).toISOString();
+};
+
+const parseActivity = (activity: Activity) => {
+  return {
+    ...activity,
+    start: localSecondsToUtcIso(activity.start),
+    end: localSecondsToUtcIso(activity.end),
+  };
+};
 
 export const getDesktopActivitiesForTimeRange = ({
   start,
   end,
-  page,
 }: QueryActivitiesInput) => {
   const dbPath = process.env.TIME_ENTRIES_SQL_PATH;
 
@@ -59,16 +62,17 @@ export const getDesktopActivitiesForTimeRange = ({
 
   const db = new Database(dbPath);
 
-  const offset = QUERY_LIMIT * page;
-
   const activitiesStatement = db.prepare(ACTIVITY_QUERY);
 
-  const activities = activitiesStatement.all(end, start, offset) as Activity[];
+  const startSeconds = isoToSeconds(start);
+  const endSeconds = isoToSeconds(end);
 
-  const countStatement = db.prepare(ACTIVITY_COUNT_QUERY);
-  const { total } = countStatement.get(end, start) as { total: number };
+  const activities = activitiesStatement.all(
+    startSeconds,
+    endSeconds,
+  ) as Activity[];
 
   db.close();
 
-  return { total, activities };
+  return activities.map(parseActivity);
 };

@@ -1,21 +1,18 @@
 import { agent, run } from "./constants/index.js";
 
-// I think the issue here now is that this is a local timestamp.
-// Pretty sure it needs to be like that.
-// So to fix should probably chuck up a local TZ version of the time tool.
 const getTimesheet = async () => {
   const response = await run(`
-    Could you summarize my desktop activity between 2025-05-26T09:00:00+10:00 and 2025-05-26T17:00:00+10:00? 
-    Ensure you get all the data available.
+    Could you summarize my desktop activity today between 9am and 10pm?
 
     Break it down in 30 minute chunks like:
     ### 09:00–09:30
-    <A description of what was happening at that time.>
-    <A line break>
-    <A breakdown of which applications were used and for what amount of time>
-    <Like:>
-    <50% - Arc>
-    <10% - another application, etc>
+    Activity: <Brief and purposeful summary of what I did during that period>
+    Goals: <Brief and purposeful summary of my goals during that period, what I was working towards overall.>
+
+    <Repeat that format for the rest of the time period.>
+    <Do not create a 30 minute chunk for a period with no activity. Just skip them entirely and start when there is activity.>
+
+    Then include a similar summary for the entire time period.
   `);
 
   console.log(response);

@@ -336,3 +336,5 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+**/personal-prompt.txt
+
