@@ -1,21 +1,11 @@
 # activity-mcp
 
-MCP server for retrieving recent activity across a number of platforms.
+MCP server for interacting with a number of services, like Slack, Harvest, GitHub, etc.
 
-Primarily, this is for automating timesheets.
+This is primarily for automating timesheets, however these tools can be used for whatever you'd like.
 
-## `TODO`
-
-GitHub
-- [ ] PRs
-- [ ] Commits
-- [ ] Reviews
-
-Slack
-- [ ] Recent messages
-- [ ] Messages in threads
-- [ ] DMs?
-
-Timing
-- [ ] 
+Possible use-cases include:
+- Slack server analysis (which channels are used most/least often, etc).
+- Desktop activity summarization, which programs you used when and for how long.
+- 
 
