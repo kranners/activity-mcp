@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/kranners/activity-mcp/compare/v1.0.1...v1.0.2) (2025-06-22)
+
+
+### Bug Fixes
+
+* fixing timing directory import ([78642bf](https://github.com/kranners/activity-mcp/commit/78642bf405db43004e3ed3a88d4bcd24e159074f))
+
 ## [1.0.1](https://github.com/kranners/activity-mcp/compare/v1.0.0...v1.0.1) (2025-06-22)
 
 
