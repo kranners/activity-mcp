@@ -146,6 +146,7 @@ token.json
 
 # macos
 .DS_Store
+<<<<<<< HEAD
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -337,4 +338,3 @@ cython_debug/
 .pypirc
 
 **/personal-prompt.txt
-
