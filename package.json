@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
+  "bin": {
+    "activity-mcp": "./dist/index.js"
+  },
   "type": "module",
   "scripts": {
     "build": "tsc",
