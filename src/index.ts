@@ -12,7 +12,7 @@ import {
 import {
   ClickUpTasksAPIInputBody,
   getClickUpUser,
-  getTasks,
+  getClickUpTasks,
 } from "./clickup/index.js";
 import { getDesktopActivitiesForTimeRange } from "./timing/index.js";
 import { getTime } from "./time/index.js";
@@ -130,16 +130,13 @@ const start = async () => {
 
   server.tool(
     "getClickUpTasks",
-    "Get ClickUp tasks",
+    "Get ClickUp tasks.",
     {
-      page: z
-        .number()
-        .int()
-        .describe("Page to fetch (starts at 0).")
-        .optional(),
       assignees: z
         .array(z.string())
-        .describe("List of assignee IDs to filter by.")
+        .describe(
+          "Filter to ONLY tickets where given user IDs are the ASSIGNEE.",
+        )
         .optional(),
       project_ids: z
         .array(z.string())
@@ -154,20 +151,16 @@ const start = async () => {
         .describe("List of list IDs to filter by.")
         .optional(),
       date_updated_gt: z
-        .number()
-        .int()
-        .describe(
-          "Filter by date updated greater than Unix time in milliseconds.",
-        )
+        .string()
+        .describe("ISO timestamp for minimum updated time to filter tickets to")
         .optional(),
       date_updated_lt: z
-        .number()
-        .int()
-        .describe("Filter by date updated less than Unix time in milliseconds.")
+        .string()
+        .describe("ISO timestamp for maximum updated time to filter tickets to")
         .optional(),
     },
     async (params: ClickUpTasksAPIInputBody) => {
-      return createToolResult(await getTasks(params));
+      return createToolResult(await getClickUpTasks(params));
     },
   );
 
