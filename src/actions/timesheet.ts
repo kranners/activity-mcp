@@ -32,15 +32,17 @@ Please summarize any ClickUp tickets that have been updated between the week pri
 
 ONLY include tickets that the USER is involved in some way.
 NEVER use the assignees filter. This will filter out tickets the USER is a watcher on.
-ALWAYS include ALL pages of data, if they are available.
 
 Format each ClickUp ticket as:
 # <[Title](URL)> (<Ticket Custom ID>)
+Created: <When the ticket was made>
 <Space> -> <Folder> -> <List>
+
 Currently: <Ticket status>
+<If closed, say when it was closed. Otherwise, say when it was last updated.>
 
 <Short summary of description and purpose.>
-<Short summary of the USERs role in this ticket.>
+<Short summary of the users role in this ticket.>
 `);
 
   console.log(relatedTickets);
