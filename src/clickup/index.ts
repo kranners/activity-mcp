@@ -1,10 +1,7 @@
 import { z } from "zod";
 import "dotenv/config";
 import clickup from "@api/clickup";
-import {
-  GetFilteredTeamTasksMetadataParam,
-  GetTasksResponse200,
-} from "@api/clickup/types";
+import { GetFilteredTeamTasksMetadataParam } from "@api/clickup/types";
 
 const auth = () => {
   if (process.env.CLICKUP_TOKEN === undefined) {
@@ -18,22 +15,29 @@ const ID = z.union([z.number(), z.string()]);
 
 const User = z.object({ id: ID, username: z.string() });
 
-const Status = z.object({ id: ID, status: z.string() });
+const Status = z.object({ status: z.string() });
 
 const Project = z.object({ id: ID, name: z.string() });
 const List = z.object({ id: ID, name: z.string() });
 const Folder = z.object({ id: ID, name: z.string() });
 const Space = z.object({ id: ID, name: z.string() });
 
+const DateInMillis = z.preprocess(
+  (value: unknown) => new Date(Number(value)).toISOString(),
+  z.string(),
+);
+
 export const Task = z.object({
   name: z.string(),
-  custom_id: z.string().optional().nullable(),
+  custom_id: z.string().nullable(),
   description: z.string().nullable(),
   status: Status,
+  creator: User,
   assignees: z.array(User),
   watchers: z.array(User),
-  date_created: z.union([z.string(), z.number()]),
-  date_updated: z.union([z.string(), z.number()]),
+  date_created: DateInMillis,
+  date_updated: DateInMillis,
+  date_closed: DateInMillis,
   url: z.string(),
   project: Project,
   folder: Folder,
@@ -85,44 +89,72 @@ const getTeamId = () => {
   return teamId;
 };
 
-const getClickUpTaskParser = async () => {
+type ClickUpTasksResponse = Awaited<
+  ReturnType<typeof clickup.getFilteredTeamTasks>
+>;
+
+const getConnectClickupTaskToSpaces = async () => {
   const spacesResponse = await clickup.getSpaces({
     order_by: "updated",
     team_id: getTeamId(),
   });
 
   const { spaces } = spacesResponse.data;
-
   const parseClickUpTasksResponse = (
-    response: Awaited<ReturnType<typeof clickup.getFilteredTeamTasks>>,
+    tasks: ClickUpTasksResponse["data"]["tasks"],
   ) => {
-    if (response.data.tasks === undefined) {
-      return response.data;
-    }
-
-    const tasks = response.data.tasks.map((task) => {
+    return tasks.map((task) => {
       const taskSpace = spaces.find((space) => space.id === task.space?.id);
 
       if (taskSpace !== undefined && task.space !== undefined) {
         task.space.name = taskSpace.name;
       }
 
-      return task;
+      return Task.parse(task);
     });
-
-    return {
-      tasks: Tasks.parse(tasks),
-      last_page: response.data.last_page,
-    };
   };
 
   return parseClickUpTasksResponse;
 };
 
+const indexTaskList = (tasks: z.infer<typeof Task>[]) => {
+  const spaces: Record<string, string> = {};
+  const users: Record<string, string> = {};
+  const projects: Record<string, string> = {};
+  const lists: Record<string, string> = {};
+  const folders: Record<string, string> = {};
+
+  const recordUser = ({ id, username }: z.infer<typeof User>) => {
+    users[id] = username;
+    return username;
+  };
+
+  const strippedTasks = tasks.map((task) => {
+    spaces[task.space.id] = task.space.name;
+    projects[task.project.id] = task.project.name;
+    lists[task.list.id] = task.list.name;
+    folders[task.folder.id] = task.folder.name;
+
+    return {
+      ...task,
+      status: task.status.status,
+      project: task.project.name,
+      space: task.space.name,
+      list: task.list.name,
+      folder: task.folder.name,
+      creator: recordUser(task.creator),
+      assignees: task.assignees.map(recordUser),
+      watchers: task.watchers.map(recordUser),
+    };
+  });
+
+  return { spaces, users, projects, lists, folders, tasks: strippedTasks };
+};
+
 export const getClickUpTasks = async (params: ClickUpTasksAPIInputBody) => {
   auth();
 
-  const taskParser = await getClickUpTaskParser();
+  const parseClickUpTasksResponse = await getConnectClickupTaskToSpaces();
 
   const purposelyDuplicatedParams = purposelyDuplicateListsInParams(
     params,
@@ -130,10 +162,10 @@ export const getClickUpTasks = async (params: ClickUpTasksAPIInputBody) => {
 
   let currentPage = 0;
   let isLastPage = false;
-  const pages: ReturnType<typeof taskParser>[] = [];
+  const pages: ClickUpTasksResponse["data"]["tasks"][] = [];
 
   while (isLastPage === false) {
-    const response = await clickup.getFilteredTeamTasks({
+    const { data: page } = await clickup.getFilteredTeamTasks({
       ...purposelyDuplicatedParams,
       date_updated_lt: optionalIsoToOptionalMillis(params.date_updated_lt),
       date_updated_gt: optionalIsoToOptionalMillis(params.date_updated_gt),
@@ -144,20 +176,15 @@ export const getClickUpTasks = async (params: ClickUpTasksAPIInputBody) => {
       page: currentPage,
     });
 
-    const parsed = taskParser(response);
-
-    pages.push(parsed);
-
-    isLastPage = parsed.last_page as boolean;
+    pages.push(page.tasks);
+    isLastPage = page.last_page as boolean;
     currentPage++;
   }
 
-  const tasks = pages.map(({ tasks }) => tasks).flat();
+  const joinedTasks = pages.flat();
+  const tasks = parseClickUpTasksResponse(joinedTasks);
 
-  return {
-    tasks,
-    totalPages: currentPage,
-  };
+  return indexTaskList(tasks);
 };
 
 const ClickUpUser = z.object({
@@ -180,8 +207,3 @@ export const getClickUpUser = async () => {
 
   return ClickUpUser.parse(user);
 };
-
-// getClickUpTasks({
-//   date_updated_gt: "2025-06-05T00:00:00Z",
-//   date_updated_lt: "2025-06-14T23:59:59Z",
-// }).then((result) => console.log(JSON.stringify(result, null, 2)));
