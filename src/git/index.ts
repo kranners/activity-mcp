@@ -68,18 +68,23 @@ const getRepositoryReflog = async ({
   since,
   until,
 }: GetRepositoryReflogInput) => {
-  const path = getDirentPath(repository);
+  try {
+    const path = getDirentPath(repository);
 
-  const command = `git -C ${path} reflog --date=iso --since '${since}' --until '${until}'`;
-  const { stdout, stderr } = await execAsync(command);
+    const command = `git -C ${path} reflog --date=iso --since '${since}' --until '${until}'`;
+    const { stdout, stderr } = await execAsync(command);
 
-  if (stderr) {
-    // TODO: May want to bubble up errors here.
+    if (stderr) {
+      // TODO: May want to bubble up errors here.
+      return [];
+    }
+
+    const reflog = stdout.split("\n").map(parseReflogLine);
+    return reflog.filter(Boolean);
+  } catch (error) {
+    console.error(JSON.stringify(error));
     return [];
   }
-
-  const reflog = stdout.split("\n").map(parseReflogLine);
-  return reflog.filter(Boolean);
 };
 
 type GetAllRepositoriesReflogsInput = Omit<

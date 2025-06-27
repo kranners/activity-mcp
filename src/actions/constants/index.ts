@@ -35,7 +35,7 @@ The current year is ${year}.
 <user>
 My name is Aaron Pierce.
 
-I am a Senior Developer at Inlight, an Australian Digital Agency.
+I am a Senior Developer at Inlight, an Australian digital agency.
 
 I am in the Autobots team.
 
@@ -67,18 +67,20 @@ export const MCP_CLIENT_CONFIG = {
   },
 };
 
-export const client = MCPClient.fromDict(MCP_CLIENT_CONFIG);
-export const llm = new ChatOpenAI({ model: "gpt-4.1" });
-
-export const agent = new MCPAgent({
-  llm,
-  client,
-  maxSteps: 30,
-  verbose: true,
-  systemPrompt: SYSTEM_PROMPT,
-});
-
 export const run = async (prompt: string) => {
-  agent.clearConversationHistory();
-  return agent.run(prompt);
+  const client = MCPClient.fromDict(MCP_CLIENT_CONFIG);
+  const llm = new ChatOpenAI({ model: "gpt-4.1" });
+
+  const agent = new MCPAgent({
+    llm,
+    client,
+    maxSteps: 30,
+    verbose: true,
+    systemPrompt: SYSTEM_PROMPT,
+  });
+
+  const response = await agent.run(prompt);
+  await agent.close();
+
+  return response;
 };
