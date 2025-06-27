@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/kranners/activity-mcp/compare/v1.0.2...v1.1.0) (2025-06-27)
+
+
+### Features
+
+* auto-paging clickup tasks tool ([3776186](https://github.com/kranners/activity-mcp/commit/377618638d74ab452697af44bc83162ba948d9c3))
+* **slack:** auto paginating slack response, adding time sent per message ([4f1f910](https://github.com/kranners/activity-mcp/commit/4f1f910b8a11c2c909dc8228e5db3f653a20aae7))
+* stripping out excess data from clickup response ([cb483f2](https://github.com/kranners/activity-mcp/commit/cb483f2087e21d2a990b1f4f9f3b374709078dcb))
+
 ## [1.0.2](https://github.com/kranners/activity-mcp/compare/v1.0.1...v1.0.2) (2025-06-22)
 
 
