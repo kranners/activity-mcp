@@ -5,7 +5,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { CallToolResultSchema } from "@modelcontextprotocol/sdk/types.js";
 import {
-  getAllConversations,
+  // getAllConversations,
   getMessages as getSlackMessages,
   getSlackUser,
 } from "./slack/index.js";
