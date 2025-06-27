@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { WebClient } from "@slack/web-api";
 import { z } from "zod";
+import { TZ_OFFSET_IN_SECONDS } from "../time/index.js";
 
 const token = process.env.SLACK_USER_TOKEN;
 const web = new WebClient(token);
@@ -29,20 +30,18 @@ const Channel = z.object({
 
 const Message = z.object({
   channel: Channel,
-  iid: z.string(),
-  text: z.string(),
-  user: z.string().nullable(),
-  username: z.string().nullable(),
+  iid: z.string().optional().nullable(),
+  text: z.string().optional().nullable(),
+  user: z.string().optional().nullable(),
+  username: z.string().optional().nullable(),
+  ts: z.string().optional().nullable(),
 });
 
 const SearchResponse = z.object({
   messages: z.object({
     matches: Message.array(),
     paging: z.object({
-      count: z.number(),
-      page: z.number(),
       pages: z.number(),
-      total: z.number(),
     }),
   }),
   ok: z.boolean(),
@@ -50,31 +49,54 @@ const SearchResponse = z.object({
 });
 
 type MessagesFromUserInput = {
-  dayBeforeRange?: string;
-  dayAfterRange?: string;
-  page: number;
+  dateRangeStart?: string;
+  dateRangeEnd?: string;
   search?: string;
   channelNames?: string[];
   userIds?: string[];
 };
 
-type DayRange = Pick<MessagesFromUserInput, "dayBeforeRange" | "dayAfterRange">;
+type DayRange = Pick<MessagesFromUserInput, "dateRangeStart" | "dateRangeEnd">;
 
 const buildBeforeAfterFilter = ({
-  dayBeforeRange,
-  dayAfterRange,
+  dateRangeStart,
+  dateRangeEnd,
 }: DayRange): string | undefined => {
-  if (dayBeforeRange === undefined || dayAfterRange === undefined) {
+  if (dateRangeStart === undefined || dateRangeEnd === undefined) {
     return;
   }
 
-  return `before:${dayAfterRange} after:${dayBeforeRange}`;
+  // Slack API requires that "before" be a full day before your range starts.
+  // and "after" be a full day after your range ends. This is confusing for agents.
+  const beforeDate = new Date(dateRangeEnd);
+  const afterDate = new Date(dateRangeStart);
+
+  beforeDate.setDate(beforeDate.getDate() + 1);
+  afterDate.setDate(afterDate.getDate() - 1);
+
+  const before = beforeDate.toISOString().split("T")[0];
+  const after = afterDate.toISOString().split("T")[0];
+
+  return `before:${before} after:${after}`;
 };
 
-export const getMessages = async ({
-  dayBeforeRange,
-  dayAfterRange,
-  page,
+const formatMessageForToolResponse = (message: z.infer<typeof Message>) => {
+  if (!message.ts) {
+    return message;
+  }
+
+  const localTsMillis = (Number(message.ts) - TZ_OFFSET_IN_SECONDS) * 1000;
+  const sent = new Date(localTsMillis).toISOString();
+
+  return {
+    ...message,
+    ts: sent,
+  };
+};
+
+const buildSlackMessageQuery = ({
+  dateRangeStart,
+  dateRangeEnd,
   search = "",
   channelNames = [],
   userIds = [],
@@ -82,20 +104,49 @@ export const getMessages = async ({
   const channelFilter = channelNames.map((name) => `in:#${name}`).join(" ");
   const userFilter = userIds.map((id) => `from:${id}`).join(" ");
   const beforeAfterFilter = buildBeforeAfterFilter({
-    dayBeforeRange,
-    dayAfterRange,
+    dateRangeStart,
+    dateRangeEnd,
   });
 
-  const query = `${search} ${beforeAfterFilter} ${channelFilter}${userFilter}`;
+  return `${search} ${beforeAfterFilter} ${channelFilter}${userFilter}`;
+};
 
-  const response = await web.search.messages({
-    query,
-    sort: "timestamp",
-    count: 100,
-    page,
-  });
+export const getMessages = async (params: MessagesFromUserInput) => {
+  const query = buildSlackMessageQuery(params);
 
-  return SearchResponse.parse(response);
+  const getSlackPage = async (page = 1) => {
+    return await web.search.messages({
+      query,
+      sort: "timestamp",
+      count: 100,
+      page,
+    });
+  };
+
+  const messages = [];
+
+  let page = 1;
+  let stopPaginatingAt = 2;
+
+  while (stopPaginatingAt >= page) {
+    const response = await getSlackPage(page);
+
+    const parsed = SearchResponse.parse(response);
+
+    const {
+      messages: {
+        matches,
+        paging: { pages },
+      },
+    } = parsed;
+
+    stopPaginatingAt = pages;
+    page++;
+
+    messages.push(...matches);
+  }
+
+  return messages.map(formatMessageForToolResponse);
 };
 
 const Conversation = z.object({

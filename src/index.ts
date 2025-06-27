@@ -5,14 +5,14 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { CallToolResultSchema } from "@modelcontextprotocol/sdk/types.js";
 import {
-  getAllConversations,
-  getMessages,
+  // getAllConversations,
+  getMessages as getSlackMessages,
   getSlackUser,
 } from "./slack/index.js";
 import {
   ClickUpTasksAPIInputBody,
   getClickUpUser,
-  getTasks,
+  getClickUpTasks,
 } from "./clickup/index.js";
 import { getDesktopActivitiesForTimeRange } from "./timing/index.js";
 import { getTime } from "./time/index.js";
@@ -58,48 +58,43 @@ const start = async () => {
     },
   );
 
-  server.tool(
-    "getAllSlackConversations",
-    "Get all available Slack conversations",
-    {
-      includeArchived: z
-        .boolean()
-        .describe(
-          "Whether to include archived channels or not. Default to true",
-        ),
-      includeDirectMessages: z
-        .boolean()
-        .describe("Whether to include direct messages"),
-      includeGroupMessages: z
-        .boolean()
-        .describe("Whether to include group messages"),
-      includePublicChannels: z
-        .boolean()
-        .describe("Whether to include public channels"),
-      includePrivateChannels: z
-        .boolean()
-        .describe("Whether to include private channels"),
-    },
-    async (params) => {
-      return createToolResult(await getAllConversations(params));
-    },
-  );
+  // server.tool(
+  //   "getAllSlackConversations",
+  //   "Get all available Slack conversations",
+  //   {
+  //     includeArchived: z
+  //       .boolean()
+  //       .describe(
+  //         "Whether to include archived channels or not. Default to true",
+  //       ),
+  //     includeDirectMessages: z
+  //       .boolean()
+  //       .describe("Whether to include direct messages"),
+  //     includeGroupMessages: z
+  //       .boolean()
+  //       .describe("Whether to include group messages"),
+  //     includePublicChannels: z
+  //       .boolean()
+  //       .describe("Whether to include public channels"),
+  //     includePrivateChannels: z
+  //       .boolean()
+  //       .describe("Whether to include private channels"),
+  //   },
+  //   async (params) => {
+  //     return createToolResult(await getAllConversations(params));
+  //   },
+  // );
 
   server.tool(
     "getSlackMessages",
-    "Get Slack messages between two dates. Can filter to messages sent in particular channels, sent by particular users, or that contain a particular substring.",
+    "Get Slack messages on a particular date range. Can filter to messages sent in particular channels, sent by particular users, or that contain a particular substring. To get messages on a single day, call both tools with the same day.",
     {
-      dayAfterRange: z
+      dateRangeEnd: z
         .string()
-        .describe(
-          "Day in YYYY-MM-DD which comes after the desired date range. Ensure this is OUTSIDE your day range. eg. Day before -> ( Desired date range ) -> Day after.",
-        ),
-      dayBeforeRange: z
+        .describe("YYYY-MM-DD for when the date range should start"),
+      dateRangeStart: z
         .string()
-        .describe(
-          "Day in YYYY-MM-DD which comes before the desired date range. Ensure this is OUTSIDE your day range. eg. Day before -> ( Desired date range ) -> Day after.",
-        ),
-      page: z.number().describe("Page number. Starts at 1."),
+        .describe("YYYY-MM-DD for when the date range should end"),
       search: z
         .string()
         .describe(
@@ -116,7 +111,8 @@ const start = async () => {
         .optional(),
     },
     async (params) => {
-      return createToolResult(await getMessages(params));
+      const response = await getSlackMessages(params);
+      return createToolResult(response);
     },
   );
 
@@ -130,16 +126,13 @@ const start = async () => {
 
   server.tool(
     "getClickUpTasks",
-    "Get ClickUp tasks",
+    "Get ClickUp tasks.",
     {
-      page: z
-        .number()
-        .int()
-        .describe("Page to fetch (starts at 0).")
-        .optional(),
       assignees: z
         .array(z.string())
-        .describe("List of assignee IDs to filter by.")
+        .describe(
+          "Filter to ONLY tickets where given user IDs are the ASSIGNEE.",
+        )
         .optional(),
       project_ids: z
         .array(z.string())
@@ -154,20 +147,16 @@ const start = async () => {
         .describe("List of list IDs to filter by.")
         .optional(),
       date_updated_gt: z
-        .number()
-        .int()
-        .describe(
-          "Filter by date updated greater than Unix time in milliseconds.",
-        )
+        .string()
+        .describe("ISO timestamp for minimum updated time to filter tickets to")
         .optional(),
       date_updated_lt: z
-        .number()
-        .int()
-        .describe("Filter by date updated less than Unix time in milliseconds.")
+        .string()
+        .describe("ISO timestamp for maximum updated time to filter tickets to")
         .optional(),
     },
     async (params: ClickUpTasksAPIInputBody) => {
-      return createToolResult(await getTasks(params));
+      return createToolResult(await getClickUpTasks(params));
     },
   );
 
