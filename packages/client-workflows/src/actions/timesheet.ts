@@ -1,4 +1,4 @@
-import { run } from "./constants/index.js";
+import { run } from "../constants/index.js";
 
 const dayForTimesheet = process.argv[2];
 
