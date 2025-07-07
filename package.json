@@ -43,6 +43,7 @@
   "workspaces": [
     "packages/desktop-app",
     "packages/mcp-server",
-    "packages/client-workflows"
+    "packages/client-workflows",
+    "packages/slack-oauth"
   ]
 }
