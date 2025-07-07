@@ -1,14 +1,17 @@
 import { app, BrowserWindow } from "electron";
+import { watch } from "fs";
 
-const createWindow = () => {
+function createWindow() {
   const win = new BrowserWindow({
-    width: 800,
+    width: 1000,
     height: 600,
   });
 
-  win.loadFile("../index.html");
-};
+  win.loadFile("./index.html");
 
-app.whenReady().then(() => {
-  createWindow();
-});
+  watch(__dirname, { recursive: true }, () => {
+    win.reload();
+  });
+}
+
+app.whenReady().then(createWindow);
