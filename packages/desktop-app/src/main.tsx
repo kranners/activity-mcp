@@ -3,7 +3,20 @@ import { createRoot } from "react-dom/client";
 
 import { useState } from "react";
 
-function App() {
+declare global {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+  interface Window {
+    electronAPI: {
+      ping: () => void;
+    };
+  }
+}
+
+const sendPing = () => {
+  window.electronAPI.ping();
+};
+
+const App = () => {
   const [count, setCount] = useState(0);
 
   return (
@@ -13,6 +26,7 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
+        <button onClick={sendPing}>ping</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
@@ -22,7 +36,7 @@ function App() {
       </p>
     </>
   );
-}
+};
 
 createRoot(document.getElementById("root") as HTMLElement).render(
   <StrictMode>
