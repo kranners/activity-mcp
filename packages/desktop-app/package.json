@@ -1,24 +1,18 @@
 {
   "name": "desktop-app",
-  "version": "0.0.0",
-  "description": "A desktop wrapper",
-  "keywords": [
-    "tauri"
-  ],
-  "homepage": "https://github.com/kranners/activity-mcp#readme",
-  "bugs": {
-    "url": "https://github.com/kranners/activity-mcp/issues"
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "devDependencies": {
+    "@types/node": "^22.15.31",
+    "electron": "^37.2.0",
+    "typescript": "^5.8.3"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kranners/activity-mcp.git"
-  },
-  "license": "GPL-3.0-or-later",
-  "author": "",
-  "type": "commonjs",
-  "main": "./dist/index.js",
   "scripts": {
-    "test": "jest"
+    "start": "tsc && electron dist"
   },
-  "devDependencies": {}
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
 }
