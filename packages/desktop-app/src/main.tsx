@@ -1,23 +1,28 @@
-import React, { StrictMode } from "react";
+import { type ElectronAPI } from "./preload";
+import React, { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 
 import { useState } from "react";
 
 declare global {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface Window {
-    electronAPI: {
-      ping: () => void;
-    };
+    electronAPI: ElectronAPI;
   }
 }
 
-const sendPing = () => {
-  window.electronAPI.ping();
-};
-
 const App = () => {
   const [count, setCount] = useState(0);
+
+  const sendPing = () => {
+    const pong = window.electronAPI.ping(count);
+    console.log("ping", pong);
+  };
+
+  useEffect(() => {
+    window.electronAPI.onUpdateCounter((value) => {
+      setCount(count + value);
+    });
+  })
 
   return (
     <>
