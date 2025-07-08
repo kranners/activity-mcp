@@ -22,7 +22,7 @@ const App = () => {
     window.electronAPI.onUpdateCounter((value) => {
       setCount(count + value);
     });
-  })
+  });
 
   return (
     <>
