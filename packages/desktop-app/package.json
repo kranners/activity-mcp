@@ -15,7 +15,7 @@
     "watch:build": "nodemon --watch src --ext ts,tsx,js,jsx,css,html --exec \"npx vite build\"",
     "watch:main": "nodemon --watch src --ext ts --exec \"npx tsc && electron dist\"",
     "dev": "concurrently \"npm run watch:build\" \"npm run watch:main\"",
-    "start": "vite build && tsc && electron dist",
+    "start": "vite build && tsc && electron dist/main",
     "lint": "eslint"
   },
   "keywords": [],

@@ -1,4 +1,4 @@
-import { type ElectronAPI } from "./preload";
+import { ElectronAPI } from "../preload";
 import React, { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 

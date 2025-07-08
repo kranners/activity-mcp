@@ -7,11 +7,11 @@ function createWindow() {
     width: 1000,
     height: 600,
     webPreferences: {
-      preload: join(__dirname, "preload.js"),
+      preload: join(__dirname, "..", "preload", "index.js"),
     },
   });
 
-  const menu = Menu.buildFromTemplate([
+  const { items } = Menu.buildFromTemplate([
     {
       label: app.name,
       submenu: [
@@ -27,9 +27,16 @@ function createWindow() {
     },
   ]);
 
+  const menu = Menu.getApplicationMenu();
+
+  if (menu === null) {
+    throw new Error("The existing menu was somehow null!");
+  }
+
+  items.forEach((item) => menu.append(item));
   Menu.setApplicationMenu(menu);
 
-  win.loadFile("./index.html");
+  win.loadFile(join(__dirname, "..", "index.html"));
 
   watch(__dirname, { recursive: true }, () => {
     win.reload();
