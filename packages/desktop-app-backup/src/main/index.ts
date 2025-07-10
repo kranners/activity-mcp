@@ -1,9 +1,6 @@
 import { app, BrowserWindow, ipcMain, Menu } from "electron";
 import { watch } from "fs";
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import { join } from "path";
 
 function createWindow() {
   const win = new BrowserWindow({

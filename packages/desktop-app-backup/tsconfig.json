@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../desktop-app-backup/dist",
+    "rootDir": "../desktop-app-backup/src"
+  }
+}
