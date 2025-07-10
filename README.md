@@ -7,7 +7,7 @@ A monorepo consisting of a few packages:
 -- Semi-automated workflow scripts.
 
   desktop-app/
--- Tauri wrapper app.
+-- Electron wrapper app.
 
   mcp-server/
 -- Core MCP server.
