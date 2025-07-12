@@ -1,12 +1,12 @@
 /// <reference types="vite-plugin-electron/electron-env" />
 
-import { ElectronAPI } from "./preload"
+import { ElectronAPI } from "./preload";
 
 declare namespace NodeJS {
   interface ProcessEnv {
-    APP_ROOT: string
+    APP_ROOT: string;
     /** /dist/ or /public/ */
-    VITE_PUBLIC: string
+    VITE_PUBLIC: string;
   }
 }
 
