@@ -1,8 +1,5 @@
-import { ElectronAPI } from "../electron/preload";
+import { ElectronAPI } from "@/electron/preload";
 import React, { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/electron-vite.animate.svg";
-import "./App.css";
 
 declare global {
   interface Window {
@@ -25,21 +22,9 @@ function App() {
   });
 
   return (
-    <>
-      <div>
-        <a
-          href="https://electron-vite.github.io"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
+    <div className="flex flex-row justify-center items-center h-screen w-screen bg-red-200">
       <h1>Vite + React</h1>
-      <div className="card">
+      <div>
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
@@ -48,7 +33,7 @@ function App() {
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-    </>
+    </div>
   );
 }
 
