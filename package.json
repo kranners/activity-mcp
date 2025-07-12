@@ -45,5 +45,6 @@
     "packages/mcp-server",
     "packages/client-workflows",
     "packages/slack-oauth"
-  ]
+  ],
+  "packageManager": "pnpm@9.15.4+sha1.ffa0b5c573381e8035b354028ccff97c8e452047"
 }

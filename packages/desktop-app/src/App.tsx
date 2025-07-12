@@ -1,10 +1,28 @@
-import { useState } from 'react'
+import { ElectronAPI } from "../electron/preload";
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/electron-vite.animate.svg'
 import './App.css'
 
+declare global {
+  interface Window {
+    electronAPI: ElectronAPI;
+  }
+}
+
 function App() {
   const [count, setCount] = useState(0)
+
+  const sendPing = () => {
+    const pong = window.electronAPI.ping(count);
+    console.log("ping", pong);
+  };
+
+  useEffect(() => {
+    window.electronAPI.onUpdateCounter((value) => {
+      setCount(count + value);
+    });
+  });
 
   return (
     <>
@@ -21,13 +39,11 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
+        <button onClick={sendPing}>ping</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
