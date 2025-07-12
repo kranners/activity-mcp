@@ -1,0 +1,33 @@
+{
+  "name": "client-workflows",
+  "version": "0.0.0",
+  "description": "Scripts using mcp-use-ts to semi-automate entire workflows",
+  "keywords": [
+    "mcp-use-ts"
+  ],
+  "homepage": "https://github.com/kranners/activity-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/kranners/activity-mcp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kranners/activity-mcp.git"
+  },
+  "license": "GPL-3.0-or-later",
+  "author": "",
+  "type": "commonjs",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@langchain/core": "0.3.58",
+    "@langchain/ollama": "0.2.2",
+    "@langchain/openai": "0.5.11",
+    "dotenv": "16.5.0",
+    "langchain": "^0.3.29",
+    "mcp-use": "^0.1.3"
+  }
+}

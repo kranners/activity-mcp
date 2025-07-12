@@ -1,4 +1,4 @@
-import { run } from "./constants/index.js";
+import { run } from "../constants/index.js";
 
 const runAllPrompts = async () => {
   const clickupUser = await run("Tell me my ClickUp user ID and username.");

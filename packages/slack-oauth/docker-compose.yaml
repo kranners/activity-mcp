@@ -1,0 +1,21 @@
+services:
+  node:
+    image: node
+    ports:
+      - "3000:3000"
+    command:
+      - node
+      - ./dist/index.js
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - ../../node_modules:/app/node_modules
+  ngrok:
+    image: ngrok/ngrok:latest
+    command:
+      - "http"
+      - "http://host.docker.internal:3000"
+    environment:
+      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
+    ports:
+      - 4040:4040
