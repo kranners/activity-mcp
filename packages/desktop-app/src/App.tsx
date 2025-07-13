@@ -129,85 +129,15 @@ function AppContent() {
             <SidebarGroupLabel>Navigation</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                <Collapsible
-                  defaultOpen={chatExpanded}
-                  onOpenChange={setChatExpanded}
-                >
-                  <SidebarMenuItem>
-                    <CollapsibleTrigger asChild>
-                      <SidebarMenuButton
-                        isActive={activeTab === "chat"}
-                        onClick={() => setActiveTab("chat")}
-                      >
-                        <MessageCircle className="h-4 w-4" />
-                        <span>Chat</span>
-                        <ChevronDown className="ml-auto h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-180" />
-                      </SidebarMenuButton>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                      <SidebarMenuSub>
-                        <div className="flex items-center justify-between px-2 py-1">
-                          <span className="text-xs text-muted-foreground">
-                            Conversations
-                          </span>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="h-5 w-5 p-0"
-                          >
-                            <Plus className="h-3 w-3" />
-                          </Button>
-                        </div>
-                        {conversations.map((conversation) => (
-                          <SidebarMenuSubItem key={conversation.id}>
-                            <SidebarMenuSubButton
-                              isActive={
-                                selectedConversation.id === conversation.id
-                              }
-                              onClick={() =>
-                                setSelectedConversation(conversation)
-                              }
-                              className="group"
-                            >
-                              <div className="flex flex-col items-start w-full">
-                                <div className="flex items-center justify-between w-full">
-                                  <span className="font-medium text-sm truncate">
-                                    {conversation.title}
-                                  </span>
-                                  <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                      <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        className="h-4 w-4 p-0 opacity-0 group-hover:opacity-100"
-                                        onClick={(e) => e.stopPropagation()}
-                                      >
-                                        <MoreHorizontal className="h-3 w-3" />
-                                      </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent align="end">
-                                      <DropdownMenuItem>
-                                        <Edit3 className="h-4 w-4 mr-2" />
-                                        Rename
-                                      </DropdownMenuItem>
-                                      <DropdownMenuItem className="text-destructive">
-                                        <Trash2 className="h-4 w-4 mr-2" />
-                                        Delete
-                                      </DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                  </DropdownMenu>
-                                </div>
-                                <p className="text-xs text-muted-foreground truncate w-full text-left">
-                                  {conversation.lastMessage}
-                                </p>
-                              </div>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        ))}
-                      </SidebarMenuSub>
-                    </CollapsibleContent>
-                  </SidebarMenuItem>
-                </Collapsible>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    isActive={activeTab === "chat"}
+                    onClick={() => setActiveTab("chat")}
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    <span>Chat</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
 
                 <SidebarMenuItem>
                   <SidebarMenuButton
