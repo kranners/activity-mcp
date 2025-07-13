@@ -11,6 +11,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@langchain/openai": "^0.5.18",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-collapsible": "^1.1.11",
     "@radix-ui/react-dialog": "^1.1.14",
@@ -22,7 +23,9 @@
     "@radix-ui/react-tooltip": "^1.2.7",
     "@tailwindcss/vite": "^4.1.11",
     "class-variance-authority": "^0.7.1",
+    "dayjs": "^1.11.13",
     "lucide-react": "^0.525.0",
+    "mcp-use": "^0.1.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

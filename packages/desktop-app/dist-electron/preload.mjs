@@ -1,11 +1,13 @@
 "use strict";
 const electron = require("electron");
 const electronAPI = {
-  ping: (count) => {
-    return electron.ipcRenderer.send("ping", count);
+  sendUserMessage: (content) => {
+    return electron.ipcRenderer.send("receiveUserMessage", content);
   },
-  onUpdateCounter: (callback) => {
-    return electron.ipcRenderer.on("update-counter", (_event, value) => callback(value));
+  onReceiveBotMessage: (callback) => {
+    return electron.ipcRenderer.on("bot-message", (_event, content) => {
+      return callback(content);
+    });
   }
 };
 electron.contextBridge.exposeInMainWorld("electronAPI", electronAPI);

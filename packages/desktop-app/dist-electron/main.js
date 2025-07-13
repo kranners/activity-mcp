@@ -20,12 +20,13 @@ function createWindow() {
       label: app.name,
       submenu: [
         {
-          click: () => win.webContents.send("update-counter", 1),
-          label: "Increment"
-        },
-        {
-          click: () => win.webContents.send("update-counter", -1),
-          label: "Decrement"
+          click: () => {
+            return win.webContents.send(
+              "bot-message",
+              "This is a test message!"
+            );
+          },
+          label: "Send test message"
         }
       ]
     }
@@ -48,10 +49,10 @@ app.on("activate", () => {
   }
 });
 app.whenReady().then(() => {
-  ipcMain.on("ping", (event, count) => {
+  ipcMain.on("receiveUserMessage", (event, message) => {
     event.preventDefault();
-    console.log("pong", count);
-    return count;
+    console.log("receiveUserMessage", message);
+    return message;
   });
   createWindow();
 });

@@ -1,85 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Send, Bot, User } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useMessage } from "@/hooks/use-messages";
+import relativeTime from "dayjs/plugin/relativeTime";
+import dayjs from "dayjs";
 
-// Mock chat messages
-const chatMessages = [
-  {
-    id: 1,
-    role: "user",
-    content: "Hello! Can you help me with a React component?",
-    timestamp: "10:30 AM",
-  },
-  {
-    id: 2,
-    role: "bot",
-    content:
-      "Of course! I'd be happy to help you with React components. What specific aspect would you like assistance with?",
-    timestamp: "10:30 AM",
-  },
-  {
-    id: 3,
-    role: "user",
-    content: "I need to create a form with validation",
-    timestamp: "10:32 AM",
-  },
-  {
-    id: 4,
-    role: "bot",
-    content:
-      "Great! For form validation in React, I recommend using libraries like React Hook Form with Zod for schema validation. Would you like me to show you an example?",
-    timestamp: "10:32 AM",
-  },
-  {
-    id: 5,
-    role: "user",
-    content: "Yes, that would be helpful!",
-    timestamp: "10:33 AM",
-  },
-  {
-    id: 6,
-    role: "bot",
-    content:
-      "Here's a basic example of a form with validation using React Hook Form and Zod. This approach provides type safety and excellent developer experience.",
-    timestamp: "10:33 AM",
-  },
-  {
-    id: 7,
-    role: "user",
-    content: "This looks great! How do I handle async validation?",
-    timestamp: "10:35 AM",
-  },
-  {
-    id: 8,
-    role: "bot",
-    content:
-      "For async validation, you can use the resolver pattern with async functions. Here's how you can implement server-side validation checks.",
-    timestamp: "10:35 AM",
-  },
-  {
-    id: 9,
-    role: "user",
-    content: "Can you show me an example with error handling?",
-    timestamp: "10:37 AM",
-  },
-  {
-    id: 10,
-    role: "bot",
-    content:
-      "Here's how you can implement comprehensive error handling in your forms with proper user feedback.",
-    timestamp: "10:37 AM",
-  },
-];
+dayjs.extend(relativeTime);
 
 function ChatPage() {
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = useState<string>("");
+  const { messages, sendUserMessage } = useMessage();
 
   const handleSendMessage = () => {
     if (message.trim()) {
-      // Handle sending message logic here
+      sendUserMessage(message);
       setMessage("");
     }
   };
@@ -89,7 +26,7 @@ function ChatPage() {
       {/* Messages */}
       <div className="flex-1 p-4 overflow-y-auto">
         <div className="space-y-4">
-          {chatMessages.map((msg) => (
+          {messages.map((msg) => (
             <div
               key={msg.id}
               className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
@@ -121,7 +58,7 @@ function ChatPage() {
                         : "text-muted-foreground"
                     }`}
                   >
-                    {msg.timestamp}
+                    {msg.timestamp.format("h:mm a")}
                   </p>
                 </div>
               </div>

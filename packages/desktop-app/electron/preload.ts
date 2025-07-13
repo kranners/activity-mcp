@@ -1,11 +1,13 @@
 import { contextBridge, ipcRenderer } from "electron";
 
 const electronAPI = {
-  ping: (count: number) => {
-    return ipcRenderer.send("ping", count);
+  sendUserMessage: (content: string) => {
+    return ipcRenderer.send("receiveUserMessage", content);
   },
-  onUpdateCounter: (callback: (value: number) => void) => {
-    return ipcRenderer.on("update-counter", (_event, value) => callback(value));
+  onReceiveBotMessage: (callback: (content: string) => void) => {
+    return ipcRenderer.on("bot-message", (_event, content) => {
+      return callback(content);
+    });
   },
 };
 
