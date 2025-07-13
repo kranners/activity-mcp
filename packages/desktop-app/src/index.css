@@ -114,7 +114,40 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+
+  .markdown-content > h1 {
+    @apply scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance;
+  }
+
+  .markdown-content > h2 {
+    @apply scroll-m-20 border-b pb-2 mb-2 text-3xl font-semibold tracking-tight first:mt-0;
+  }
+
+  .markdown-content > h3 {
+    @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+  }
+
+  .markdown-content > h4 {
+    @apply scroll-m-20 text-xl font-semibold tracking-tight;
+  }
+
+  .markdown-content > p {
+    @apply leading-7 [&:not(:first-child)]:mt-6;
+  }
+
+  .markdown-content > ul {
+    @apply my-6 ml-6 list-disc [&>li]:mt-2;
+  }
+
+  .markdown-content > code {
+    @apply bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
+  }
+
+  .markdown-content > hr {
+    @apply bg-border shrink-0 h-px w-full my-4;
   }
 }

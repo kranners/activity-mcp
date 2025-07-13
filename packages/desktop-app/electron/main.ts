@@ -1,7 +1,9 @@
+import "dotenv/config";
 import { app, BrowserWindow, ipcMain } from "electron";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { buildMenu } from "@/electron/menu";
+import { buildMenu } from "./menu";
+import { buildAgent } from "./agent";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -14,8 +16,10 @@ process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
   ? join(join(__dirname, ".."), "public")
   : RENDERER_DIST;
 
-function createWindow() {
-  const win = new BrowserWindow({
+let win: BrowserWindow;
+
+async function createWindow() {
+  win = new BrowserWindow({
     width: 1000,
     height: 600,
     icon: join(process.env.VITE_PUBLIC!, "electron-vite.svg"),
@@ -40,12 +44,14 @@ app.on("activate", () => {
   }
 });
 
-app.whenReady().then(() => {
-  ipcMain.on("receiveUserMessage", (event, message: string) => {
+app.whenReady().then(async () => {
+  const agent = buildAgent();
+
+  ipcMain.on("receiveUserMessage", async (event, message: string) => {
     event.preventDefault();
 
-    console.log("receiveUserMessage", message);
-    return message;
+    const result = await agent.run(message);
+    win.webContents.send("bot-message", result);
   });
 
   createWindow();

@@ -7,6 +7,8 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useMessage } from "@/hooks/use-messages";
 import relativeTime from "dayjs/plugin/relativeTime";
 import dayjs from "dayjs";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 dayjs.extend(relativeTime);
 
@@ -50,7 +52,11 @@ function ChatPage() {
                       : "bg-muted"
                   }`}
                 >
-                  <p className="text-sm">{msg.content}</p>
+                  <div className="text-sm markdown-content">
+                    <Markdown remarkPlugins={[remarkGfm]}>
+                      {msg.content}
+                    </Markdown>
+                  </div>
                   <p
                     className={`text-xs mt-1 ${
                       msg.role === "user"
