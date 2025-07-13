@@ -192,7 +192,7 @@ const buildChannelTypesQuery = ({
   return types.join(",");
 };
 
-export const getAllConversations = async (params: GetAllConversationsInput) => {
+const getAllConversations = async (params: GetAllConversationsInput) => {
   const conversations = await web.conversations.list({
     exclude_archived: !params.includeArchived,
     types: buildChannelTypesQuery(params),

@@ -33,7 +33,7 @@ export type NestedNavItem = NavItem & {
   items?: Omit<NavItem, "items" | "isActive">[];
 };
 
-export type User = {
+type User = {
   name: string;
   email: string;
   avatar: string;

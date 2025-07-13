@@ -4,12 +4,12 @@ export type Page = "chat" | "settings" | "support" | "feedback";
 
 const DEFAULT_PAGE: Page = "chat";
 
-export type PageContextProps = {
+type PageContextProps = {
   page: Page;
   setPage: (page: Page) => void;
 };
 
-export const PageContext = createContext<PageContextProps | null>(null);
+const PageContext = createContext<PageContextProps | null>(null);
 
 export function usePage() {
   const context = useContext(PageContext);

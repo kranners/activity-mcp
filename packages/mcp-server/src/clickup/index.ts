@@ -27,7 +27,7 @@ const DateInMillis = z.preprocess(
   z.string(),
 );
 
-export const Task = z.object({
+const Task = z.object({
   name: z.string(),
   custom_id: z.string().nullable(),
   description: z.string().nullable(),
@@ -45,7 +45,7 @@ export const Task = z.object({
   space: Space,
 });
 
-export const Tasks = z.array(Task);
+const Tasks = z.array(Task);
 
 export type ClickUpTasksAPIInputBody = {
   page?: number;

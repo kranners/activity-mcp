@@ -151,13 +151,13 @@ const Organizer = z.object({
   displayName: z.string().optional(),
 });
 
-export const DateTimeOrDate = z.object({
+const DateTimeOrDate = z.object({
   dateTime: z.string().optional(),
   date: z.string().optional(),
   timeZone: z.string().optional(),
 });
 
-export const Attendee = z.object({
+const Attendee = z.object({
   email: z.string().email(),
   responseStatus: ResponseStatus.optional(),
   displayName: z.string().optional(),
@@ -281,7 +281,7 @@ export const respondToCalendarEvent = async ({
   return Event.parse(updatedEvent);
 };
 
-export const Reminder = z.object({
+const Reminder = z.object({
   method: z.literal("popup"),
   minutes: z.number(),
 });
