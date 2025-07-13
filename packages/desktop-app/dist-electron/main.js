@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, Menu } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -15,28 +15,6 @@ function createWindow() {
       preload: join(__dirname, "preload.mjs")
     }
   });
-  const { items } = Menu.buildFromTemplate([
-    {
-      label: app.name,
-      submenu: [
-        {
-          click: () => {
-            return win.webContents.send(
-              "bot-message",
-              "This is a test message!"
-            );
-          },
-          label: "Send test message"
-        }
-      ]
-    }
-  ]);
-  const menu = Menu.getApplicationMenu();
-  if (menu === null) {
-    throw new Error("The existing menu was somehow null!");
-  }
-  items.forEach((item) => menu.append(item));
-  Menu.setApplicationMenu(menu);
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
   } else {
