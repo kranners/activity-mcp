@@ -150,4 +150,8 @@
   .markdown-content > hr {
     @apply bg-border shrink-0 h-px w-full my-4;
   }
+
+  .markdown-content > a {
+    @apply leading-7 text-blue-600 dark:text-blue-500 hover:underline;
+  }
 }

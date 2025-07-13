@@ -34,7 +34,7 @@ function ChatPage() {
               className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`flex space-x-3 max-w-[70%] ${msg.role === "user" ? "flex-row-reverse space-x-reverse" : ""}`}
+                className={`flex space-x-3 max-w-[70%] ${msg.role === "user" ? "flex-row-reverse space-x-reverse" : "max-w-full"}`}
               >
                 <Avatar className="h-8 w-8">
                   <AvatarFallback>
