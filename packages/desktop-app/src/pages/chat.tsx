@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Send,
-  Bot,
-  User,
-} from "lucide-react";
+import { Send, Bot, User } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -78,16 +74,7 @@ const chatMessages = [
   },
 ];
 
-type Conversation = {
-  id: number;
-  title: string;
-  lastMessage: string;
-  timestamp: string;
-}
-
-type ChatPageProps = { selectedConversation: Conversation };
-
-function ChatPage({ selectedConversation }: ChatPageProps) {
+function ChatPage() {
   const [message, setMessage] = React.useState("");
 
   const handleSendMessage = () => {
@@ -99,21 +86,6 @@ function ChatPage({ selectedConversation }: ChatPageProps) {
 
   return (
     <div className="flex flex-col h-full">
-      {/* Chat Header */}
-      <div className="p-4 border-b bg-background">
-        <div className="flex items-center space-x-3">
-          <Avatar className="h-8 w-8">
-            <AvatarFallback>
-              <Bot className="h-4 w-4" />
-            </AvatarFallback>
-          </Avatar>
-          <div>
-            <h3 className="font-semibold">{selectedConversation.title}</h3>
-            <p className="text-sm text-muted-foreground">AI Assistant</p>
-          </div>
-        </div>
-      </div>
-
       {/* Messages */}
       <div className="flex-1 p-4 overflow-y-auto">
         <div className="space-y-4">
@@ -135,17 +107,19 @@ function ChatPage({ selectedConversation }: ChatPageProps) {
                   </AvatarFallback>
                 </Avatar>
                 <div
-                  className={`rounded-lg p-3 ${msg.role === "user"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted"
-                    }`}
+                  className={`rounded-lg p-3 ${
+                    msg.role === "user"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted"
+                  }`}
                 >
                   <p className="text-sm">{msg.content}</p>
                   <p
-                    className={`text-xs mt-1 ${msg.role === "user"
-                      ? "text-primary-foreground/70"
-                      : "text-muted-foreground"
-                      }`}
+                    className={`text-xs mt-1 ${
+                      msg.role === "user"
+                        ? "text-primary-foreground/70"
+                        : "text-muted-foreground"
+                    }`}
                   >
                     {msg.timestamp}
                   </p>
@@ -160,7 +134,7 @@ function ChatPage({ selectedConversation }: ChatPageProps) {
       <div className="p-4 border-t bg-background">
         <div className="flex space-x-2">
           <Textarea
-            placeholder="Type your message..."
+            placeholder="What can you do?"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             className="resize-none"
