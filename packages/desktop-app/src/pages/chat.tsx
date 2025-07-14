@@ -9,6 +9,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import dayjs from "dayjs";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { cn } from "@/lib/utils";
 
 dayjs.extend(relativeTime);
 
@@ -31,10 +32,19 @@ function ChatPage() {
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+              className={cn(
+                "flex",
+                msg.role === "user" && "justify-end",
+                msg.role === "bot" && "justify-start",
+              )}
             >
               <div
-                className={`flex space-x-3 max-w-[70%] ${msg.role === "user" ? "flex-row-reverse space-x-reverse" : "max-w-full"}`}
+                className={cn([
+                  "flex space-x-3",
+                  msg.role === "user" &&
+                    "flex-row-reverse space-x-reverse max-w-[70%]",
+                  msg.role === "bot" && "max-w-full",
+                ])}
               >
                 <Avatar className="h-8 w-8">
                   <AvatarFallback>
@@ -46,11 +56,11 @@ function ChatPage() {
                   </AvatarFallback>
                 </Avatar>
                 <div
-                  className={`rounded-lg p-3 ${
-                    msg.role === "user"
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted"
-                  }`}
+                  className={cn(
+                    "rounded-lg p-3",
+                    msg.role === "user" && "bg-primary text-primary-foreground",
+                    msg.role === "bot" && "bg-muted",
+                  )}
                 >
                   <div className="text-sm markdown-content">
                     <Markdown remarkPlugins={[remarkGfm]}>
@@ -58,11 +68,11 @@ function ChatPage() {
                     </Markdown>
                   </div>
                   <p
-                    className={`text-xs mt-1 ${
-                      msg.role === "user"
-                        ? "text-primary-foreground/70"
-                        : "text-muted-foreground"
-                    }`}
+                    className={cn(
+                      "text-xs mt-1",
+                      msg.role === "user" && "text-primary-foreground/70",
+                      msg.role === "bot" && "text-muted-foreground",
+                    )}
                   >
                     {msg.timestamp.format("h:mm a")}
                   </p>
