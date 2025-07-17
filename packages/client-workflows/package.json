@@ -1,5 +1,6 @@
 {
   "name": "client-workflows",
+  "type": "module",
   "version": "0.0.0",
   "description": "Scripts using mcp-use-ts to semi-automate entire workflows",
   "keywords": [
@@ -15,7 +16,6 @@
   },
   "license": "GPL-3.0-or-later",
   "author": "",
-  "type": "commonjs",
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",

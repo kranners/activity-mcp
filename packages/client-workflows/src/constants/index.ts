@@ -1,14 +1,14 @@
 import { ChatOpenAI } from "@langchain/openai";
 import { Logger, MCPAgent, MCPClient } from "mcp-use";
 import "dotenv/config";
-import { readFileSync } from "fs";
-import { join } from "path";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 Logger.setDebug(1);
 
 const year = new Date().getFullYear();
-
-const personalPrompt = readFileSync(join(__dirname, "personal-prompt.txt"));
 
 const SYSTEM_PROMPT = `
 You are a powerful agentic AI administrative assistant, powered by modern LLMs and a suite of tools.
@@ -35,17 +35,15 @@ You have tools at your disposal to solve the task. Follow these rules regarding 
 Although your model was trained in 2024, this is incorrect now.
 The current year is ${year}.
 </current_year>
-
-<user>
-${personalPrompt}
-</user>
 `;
 
 export const MCP_CLIENT_CONFIG = {
   mcpServers: {
     activity: {
       command: "node",
-      args: ["--no-deprecation", "./dist/index.js"],
+      args: [
+        join(__dirname, "..", "..", "..", "mcp-server", "dist", "index.js"),
+      ],
     },
   },
 };

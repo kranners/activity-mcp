@@ -1,8 +1,8 @@
 import { run } from "../constants/index.js";
 
-const dayForTimesheet = process.argv[2];
-
-const generateTimesheetSupportingInformation = async () => {
+const generateTimesheetSupportingInformation = async (
+  dayForTimesheet: string,
+) => {
   const desktopActivity = run(`
     Please summarize my desktop activity for ${dayForTimesheet} between 9am and 10pm.
   
@@ -58,8 +58,9 @@ const generateTimesheetSupportingInformation = async () => {
   });
 };
 
-const generateAndSubmitTimesheet = async () => {
-  const supporting = await generateTimesheetSupportingInformation();
+const generateAndSubmitTimesheet = async (dayForTimesheet: string) => {
+  const supporting =
+    await generateTimesheetSupportingInformation(dayForTimesheet);
   const { desktopActivity, calendarEvents, relatedTickets } = supporting;
 
   await run(`
@@ -90,17 +91,34 @@ const generateAndSubmitTimesheet = async () => {
     ${desktopActivity}
     --- END DESKTOP ACTIVITY ---
 
+    <approval>
     JUST submit the timesheet via Harvest.
     DO NOT ask for approval.
+    </approval>
 
-    ENSURE you create seperate time entries when possible.
-    ENSURE your time entries are for the correct client and project.
-    PREFER time entries to be specific rather than vague.
-    PREFER to refer to ClickUp cards in entries for billable client work.
-    ENSURE ClickUp card references are like <Title> (Custom ID).
-    ALWAYS round time entries to 30 minutes. ie. Do not have a time entry of 18 minutes. Minimum 30.
-    ENSURE time entries sum to 8 hours.
+    <time_entries_format>
+    When making a time entry, ALWAYS:
+    1. Create seperate time entries when possible, instead of merging multiple entries into one.
+    2. Create time entries for the correct client and project.
+    3. Round time entries to the nearest 30 minutes.
+    4. Ensure time entries sum to between 7.5 and 8 hours.
+    5. Refer to the data used nonspecifically. eg. "Refer to git commits" or "Refer to Slack messages"
+    6. Keep descriptions short and sharp. Just what was being worked on and for what.
+    7. Avoid filling in detail where there is none.
+    </time_entries_format
+
+    <projects_and_clients>
+    Meetings which are not related to any particular client should be listed as "Staff meeting".
+
+    Meetings which are related to a client should be listed as billable client time.
+
+    Client time should be billed under "Senior Developer".
+    </projects_and_clients>
   `);
 };
 
-generateAndSubmitTimesheet();
+const DAYS_REQUIRING_TIMESHEET = [];
+
+Promise.all(DAYS_REQUIRING_TIMESHEET.map(generateAndSubmitTimesheet)).then(() =>
+  console.log("finished 🎉"),
+);
