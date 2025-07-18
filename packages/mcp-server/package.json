@@ -1,0 +1,96 @@
+{
+  "name": "mcp-server",
+  "version": "0.0.0",
+  "description": "An MCP server for integrating various services together",
+  "main": "dist/index.js",
+  "bin": {
+    "activity-mcp": "./dist/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint",
+    "test": "jest",
+    "start": "node dist/index.js",
+    "inspect": "mcp-inspector node ./dist/index.js",
+    "inspect:debug": "mcp-inspector node --inspect-brk ./dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "ai"
+  ],
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.15.17",
+    "eslint": "^9.28.0",
+    "jest": "^30.0.0",
+    "jiti": "^2.4.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@api/clickup": "file:.api/apis/clickup",
+    "@google-cloud/local-auth": "^2.1.0",
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "@octokit/graphql": "^8.2.2",
+    "@slack/web-api": "^7.9.2",
+    "better-sqlite3": "^11.10.0",
+    "dotenv": "^16.5.0",
+    "googleapis": "^105.0.0",
+    "zod": "^3.25.28"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "releaseRules": [
+            {
+              "breaking": true,
+              "release": "major"
+            },
+            {
+              "revert": true,
+              "release": "patch"
+            },
+            {
+              "type": "feat",
+              "release": "minor"
+            },
+            {
+              "type": "*",
+              "release": "patch"
+            }
+          ]
+        }
+      ],
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      {
+        "path": "@semantic-release/exec",
+        "prepareCmd": "npm run build"
+      },
+      "@semantic-release/npm",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md",
+            "package.json"
+          ],
+          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ],
+      "@semantic-release/github"
+    ]
+  },
+  "workspaces": [
+    "packages/desktop-app"
+  ]
+}
