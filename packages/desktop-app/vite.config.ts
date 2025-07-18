@@ -8,6 +8,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   resolve: {
     alias: {
+      "@/electron": resolve(__dirname, "./electron"),
       "@": resolve(__dirname, "./src"),
     },
   },

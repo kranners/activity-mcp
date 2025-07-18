@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 
-export type Page = "chat" | "settings" | "support" | "feedback";
+export type Page = "chat" | "settings" | "integrations";
 
 const DEFAULT_PAGE: Page = "chat";
 

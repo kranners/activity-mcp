@@ -12,6 +12,7 @@ import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { usePage } from "@/hooks/use-page";
 import ChatPage from "@/pages/chat";
 import SettingsPage from "@/pages/settings";
+import { IntegrationsPage } from "@/pages/integrations";
 
 export default function App() {
   const { page } = usePage();
@@ -28,6 +29,7 @@ export default function App() {
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           {page === "chat" && <ChatPage />}
           {page === "settings" && <SettingsPage />}
+          {page === "integrations" && <IntegrationsPage />}
         </div>
       </SidebarInset>
     </>

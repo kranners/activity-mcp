@@ -1,111 +1,128 @@
-import * as React from "react";
+import React from "react";
 import {
   Bot,
-  LifeBuoy,
-  LucideIcon,
   MessageCircle,
-  Send,
   Settings2,
+  User,
+  ExternalLink,
 } from "lucide-react";
-
-import { NavMain } from "@/components/nav-main";
-import { NavSecondary } from "@/components/nav-secondary";
-import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Page } from "@/hooks/use-page";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { usePage } from "@/hooks/use-page";
 
-export type NavItem = {
-  title: string;
-  page: Page;
-  icon: LucideIcon;
-  isActive?: boolean;
-};
+// Mock data for conversations
+const conversations = [
+  "Project Planning & Timeline Setup",
+  "Code Review Automation",
+  "Team Standup Summary",
+  "Bug Triage & Priority Analysis",
+  "Documentation Generation",
+  "Performance Optimization Research",
+  "API Integration Planning",
+  "Database Schema Design",
+];
 
-export type NestedNavItem = NavItem & {
-  items?: Omit<NavItem, "items" | "isActive">[];
-};
+function AppSidebar() {
+  const { page, setPage } = usePage();
 
-type User = {
-  name: string;
-  email: string;
-  avatar: string;
-};
-
-type SidebarData = {
-  user: User;
-  navMain: NestedNavItem[];
-  navSecondary: NavItem[];
-};
-
-const SIDEBAR_STATIC_DATA: SidebarData = {
-  user: {
-    name: "nerd",
-    email: "nerd@example.com",
-    avatar: "/vite.svg",
-  },
-  navMain: [
-    {
-      title: "Chat",
-      page: "chat",
-      icon: MessageCircle,
-      isActive: true,
-    },
-    {
-      title: "Settings",
-      page: "settings",
-      icon: Settings2,
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Support",
-      page: "support",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      page: "feedback",
-      icon: Send,
-    },
-  ],
-};
-
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar variant="sidebar" collapsible="icon" {...props}>
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg">
-              <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                <Bot className="size-4" />
-              </div>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">Ally</span>
-                <span className="truncate text-xs">v0.0.0</span>
-              </div>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+    <Sidebar className="border-r">
+      <SidebarHeader className="border-b px-6 py-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
+            <Bot className="h-6 w-6 text-primary-foreground" />
+          </div>
+          <div>
+            <h1 className="text-lg font-semibold">TaskMind AI</h1>
+            <p className="text-xs text-muted-foreground">
+              Intelligent Task Assistant
+            </p>
+          </div>
+        </div>
       </SidebarHeader>
+
       <SidebarContent>
-        <NavMain items={SIDEBAR_STATIC_DATA.navMain} />
-        <NavSecondary
-          items={SIDEBAR_STATIC_DATA.navSecondary}
-          className="mt-auto"
-        />
+        <SidebarGroup>
+          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  onClick={() => setPage("chat")}
+                  isActive={page === "chat"}
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  <span>Chat</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  onClick={() => setPage("integrations")}
+                  isActive={page === "integrations"}
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  <span>Integrations</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  onClick={() => setPage("settings")}
+                  isActive={page === "settings"}
+                >
+                  <Settings2 className="h-4 w-4" />
+                  <span>Settings</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Recent Conversations</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {conversations.slice(0, 6).map((conversation, index) => (
+                <SidebarMenuItem key={index}>
+                  <SidebarMenuButton className="text-xs">
+                    <MessageCircle className="h-3 w-3" />
+                    <span className="truncate">{conversation}</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={SIDEBAR_STATIC_DATA.user} />
+
+      <SidebarFooter className="border-t p-4">
+        <div className="flex items-center gap-3">
+          <Avatar className="h-8 w-8">
+            <AvatarImage src="/placeholder.svg?height=32&width=32" />
+            <AvatarFallback>
+              <User className="h-4 w-4" />
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium truncate">John Doe</p>
+            <p className="text-xs text-muted-foreground truncate">
+              john@example.com
+            </p>
+          </div>
+        </div>
       </SidebarFooter>
     </Sidebar>
   );
 }
+
+export { AppSidebar };
