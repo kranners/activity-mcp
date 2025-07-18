@@ -42,6 +42,7 @@ export const MCP_CLIENT_CONFIG = {
     activity: {
       command: "node",
       args: [join(__dirname, "..", "..", "mcp-server", "dist", "index.js")],
+      env: process.env,
     },
   },
 };
@@ -59,3 +60,5 @@ export const buildAgent = () => {
 
   return agent;
 };
+
+export const agent = buildAgent();

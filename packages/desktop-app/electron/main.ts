@@ -2,8 +2,8 @@ import "dotenv/config";
 import { app, BrowserWindow, ipcMain } from "electron";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { buildMenu } from "./menu";
-import { buildAgent } from "./agent";
+import { attemptToPreloadSlackAuthorization, buildMenu } from "./menu";
+import { agent } from "./agent";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -15,6 +15,14 @@ export const RENDERER_DIST = join(__dirname, "..", "dist");
 process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
   ? join(join(__dirname, ".."), "public")
   : RENDERER_DIST;
+
+export function navigateHome(win: BrowserWindow) {
+  if (VITE_DEV_SERVER_URL) {
+    win.loadURL(VITE_DEV_SERVER_URL);
+  } else {
+    win.loadFile(join(RENDERER_DIST, "index.html"));
+  }
+}
 
 let win: BrowserWindow;
 
@@ -29,12 +37,7 @@ async function createWindow() {
   });
 
   buildMenu(win);
-
-  if (VITE_DEV_SERVER_URL) {
-    win.loadURL(VITE_DEV_SERVER_URL);
-  } else {
-    win.loadFile(join(RENDERER_DIST, "index.html"));
-  }
+  navigateHome(win);
 }
 
 app.on("activate", () => {
@@ -45,14 +48,14 @@ app.on("activate", () => {
 });
 
 app.whenReady().then(async () => {
-  const agent = buildAgent();
-
   ipcMain.on("receiveUserMessage", async (event, message: string) => {
     event.preventDefault();
 
     const result = await agent.run(message);
     win.webContents.send("bot-message", result);
   });
+
+  await attemptToPreloadSlackAuthorization();
 
   createWindow();
 });

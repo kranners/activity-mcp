@@ -20,29 +20,12 @@ const installer = new InstallProvider({
   installationStore: new FileInstallationStore(),
 });
 
-app.get("/slack/install", async (req, res) => {
-  await installer.handleInstallPath(
-    req,
-    res,
-    {},
-    {
-      scopes: [],
-      userScopes: [
-        "channels:history",
-        "channels:read",
-        "groups:history",
-        "groups:read",
-        "im:history",
-        "mpim:history",
-        "mpim:read",
-        "search:read",
-      ],
-    },
-  );
-});
-
 app.get("/slack/oauth_redirect", async (req, res) => {
-  await installer.handleCallback(req, res);
+  await installer.handleCallback(req, res, {
+    async afterInstallation() {
+      return true;
+    },
+  });
 });
 
 app.get("/slack/whoami", async (_req, res) => {
