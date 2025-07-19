@@ -2,10 +2,18 @@ import "dotenv/config";
 import { app, BrowserWindow, ipcMain } from "electron";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { attemptToPreloadSlackAuthorization, buildMenu } from "./menu";
+import { buildMenu } from "./menu";
 import { agent } from "./agent";
+import {
+  startSlackOauthFlow,
+  attemptToPreloadSlackAuthorization,
+  getSlackIntegrationInfo,
+  disconnectSlackIntegration,
+} from "./auth/slack";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const INTEGRATION_POLL_MILLIS = 200;
 
 // 🚧 Use ['ENV_NAME'] avoid vite:define plugin - Vite@2.x
 export const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
@@ -52,10 +60,24 @@ app.whenReady().then(async () => {
     event.preventDefault();
 
     const result = await agent.run(message);
-    win.webContents.send("bot-message", result);
+    win.webContents.send("sendBotMessage", result);
   });
 
-  await attemptToPreloadSlackAuthorization();
+  ipcMain.on("connectSlackIntegration", async (event) => {
+    event.preventDefault();
+
+    await startSlackOauthFlow(win);
+  });
+
+  ipcMain.on("disconnectSlackIntegration", async (event) => {
+    event.preventDefault();
+
+    disconnectSlackIntegration();
+  });
 
   createWindow();
+
+  setInterval(() => getSlackIntegrationInfo(win), INTEGRATION_POLL_MILLIS);
+
+  await attemptToPreloadSlackAuthorization();
 });

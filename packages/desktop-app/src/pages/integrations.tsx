@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Check, ExternalLink, AlertCircle, Clock } from "lucide-react";
-import {
-  SidebarInset,
-} from "@/components/ui/sidebar";
+import { SidebarInset } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -20,7 +18,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SiOpenai, SiGooglegemini, SiSlack, SiGithub, SiClickup, SiGoogle } from '@icons-pack/react-simple-icons';
+import {
+  SiOpenai,
+  SiGooglegemini,
+  SiSlack,
+  SiGithub,
+  SiClickup,
+  SiGoogle,
+} from "@icons-pack/react-simple-icons";
+import { useSlack } from "@/hooks/use-slack";
 
 // Model providers data
 const modelProviders = [
@@ -34,86 +40,76 @@ const modelProviders = [
     avatar: "/placeholder.svg?height=32&width=32",
     models: ["GPT-4", "GPT-3.5 Turbo", "GPT-4 Turbo"],
   },
-  {
-    id: "gemini",
-    name: "Google Gemini",
-    description: "Gemini Pro and Ultra models for advanced AI capabilities",
-    icon: SiGooglegemini,
-    color: "bg-grey-600",
-    connected: false,
-    avatar: null,
-    models: ["Gemini Pro", "Gemini Ultra", "Gemini Flash"],
-  },
+  // {
+  //   id: "gemini",
+  //   name: "Google Gemini",
+  //   description: "Gemini Pro and Ultra models for advanced AI capabilities",
+  //   icon: SiGooglegemini,
+  //   color: "bg-grey-600",
+  //   connected: false,
+  //   avatar: null,
+  //   models: ["Gemini Pro", "Gemini Ultra", "Gemini Flash"],
+  // },
 ];
 
 // Other integrations data
-const integrations = [
-  {
-    id: "slack",
-    name: "Slack",
-    description: "Connect your Slack workspace for seamless team communication",
-    icon: SiSlack,
-    color: "bg-grey-600",
-    connected: true,
-    avatar: "/placeholder.svg?height=32&width=32",
-    userInfo: "Sarah Chen", // Slack display name
-  },
-  {
-    id: "github",
-    name: "GitHub",
-    description: "Integrate with GitHub for code repository management",
-    icon: SiGithub,
-    color: "bg-grey-600",
-    connected: true,
-    avatar: "/placeholder.svg?height=32&width=32",
-    userInfo: "@johndoe", // GitHub username
-  },
-  {
-    id: "clickup",
-    name: "ClickUp",
-    description: "Sync tasks and projects with your ClickUp workspace",
-    icon: SiClickup,
-    color: "bg-grey-600",
-    connected: false,
-    avatar: null,
-  },
-  {
-    id: "harvest",
-    name: "Harvest",
-    description: "Track time and manage projects with Harvest integration",
-    icon: Clock,
-    color: "bg-grey-600",
-    connected: true,
-    avatar: "/placeholder.svg?height=32&width=32",
-  },
-  {
-    id: "google",
-    name: "Google", // Changed from "Google Workspace"
-    description: "Access Google Drive, Calendar, and Gmail",
-    icon: SiGoogle,
-    color: "bg-grey-600",
-    connected: false,
-    avatar: null,
-  },
-];
+// {
+//   id: "github",
+//   name: "GitHub",
+//   description: "Integrate with GitHub for code repository management",
+//   icon: SiGithub,
+//   color: "bg-grey-600",
+//   connected: true,
+//   avatar: "/placeholder.svg?height=32&width=32",
+//   userInfo: "@johndoe",
+// },
+// {
+//   id: "clickup",
+//   name: "ClickUp",
+//   description: "Sync tasks and projects with your ClickUp workspace",
+//   icon: SiClickup,
+//   color: "bg-grey-600",
+//   connected: false,
+//   avatar: null,
+// },
+// {
+//   id: "harvest",
+//   name: "Harvest",
+//   description: "Track time and manage projects with Harvest integration",
+//   icon: Clock,
+//   color: "bg-grey-600",
+//   connected: true,
+//   avatar: "/placeholder.svg?height=32&width=32",
+// },
+// {
+//   id: "google",
+//   name: "Google",
+//   description: "Access Google Drive, Calendar, and Gmail",
+//   icon: SiGoogle,
+//   color: "bg-grey-600",
+//   connected: false,
+//   avatar: null,
+// },
 
 export function IntegrationsPage() {
-  const [connectingService, setConnectingService] = useState<string | null>(
-    null,
-  );
+  const { user, connected, connect, disconnect } = useSlack();
 
-  const handleConnect = async (serviceId: string) => {
-    setConnectingService(serviceId);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setConnectingService(null);
-    // In a real app, you would handle the OAuth flow here
-  };
-
-  const handleDisconnect = async (serviceId: string) => {
-    // Handle disconnection logic
-    console.log(`Disconnecting ${serviceId}`);
-  };
+  const integrations = useMemo(() => {
+    return [
+      {
+        id: "slack",
+        name: "Slack",
+        description: "Connect to Slack to read & send messages.",
+        icon: SiSlack,
+        color: "bg-grey-600",
+        connected,
+        avatar: user?.avatar,
+        userInfo: user?.name,
+        connect,
+        disconnect,
+      },
+    ];
+  }, [connected, user]);
 
   return (
     <SidebarInset>
@@ -205,7 +201,7 @@ export function IntegrationsPage() {
                           variant="outline"
                           size="sm"
                           className="flex-1 bg-transparent"
-                          onClick={() => handleDisconnect(provider.id)}
+                          // onClick={() => handleDisconnect(provider.id)}
                         >
                           Disconnect
                         </Button>
@@ -217,12 +213,10 @@ export function IntegrationsPage() {
                       <Button
                         className="flex-1"
                         size="sm"
-                        onClick={() => handleConnect(provider.id)}
-                        disabled={connectingService === provider.id}
+                        // onClick={() => handleConnect(provider.id)}
+                        // disabled={connectingService === provider.id}
                       >
-                        {connectingService === provider.id
-                          ? "Connecting..."
-                          : "Connect"}
+                        Connect
                       </Button>
                     )}
                   </div>
@@ -238,7 +232,7 @@ export function IntegrationsPage() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {integrations.map((integration) => (
               <Card key={integration.id} className="relative">
-                <CardHeader className="pb-4">
+                <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
                       <div
@@ -290,7 +284,7 @@ export function IntegrationsPage() {
                           variant="outline"
                           size="sm"
                           className="flex-1 bg-transparent"
-                          onClick={() => handleDisconnect(integration.id)}
+                          onClick={integration.disconnect}
                         >
                           Disconnect
                         </Button>
@@ -302,12 +296,9 @@ export function IntegrationsPage() {
                       <Button
                         className="flex-1"
                         size="sm"
-                        onClick={() => handleConnect(integration.id)}
-                        disabled={connectingService === integration.id}
+                        onClick={integration.connect}
                       >
-                        {connectingService === integration.id
-                          ? "Connecting..."
-                          : "Connect"}
+                        Connect
                       </Button>
                     )}
                   </div>
@@ -330,6 +321,5 @@ export function IntegrationsPage() {
         </div>
       </main>
     </SidebarInset>
-
   );
 }

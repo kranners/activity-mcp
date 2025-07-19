@@ -44,10 +44,8 @@ function AppSidebar() {
             <Bot className="h-6 w-6 text-primary-foreground" />
           </div>
           <div>
-            <h1 className="text-lg font-semibold">TaskMind AI</h1>
-            <p className="text-xs text-muted-foreground">
-              Intelligent Task Assistant
-            </p>
+            <h1 className="text-lg font-semibold">Ally</h1>
+            <p className="text-xs text-muted-foreground">v0</p>
           </div>
         </div>
       </SidebarHeader>
