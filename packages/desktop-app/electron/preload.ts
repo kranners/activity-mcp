@@ -1,3 +1,4 @@
+import { StreamEvent } from "mcp-use";
 import { SlackUserInfo } from "./auth/slack";
 import { contextBridge, ipcRenderer } from "electron";
 
@@ -5,9 +6,9 @@ const electronAPI = {
   sendUserMessage: (content: string) => {
     return ipcRenderer.send("receiveUserMessage", content);
   },
-  onReceiveBotMessage: (callback: (content: string) => void) => {
-    return ipcRenderer.on("sendBotMessage", (_event, content) => {
-      return callback(content);
+  onReceiveBotEvent: (callback: (event: StreamEvent) => void) => {
+    return ipcRenderer.on("sendBotEvent", (_electronEvent, event) => {
+      return callback(event);
     });
   },
   connectSlackIntegration: () => {

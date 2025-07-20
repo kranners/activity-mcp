@@ -1,4 +1,5 @@
 import dayjs, { Dayjs } from "dayjs";
+import { StreamEvent } from "mcp-use";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type Message = {
@@ -47,17 +48,36 @@ export function MessageProvider({
     window.electronAPI.sendUserMessage(content);
   };
 
-  useEffect(() => {
-    window.electronAPI.onReceiveBotMessage((content: string) => {
-      const message: Message = {
-        id: messages.length,
-        role: "bot",
-        content,
-        timestamp: dayjs(),
-      };
+  const handleBotEvent = (event: StreamEvent) => {
+    const { input, output, chunk } = event.data;
 
-      appendMessage(message);
-    });
+    function getGenericEventContent() {
+      return `### ${event.event}\n\n${JSON.stringify({ output, chunk }, null, 2)}`;
+    }
+
+    function getToolCallEventContent() {
+      return `### tool call ${event.name}\n\n${JSON.stringify({ input, output }, null, 2)}`;
+    }
+
+    const eventIsAToolCall =
+      event.event === "on_tool_start" || event.event === "on_tool_end";
+
+    const content = eventIsAToolCall
+      ? getToolCallEventContent()
+      : getGenericEventContent();
+
+    const message: Message = {
+      id: messages.length,
+      role: "bot",
+      content,
+      timestamp: dayjs(),
+    };
+
+    appendMessage(message);
+  };
+
+  useEffect(() => {
+    window.electronAPI.onReceiveBotEvent(handleBotEvent);
   });
 
   return (

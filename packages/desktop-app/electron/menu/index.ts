@@ -8,7 +8,7 @@ export function buildMenu(win: BrowserWindow) {
         {
           click: () => {
             return win.webContents.send(
-              "sendBotMessage",
+              "sendBotEvent",
               "This is a test message!",
             );
           },

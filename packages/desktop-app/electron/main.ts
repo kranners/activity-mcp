@@ -64,20 +64,20 @@ app.on("before-quit", () => {
 app.whenReady().then(async () => {
   ipcMain.on("receiveUserMessage", async (event, message: string) => {
     event.preventDefault();
+    const stream = agent.streamEvents(message);
 
-    const result = await agent.run(message);
-    win.webContents.send("sendBotMessage", result);
+    for await (const event of stream) {
+      win.webContents.send("sendBotEvent", event);
+    }
   });
 
   ipcMain.on("connectSlackIntegration", async (event) => {
     event.preventDefault();
-
     await startSlackOauthFlow(win);
   });
 
-  ipcMain.on("disconnectSlackIntegration", async (event) => {
+  ipcMain.on("disconnectSlackIntegration", (event) => {
     event.preventDefault();
-
     disconnectSlackIntegration();
   });
 
