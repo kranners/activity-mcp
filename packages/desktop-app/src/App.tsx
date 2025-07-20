@@ -10,8 +10,8 @@ declare global {
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { usePage } from "@/hooks/use-page";
-import ChatPage from "@/pages/chat";
-import SettingsPage from "@/pages/settings";
+import { ChatPage } from "@/pages/chat";
+import { SettingsPage } from "@/pages/settings";
 import { IntegrationsPage } from "@/pages/integrations";
 
 export default function App() {

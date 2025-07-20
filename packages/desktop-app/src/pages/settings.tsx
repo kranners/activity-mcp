@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 import React from "react";
 
-function SettingsPage() {
+export function SettingsPage() {
   const [darkMode, setDarkMode] = React.useState(false);
 
   // Environment variables state
@@ -439,5 +439,3 @@ function SettingsPage() {
     </div>
   );
 }
-
-export default SettingsPage;

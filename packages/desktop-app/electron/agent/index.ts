@@ -57,7 +57,7 @@ export const buildAgent = () => {
     maxSteps: 30,
     systemPrompt: SYSTEM_PROMPT,
     // Verbose is needed to ensure everything is sent as fully-formed events.
-    verbose: true,
+    verbose: false,
   });
 
   return agent;
