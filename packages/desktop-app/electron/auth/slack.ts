@@ -177,9 +177,9 @@ export function disconnectSlackIntegration() {
   const installationFileContents = readFileSync(INSTALLATION_CONFIG_PATH);
   const installationQuery = JSON.parse(installationFileContents.toString());
 
-  process.env.SLACK_USER_TOKEN = undefined;
-  process.env.SLACK_USER_NAME = undefined;
-  process.env.SLACK_USER_AVATAR = undefined;
+  delete process.env.SLACK_USER_TOKEN;
+  delete process.env.SLACK_USER_NAME;
+  delete process.env.SLACK_USER_AVATAR;
 
   installer.installationStore.deleteInstallation?.(installationQuery);
   unlinkSync(INSTALLATION_CONFIG_PATH);

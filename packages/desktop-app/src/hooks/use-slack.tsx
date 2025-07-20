@@ -34,7 +34,12 @@ export function SlackProvider({
   const [connected, setConnected] = useState<boolean>(false);
 
   const connect = () => window.electronAPI.connectSlackIntegration();
-  const disconnect = () => window.electronAPI.disconnectSlackIntegration();
+  const disconnect = () => {
+    setUser(undefined);
+    setConnected(false);
+
+    window.electronAPI.disconnectSlackIntegration();
+  };
 
   useEffect(() => {
     window.electronAPI.onReceiveSlackIntegration((newUser?: SlackUserInfo) => {
@@ -48,8 +53,6 @@ export function SlackProvider({
       if (newUser === user) {
         return;
       }
-
-      console.log("Setting the user!");
 
       setUser(newUser);
       setConnected(true);

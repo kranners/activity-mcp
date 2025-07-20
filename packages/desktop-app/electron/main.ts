@@ -48,11 +48,17 @@ async function createWindow() {
   navigateHome(win);
 }
 
+let slackTimeout: NodeJS.Timeout;
+
 app.on("activate", () => {
   // Recreate window on dock activation in MacOS
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
+});
+
+app.on("before-quit", () => {
+  slackTimeout.close();
 });
 
 app.whenReady().then(async () => {
@@ -77,7 +83,10 @@ app.whenReady().then(async () => {
 
   createWindow();
 
-  setInterval(() => getSlackIntegrationInfo(win), INTEGRATION_POLL_MILLIS);
+  slackTimeout = setInterval(
+    () => getSlackIntegrationInfo(win),
+    INTEGRATION_POLL_MILLIS,
+  );
 
   await attemptToPreloadSlackAuthorization();
 });
