@@ -65,9 +65,12 @@ app.whenReady().then(async () => {
   ipcMain.on("receiveUserMessage", async (event, message: string) => {
     event.preventDefault();
     const stream = agent.streamEvents(message);
+    const events: Record<string, number> = {};
 
     for await (const event of stream) {
       win.webContents.send("sendBotEvent", event);
+      const eventTypeCount = events[event.event] ?? 0;
+      events[event.event] = eventTypeCount + 1;
     }
   });
 

@@ -1,5 +1,12 @@
 import { StreamEvent } from "mcp-use";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { z, ZodError } from "zod";
 
 import {
   Clock,
@@ -30,7 +37,7 @@ export const TOOL_TO_SPLASH = {
   },
   getSlackMessages: {
     description: "Fetching Slack messages",
-    icon: MessageSquare,
+    icon: SiSlack,
   },
   getClickUpUser: {
     description: "Getting ClickUp user info",
@@ -38,7 +45,7 @@ export const TOOL_TO_SPLASH = {
   },
   getClickUpTasks: {
     description: "Fetching ClickUp tasks",
-    icon: CheckSquare,
+    icon: SiClickup,
   },
   getDesktopActivitiesForTimeRange: {
     description: "Getting desktop activities",
@@ -153,15 +160,14 @@ export function useMessages() {
   return context;
 }
 
+const events: Record<string, number> = {};
+
 export function MessageProvider({
   children,
   ...props
 }: React.ComponentProps<"div">) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
-  const [streamingMessages, setStreamingMessages] = useState<
-    Map<string, Message>
-  >(new Map());
 
   const sendUserMessage = (content: string) => {
     if (!content.trim()) return;
@@ -179,124 +185,131 @@ export function MessageProvider({
   };
 
   const handleBotEvent = (event: StreamEvent) => {
-    console.log("handling event", JSON.stringify(event));
+    const eventTypeCount = events[event.event] ?? 0;
+    events[event.event] = eventTypeCount + 1;
 
     if (event.event === "on_chain_start") {
-      // Agent starts executing - show thinking state
       setIsTyping(true);
     }
 
     if (event.event === "on_chain_end") {
-      // Agent starts executing - show thinking state
       setIsTyping(false);
+
+      // setMessages((prev) =>
+      //   prev.map((msg) => {
+      //     if (msg.isStreaming) {
+      //       return {
+      //         ...msg,
+      //         content: msg.streamedContent || msg.content,
+      //         isStreaming: false,
+      //       };
+      //     }
+      //
+      //     return msg;
+      //   }),
+      // );
     }
 
     if (event.event === "on_tool_start") {
-      // Tool starts executing
-      const toolStartId = `tool-${Date.now()}-${event.name}`;
+      const toolId = `tool-${Date.now()}-${event.name}`;
       const { icon, description } = getToolDisplay(event.name);
 
-      const pendingToolCall: Message = {
-        id: toolStartId,
+      const toolCallMessage: Message = {
+        id: toolId,
         type: "tool-call",
         content: "",
         toolCall: {
-          id: toolStartId,
+          id: toolId,
           name: event.name,
-          arguments: event.data.input || {},
+          arguments: event.data.input.input || {},
           icon,
           description,
           status: "pending",
         },
         timestamp: new Date(),
       };
-      setMessages((prev) => [...prev, pendingToolCall]);
+
+      setMessages((prev) => [...prev, toolCallMessage]);
     }
 
+    // Handle tool end events
     if (event.event === "on_tool_end") {
-      // Tool finishes executing
-      setMessages((prev) =>
-        prev.map((msg) =>
-          msg.toolCall &&
-          msg.toolCall.name === event.name &&
-          msg.toolCall.status === "pending"
-            ? {
-                ...msg,
-                toolCall: {
-                  ...msg.toolCall,
-                  status: "completed" as const,
-                  result: event.data.output,
-                },
-              }
-            : msg,
-        ),
-      );
+      setMessages((prev) => {
+        const pending = prev.find((message) => {
+          return (
+            message.toolCall &&
+            message.toolCall.name === event.name &&
+            message.toolCall.status === "pending"
+          );
+        });
+
+        if (pending === undefined) {
+          throw new Error(
+            "An on_tool_end event was received with no equivalent on_tool_start!",
+          );
+        }
+
+        if (pending.toolCall?.id === undefined) {
+          throw new Error("An on_tool_start event didn't have an ID!");
+        }
+
+        const updatedToolCall: Message = {
+          ...pending,
+          toolCall: {
+            ...pending.toolCall,
+            status: "completed" as const,
+            result: event.data.output,
+          },
+        };
+
+        return [...prev.slice(0, -1), updatedToolCall];
+      });
     }
 
-    if (event.event === "on_chat_model_stream") {
-      // Handle streaming chunks
-      if (event.data.chunk) {
-        const { id: chunkId, content: chunkContent } = event.data.chunk;
+    // Handle streaming events
+    if (event.event === "on_chat_model_stream" && event.data.chunk) {
+      const { id: chunkId, content: chunkContent } = event.data.chunk;
 
-        setStreamingMessages((prev) => {
-          const existing = prev.get(chunkId);
-          if (existing) {
-            // Append to existing message
-            const updatedContent =
-              (existing.streamedContent || "") + chunkContent;
-            const updatedMessage = {
-              ...existing,
-              streamedContent: updatedContent,
-              isStreaming: true,
-            };
-            return new Map(prev.set(chunkId, updatedMessage));
-          } else {
-            // Create new streaming message
-            const newMessage: Message = {
-              id: chunkId,
-              type: "assistant-result" as const,
-              content: "",
-              timestamp: new Date(),
-              isStreaming: true,
-              streamedContent: chunkContent,
-            };
-            return new Map(prev.set(chunkId, newMessage));
-          }
-        });
-
-        // Update the main messages array
-        setMessages((prev) => {
-          const existingIndex = prev.findIndex((msg) => msg.id === chunkId);
-          const streamingMessage = streamingMessages.get(chunkId);
-
-          if (existingIndex >= 0 && streamingMessage) {
-            // Update existing message
-            const updated = [...prev];
-            updated[existingIndex] = {
-              ...streamingMessage,
-              streamedContent:
-                (streamingMessage.streamedContent || "") + chunkContent,
-            };
-            return updated;
-          } else {
-            // Add new streaming message
-            const newMessage: Message = {
-              id: chunkId,
-              type: "assistant-result",
-              content: "",
-              timestamp: new Date(),
-              isStreaming: true,
-              streamedContent: chunkContent,
-            };
-            return [...prev, newMessage];
-          }
-        });
+      // Skip empty content chunks
+      if (!chunkContent) {
+        return;
       }
+
+      setMessages((prev) => {
+        const existing = prev.find((message) => message.id === chunkId);
+
+        if (existing) {
+          const currentContent = existing.streamedContent || "";
+
+          const updated: Message = {
+            ...existing,
+            streamedContent: currentContent + chunkContent,
+            isStreaming: true,
+          };
+
+          return [...prev.slice(0, -1), updated];
+        }
+
+        const newStreamingMessage: Message = {
+          id: chunkId,
+          type: "assistant-result",
+          content: "",
+          timestamp: new Date(),
+          isStreaming: true,
+          streamedContent: chunkContent,
+        };
+
+        return [...prev, newStreamingMessage];
+      });
     }
   };
 
   useEffect(() => {
     window.electronAPI.onReceiveBotEvent(handleBotEvent);
+
+    return () => {
+      window.electronAPI.removeAllListeners("sendBotEvent");
+    };
   });
 
   return (

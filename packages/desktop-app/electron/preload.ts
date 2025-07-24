@@ -22,6 +22,9 @@ const electronAPI = {
       return callback(user);
     });
   },
+  removeAllListeners: (channel: string) => {
+    return ipcRenderer.removeAllListeners(channel);
+  },
 };
 
 contextBridge.exposeInMainWorld("electronAPI", electronAPI);

@@ -143,6 +143,9 @@ importers:
       utf-8-validate:
         specifier: ^6.0.5
         version: 6.0.5
+      zod:
+        specifier: ^3.25.28
+        version: 3.25.76
     devDependencies:
       '@eslint/js':
         specifier: ^9.28.0
