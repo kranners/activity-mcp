@@ -1,22 +1,7 @@
 import { StreamEvent } from "mcp-use";
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { z, ZodError } from "zod";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-import {
-  Clock,
-  MessageSquare,
-  CheckSquare,
-  Monitor,
-  Timer,
-  GitBranch,
-  Zap,
-} from "lucide-react";
+import { Clock, Monitor, Timer, GitBranch, Zap } from "lucide-react";
 
 import {
   SiSlack,

@@ -42,7 +42,7 @@ function ChatPage() {
                 className={cn([
                   "flex space-x-3",
                   msg.role === "user" &&
-                  "flex-row-reverse space-x-reverse max-w-[70%]",
+                    "flex-row-reverse space-x-reverse max-w-[70%]",
                   msg.role === "bot" && "max-w-full",
                 ])}
               >

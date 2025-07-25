@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
 import ReactJsonView from "@microlink/react-json-view";
+import { cn } from "@/lib/utils";
 
 const PENDING_CARD_ANIMATION = {
   y: [-2, 2, -2],
@@ -87,9 +88,11 @@ const JsonView = ({ src }: { src: object | string }) => {
   }, [src]);
 
   if (typeof toDisplay === "string") {
-    return <pre className="text-xs bg-gray-800 text-blue-400 p-3 rounded overflow-x-auto">
-      {toDisplay}
-    </pre>
+    return (
+      <pre className="text-xs bg-gray-800 text-blue-400 p-3 rounded overflow-x-auto">
+        {toDisplay}
+      </pre>
+    );
   }
 
   return (
@@ -98,21 +101,18 @@ const JsonView = ({ src }: { src: object | string }) => {
       iconStyle="circle"
       theme="ocean"
       indentWidth={2}
-
       style={{
         padding: "calc(var(--spacing) * 4)",
         borderRadius: "var(--radius-sm)",
       }}
-
       displayObjectSize
-
       enableClipboard={false}
       displayDataTypes={false}
-      collapsed={false}
+      collapsed
       collapseStringsAfterLength={false}
     />
   );
-}
+};
 
 export const ToolCallMessage = ({
   toolCall,
@@ -185,18 +185,22 @@ export const ToolCallMessage = ({
       <div>
         <motion.div animate={cardAnimation} transition={cardTransition}>
           <Card
-            className={`p-4 transition-all duration-700 border-l-4 cursor-pointer ${isPending
-              ? "border-l-orange-400 bg-gradient-to-r from-orange-50/80 to-amber-50/60"
-              : "hover:bg-muted/50 border-l-blue-500 bg-gradient-to-r from-blue-50/80 to-indigo-50/60 hover:shadow-md"
-              }`}
+            className={cn(
+              "p-4 transition-all duration-700 border-l-4 cursor-pointer",
+              isPending
+                ? "border-l-orange-400 bg-gradient-to-r from-orange-50/80 to-amber-50/60"
+                : "hover:bg-muted/50 border-l-blue-500 bg-gradient-to-r from-blue-50/80 to-indigo-50/60 hover:shadow-md",
+            )}
             onClick={() => !isPending && setIsOpen(!isOpen)}
           >
             <div className="flex items-center gap-3">
               <motion.div
-                className={`p-2 rounded-full ${isPending
-                  ? "bg-gradient-to-br from-orange-100 to-amber-100"
-                  : "bg-gradient-to-br from-blue-100 to-indigo-100"
-                  }`}
+                className={cn(
+                  "p-2 rounded-full",
+                  isPending
+                    ? "bg-gradient-to-br from-orange-100 to-amber-100"
+                    : "bg-gradient-to-br from-blue-100 to-indigo-100",
+                )}
                 animate={iconAnimation}
                 transition={iconTransition}
               >
@@ -217,7 +221,10 @@ export const ToolCallMessage = ({
               </motion.div>
               <div className="flex-1">
                 <motion.p
-                  className={`text-sm font-medium ${isPending ? "text-orange-900" : "text-blue-900"}`}
+                  className={cn(
+                    "text-sm font-medium",
+                    isPending ? "text-orange-900" : "text-blue-900",
+                  )}
                   animate={textAnimation}
                   transition={textTransition}
                 >

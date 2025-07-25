@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from "react";
-import { Check, ExternalLink, AlertCircle, Clock } from "lucide-react";
+import React, { useMemo } from "react";
+import { Check, ExternalLink, AlertCircle } from "lucide-react";
 import { SidebarInset } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,15 +18,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  SiOpenai,
-  SiGooglegemini,
-  SiSlack,
-  SiGithub,
-  SiClickup,
-  SiGoogle,
-} from "@icons-pack/react-simple-icons";
+import { SiOpenai, SiSlack } from "@icons-pack/react-simple-icons";
 import { useSlack } from "@/hooks/use-slack";
+import { cn } from "@/lib/utils";
 
 // Model providers data
 const modelProviders = [
@@ -160,7 +154,10 @@ export function IntegrationsPage() {
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
                       <div
-                        className={`flex h-10 w-10 items-center justify-center rounded-lg ${provider.color}`}
+                        className={cn(
+                          "flex h-10 w-10 items-center justify-center rounded-lg",
+                          provider.color,
+                        )}
                       >
                         <provider.icon />
                       </div>
@@ -236,7 +233,10 @@ export function IntegrationsPage() {
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
                       <div
-                        className={`flex h-10 w-10 items-center justify-center rounded-lg ${integration.color}`}
+                        className={cn(
+                          "flex h-10 w-10 items-center justify-center rounded-lg",
+                          integration.color,
+                        )}
                       >
                         <integration.icon />
                       </div>
