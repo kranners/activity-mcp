@@ -195,19 +195,19 @@ export function MessageProvider({
     if (event.event === "on_chain_end") {
       setIsTyping(false);
 
-      // setMessages((prev) =>
-      //   prev.map((msg) => {
-      //     if (msg.isStreaming) {
-      //       return {
-      //         ...msg,
-      //         content: msg.streamedContent || msg.content,
-      //         isStreaming: false,
-      //       };
-      //     }
-      //
-      //     return msg;
-      //   }),
-      // );
+      setMessages((prev) =>
+        prev.map((msg) => {
+          if (msg.isStreaming) {
+            return {
+              ...msg,
+              content: msg.streamedContent || msg.content,
+              isStreaming: false,
+            };
+          }
+
+          return msg;
+        }),
+      );
     }
 
     if (event.event === "on_tool_start") {

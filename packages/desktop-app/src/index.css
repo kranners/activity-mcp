@@ -136,11 +136,19 @@
   }
 
   .markdown-content > p {
-    @apply leading-7 [&:not(:first-child)]:mt-6;
+    @apply leading-7 [&:not(:first-child)]:mt-6 text-gray-700 inline-block;
   }
 
   .markdown-content > ul {
-    @apply my-6 ml-6 list-disc [&>li]:mt-2;
+    @apply my-6 ml-6 list-disc [&>li]:mt-2 space-y-1;
+  }
+
+  .markdown-content > ol {
+    @apply my-6 ml-6 list-decimal [&>li]:mt-2 space-y-1;
+  }
+
+  .markdown-content > li {
+    @apply text-gray-700;
   }
 
   .markdown-content > code {
@@ -153,5 +161,21 @@
 
   .markdown-content > a {
     @apply leading-7 text-blue-600 dark:text-blue-500 hover:underline;
+  }
+
+  .markdown-content > pre {
+    @apply bg-gray-800 text-green-400 p-3 rounded overflow-x-auto mb-3;
+  }
+
+  .markdown-content > blockquote {
+    @apply border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-3;
+  }
+
+  .markdown-content > strong {
+    @apply font-semibold text-gray-900;
+  }
+
+  .markdown-content > em {
+    @apply italic text-gray-700;
   }
 }
