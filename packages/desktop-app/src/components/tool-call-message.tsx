@@ -3,6 +3,7 @@ import { ToolCall } from "@/hooks/use-messages";
 import { AnimatePresence, motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
+import ReactJsonView from "@microlink/react-json-view";
 
 const PENDING_CARD_ANIMATION = {
   y: [-2, 2, -2],
@@ -70,6 +71,48 @@ const PENDING_TEXT_TRANSITION = {
   repeat: Number.POSITIVE_INFINITY,
   ease: "easeInOut" as const,
 };
+
+const JsonView = ({ src }: { src: object | string }) => {
+  const toDisplay = useMemo(() => {
+    if (typeof src === "object") {
+      return src;
+    }
+
+    try {
+      return JSON.parse(src);
+    } catch (e) {
+      console.warn("Got non-JSON response from MCP tool", e);
+      return src;
+    }
+  }, [src]);
+
+  if (typeof toDisplay === "string") {
+    return <pre className="text-xs bg-gray-800 text-blue-400 p-3 rounded overflow-x-auto">
+      {toDisplay}
+    </pre>
+  }
+
+  return (
+    <ReactJsonView
+      src={toDisplay}
+      iconStyle="circle"
+      theme="ocean"
+      indentWidth={2}
+
+      style={{
+        padding: "calc(var(--spacing) * 4)",
+        borderRadius: "var(--radius-sm)",
+      }}
+
+      displayObjectSize
+
+      enableClipboard={false}
+      displayDataTypes={false}
+      collapsed={false}
+      collapseStringsAfterLength={false}
+    />
+  );
+}
 
 export const ToolCallMessage = ({
   toolCall,
@@ -142,20 +185,18 @@ export const ToolCallMessage = ({
       <div>
         <motion.div animate={cardAnimation} transition={cardTransition}>
           <Card
-            className={`p-4 transition-all duration-700 border-l-4 cursor-pointer ${
-              isPending
-                ? "border-l-orange-400 bg-gradient-to-r from-orange-50/80 to-amber-50/60"
-                : "hover:bg-muted/50 border-l-blue-500 bg-gradient-to-r from-blue-50/80 to-indigo-50/60 hover:shadow-md"
-            }`}
+            className={`p-4 transition-all duration-700 border-l-4 cursor-pointer ${isPending
+              ? "border-l-orange-400 bg-gradient-to-r from-orange-50/80 to-amber-50/60"
+              : "hover:bg-muted/50 border-l-blue-500 bg-gradient-to-r from-blue-50/80 to-indigo-50/60 hover:shadow-md"
+              }`}
             onClick={() => !isPending && setIsOpen(!isOpen)}
           >
             <div className="flex items-center gap-3">
               <motion.div
-                className={`p-2 rounded-full ${
-                  isPending
-                    ? "bg-gradient-to-br from-orange-100 to-amber-100"
-                    : "bg-gradient-to-br from-blue-100 to-indigo-100"
-                }`}
+                className={`p-2 rounded-full ${isPending
+                  ? "bg-gradient-to-br from-orange-100 to-amber-100"
+                  : "bg-gradient-to-br from-blue-100 to-indigo-100"
+                  }`}
                 animate={iconAnimation}
                 transition={iconTransition}
               >
@@ -226,10 +267,7 @@ export const ToolCallMessage = ({
               initial={{ opacity: 0, height: 0, y: -10 }}
               animate={{ opacity: 1, height: "auto", y: 0 }}
               exit={{ opacity: 0, height: 0, y: -10 }}
-              transition={{
-                duration: 0.4,
-                ease: [0.4, 0, 0.2, 1],
-              }}
+              transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
               className="mt-2 overflow-hidden"
             >
               <motion.div
@@ -252,18 +290,14 @@ export const ToolCallMessage = ({
                       <h4 className="text-sm font-semibold text-gray-700 mb-2">
                         Arguments
                       </h4>
-                      <pre className="text-xs bg-gray-800 text-green-400 p-3 rounded">
-                        {JSON.stringify(toolCall.arguments, null, 2)}
-                      </pre>
+                      <JsonView src={toolCall.arguments} />
                     </div>
                     {toolCall.result && (
                       <div>
                         <h4 className="text-sm font-semibold text-gray-700 mb-2">
                           Result
                         </h4>
-                        <pre className="text-xs bg-gray-800 text-blue-400 p-3 rounded overflow-x-auto">
-                          {JSON.stringify(toolCall.result, null, 2)}
-                        </pre>
+                        <JsonView src={toolCall.result} />
                       </div>
                     )}
                   </div>

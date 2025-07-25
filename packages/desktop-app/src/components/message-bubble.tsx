@@ -9,6 +9,7 @@ import remarkGfm from "remark-gfm";
 
 import { ToolCallMessage } from "@/components/tool-call-message";
 import { StreamingText } from "@/components/streaming-text";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const MessageBubble = ({
   message,
@@ -39,9 +40,8 @@ const MessageBubble = ({
     >
       {!isUser && (
         <div
-          className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-            isThought ? "bg-gray-200" : "bg-blue-100"
-          }`}
+          className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${isThought ? "bg-gray-200" : "bg-blue-100"
+            }`}
         >
           <Bot
             className={`h-4 w-4 ${isThought ? "text-gray-500" : "text-blue-600"}`}
@@ -51,13 +51,12 @@ const MessageBubble = ({
 
       <div className={`max-w-[80%] ${isUser ? "order-first" : ""}`}>
         <Card
-          className={`p-4 ${
-            isUser
-              ? "bg-blue-600 text-white"
-              : isThought
-                ? "bg-gray-100 border-gray-200"
-                : "bg-white border-gray-200 shadow-sm"
-          }`}
+          className={`p-4 ${isUser
+            ? "bg-blue-600 text-white"
+            : isThought
+              ? "bg-gray-100 border-gray-200"
+              : "bg-white border-gray-200 shadow-sm"
+            }`}
         >
           {isThought ? (
             <div className="text-gray-600 text-sm italic">
@@ -74,7 +73,18 @@ const MessageBubble = ({
             <p className="text-white">{message.content}</p>
           ) : (
             <div className="prose prose-sm max-w-none markdown-content">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  table: Table,
+                  tbody: TableBody,
+                  thead: TableHeader,
+                  caption: TableCaption,
+                  td: TableCell,
+                  th: TableHead,
+                  tr: TableRow,
+                }}
+              >
                 {message.isStreaming
                   ? message.streamedContent || ""
                   : message.content}
