@@ -55,9 +55,10 @@ export function ChatPage() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask me to help with scheduling, emails, reports, or any admin task..."
+            placeholder="Ask me how I can help!"
             className="flex-1"
             disabled={isTyping}
+            autoFocus
           />
           <Button
             onClick={handleSendMessage}
