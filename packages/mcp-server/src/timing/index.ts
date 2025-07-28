@@ -1,78 +1,151 @@
 import "dotenv/config";
 import Database from "better-sqlite3";
+import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration.js";
+import utc from "dayjs/plugin/utc.js";
+import timezone from "dayjs/plugin/timezone.js";
+import advancedFormat from "dayjs/plugin/advancedFormat.js";
 
-import { TZ_OFFSET_IN_SECONDS } from "../time/index.js";
+dayjs.extend(duration);
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(advancedFormat);
 
-type Activity = {
-  title: string | null;
+const MINIMUM_DURATION_SECONDS = 30;
+
+type TimeRange = {
+  start: string;
+  end: string;
+};
+
+type RawActivity = {
   app: string | null;
   path: string | null;
   start: number;
   end: number;
 };
 
-type QueryActivitiesInput = {
-  start: string;
-  end: string;
+type ActivitySummary = [string, string]; // [appAndPath, duration]
+
+type HourlyBreakdown = {
+  hours: Record<string, ActivitySummary[]>;
 };
 
-const ACTIVITY_QUERY = `
-  SELECT
-    Title.stringValue AS title,
-    Application.title AS app,
-    Path.stringValue AS path,
-    AppActivity.startDate AS start,
-    AppActivity.endDate AS end
-  FROM AppActivity
-  LEFT JOIN Title ON Title.id = AppActivity.titleID
-  LEFT JOIN Path ON Path.id = AppActivity.pathID
-  LEFT JOIN Application ON Application.id = AppActivity.applicationID
-  WHERE AppActivity.isDeleted = 0
-    AND AppActivity.startDate >= ?
-    AND AppActivity.endDate <= ?
-  ORDER BY AppActivity.startDate ASC
-`;
+type DurationsByIdentifier = Record<string, number>;
+type HourlyDurations = Record<string, DurationsByIdentifier>;
 
-const isoToSeconds = (iso: string) => {
-  return new Date(iso).getTime() / 1000;
-};
+function getActivitiesFromDb(timeRange: TimeRange): RawActivity[] {
+  const { TIME_ENTRIES_SQL_PATH } = process.env;
 
-const localSecondsToUtcIso = (seconds: number) => {
-  const millis = (seconds - TZ_OFFSET_IN_SECONDS) * 1000;
-  return new Date(millis).toISOString();
-};
-
-const parseActivity = (activity: Activity) => {
-  return {
-    ...activity,
-    start: localSecondsToUtcIso(activity.start),
-    end: localSecondsToUtcIso(activity.end),
-  };
-};
-
-export const getDesktopActivitiesForTimeRange = ({
-  start,
-  end,
-}: QueryActivitiesInput) => {
-  const dbPath = process.env.TIME_ENTRIES_SQL_PATH;
-
-  if (dbPath === undefined) {
-    throw new Error("TIME_ENTRIES_SQL_PATH must be set.");
+  if (TIME_ENTRIES_SQL_PATH === undefined) {
+    throw new Error("TIME_ENTRIES_SQL_PATH environment variable must be set");
   }
 
-  const db = new Database(dbPath);
+  const db = new Database(TIME_ENTRIES_SQL_PATH);
+  const query = db.prepare(`
+    SELECT
+      Application.title as app,
+      Path.stringValue as path,
+      AppActivity.startDate as start,
+      AppActivity.endDate as end
+    FROM AppActivity
+    LEFT JOIN Path ON Path.id = AppActivity.pathID
+    LEFT JOIN Application ON Application.id = AppActivity.applicationID
+    WHERE AppActivity.isDeleted = 0
+      AND AppActivity.startDate >= ?
+      AND AppActivity.endDate <= ?
+    ORDER BY AppActivity.startDate ASC
+  `);
 
-  const activitiesStatement = db.prepare(ACTIVITY_QUERY);
-
-  const startSeconds = isoToSeconds(start);
-  const endSeconds = isoToSeconds(end);
-
-  const activities = activitiesStatement.all(
-    startSeconds,
-    endSeconds,
-  ) as Activity[];
+  const activities = query.all(
+    dayjs(timeRange.start).unix(),
+    dayjs(timeRange.end).unix(),
+  ) as RawActivity[];
 
   db.close();
+  return activities;
+}
 
-  return activities.map(parseActivity);
-};
+function formatActivityDuration(seconds: number): string {
+  const d = dayjs.duration(seconds, "seconds");
+
+  if (d.asMinutes() < 1) {
+    return d.format("s[s]");
+  }
+
+  return d.format("H[h] m[m]").replace("0h ", "");
+}
+
+function getHourFromTimestamp(timestamp: number): string {
+  return dayjs.unix(timestamp).format("HH:00");
+}
+
+function formatIdentifier(activity: RawActivity): string {
+  const appName = activity.app ?? "Unknown";
+  const pathSuffix = activity.path ? ` - ${activity.path}` : "";
+  return `${appName}${pathSuffix}`;
+}
+
+function aggregateActivitiesByHour(activities: RawActivity[]): HourlyDurations {
+  return activities.reduce<HourlyDurations>((hourMap, activity) => {
+    const hour = getHourFromTimestamp(activity.start);
+    const identifier = formatIdentifier(activity);
+    const duration = activity.end - activity.start;
+    const existingDuration = (hourMap[hour]?.[identifier] ?? 0) + duration;
+
+    return {
+      ...hourMap,
+      [hour]: {
+        ...hourMap[hour],
+        [identifier]: existingDuration,
+      },
+    };
+  }, {});
+}
+
+function createHourlyBreakdown(
+  hourlyDurations: HourlyDurations,
+): HourlyBreakdown {
+  const summary: HourlyBreakdown = { hours: {} };
+
+  for (const [hour, durationsByIdentifier] of Object.entries(hourlyDurations)) {
+    const significantActivities = Object.entries(durationsByIdentifier)
+      .filter(([, duration]) => duration >= MINIMUM_DURATION_SECONDS)
+      .map(
+        ([identifier, duration]): ActivitySummary => [
+          identifier,
+          formatActivityDuration(duration),
+        ],
+      );
+
+    if (significantActivities.length > 0) {
+      summary.hours[hour] = significantActivities;
+    }
+  }
+
+  return summary;
+}
+
+function summarizeActivitiesByHour(activities: RawActivity[]): HourlyBreakdown {
+  const hourlyDurations = aggregateActivitiesByHour(activities);
+  return createHourlyBreakdown(hourlyDurations);
+}
+
+export function getHourlyActivitySummary(
+  timeRange: TimeRange,
+): HourlyBreakdown {
+  const activities = getActivitiesFromDb(timeRange);
+  return summarizeActivitiesByHour(activities);
+}
+
+const now = dayjs();
+console.log(
+  JSON.stringify(
+    getHourlyActivitySummary({
+      start: now.hour(9).startOf("hour").toISOString(),
+      end: now.endOf("day").toISOString(),
+    }),
+    null,
+    2,
+  ),
+);

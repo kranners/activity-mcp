@@ -14,7 +14,7 @@ import {
   getClickUpUser,
   getClickUpTasks,
 } from "./clickup/index.js";
-import { getDesktopActivitiesForTimeRange } from "./timing/index.js";
+import { getHourlyActivitySummary } from "./timing/index.js";
 import { getTime } from "./time/index.js";
 import {
   createTimeEntry,
@@ -164,14 +164,14 @@ const start = async () => {
 };
 
 server.tool(
-  "getDesktopActivitiesForTimeRange",
-  "Retrieves an array of desktop activities. They contain a start and end ISO string, an application, the title as it appears in MacOS, and a path like an internal value. Often a website, screen, or page.",
+  "getHourlyActivitySummary",
+  "Returns an hourly summary of desktop activities, showing application and path combinations with their accumulated durations. Durations are formatted as 'Xh Ym Zs",
   {
     start: z.string().describe("Lower bound of the time range as ISO"),
     end: z.string().describe("Upper bound of the time range as ISO"),
   },
   (params) => {
-    return createToolResult(getDesktopActivitiesForTimeRange(params));
+    return createToolResult(getHourlyActivitySummary(params));
   },
 );
 

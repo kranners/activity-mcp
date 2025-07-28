@@ -216,6 +216,9 @@ importers:
       better-sqlite3:
         specifier: ^11.10.0
         version: 11.10.0
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
       dotenv:
         specifier: ^16.5.0
         version: 16.5.0
@@ -247,25 +250,6 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
-
-  packages/slack-oauth:
-    dependencies:
-      '@slack/oauth':
-        specifier: ^3.0.3
-        version: 3.0.3
-      '@slack/web-api':
-        specifier: ^7.9.3
-        version: 7.9.3
-      dotenv:
-        specifier: ^16.5.0
-        version: 16.5.0
-      express:
-        specifier: ^5.1.0
-        version: 5.1.0
-    devDependencies:
-      '@types/express':
-        specifier: ^5.0.3
-        version: 5.0.3
 
 packages:
 
