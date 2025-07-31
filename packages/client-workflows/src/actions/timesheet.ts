@@ -45,79 +45,95 @@ const generateTimesheetSupportingInformation = async (
     <Short summary of the users role in this ticket.>
   `);
 
+  const slackMessages = run(`
+    Please extract and format Slack messages sent on the 22nd of July.
+    Retrieve ALL messages from ALL users, regardless of sender.
+
+    ## Format
+
+    Use this format:
+    ### #general
+    - (09:00) John Doe: How was everyone's weekend?
+    - (09:02) Sara Jane: Mine was great!
+    <repeat for all the other channels>
+
+    ENSURE messages are included in chronological order.
+
+    ALWAYS include ALL messages in a given channel.
+    However, don't include anything from the #in-and-out channel. This can be considered useless noise.
+
+    ONLY include channels where THE USER sent a message on that day.
+  `);
+
   return await Promise.all([
     desktopActivity,
     calendarEvents,
     relatedTickets,
-  ]).then(([desktopActivity, calendarEvents, relatedTickets]) => {
-    return {
-      desktopActivity,
-      calendarEvents,
-      relatedTickets,
-    };
-  });
+    slackMessages,
+  ]).then(
+    ([desktopActivity, calendarEvents, relatedTickets, slackMessages]) => {
+      return {
+        desktopActivity,
+        calendarEvents,
+        relatedTickets,
+        slackMessages,
+      };
+    },
+  );
 };
 
 const generateAndSubmitTimesheet = async (dayForTimesheet: string) => {
   const supporting =
     await generateTimesheetSupportingInformation(dayForTimesheet);
-  const { desktopActivity, calendarEvents, relatedTickets } = supporting;
+  const { desktopActivity, calendarEvents, relatedTickets, slackMessages } =
+    supporting;
 
   await run(`
-    Please create and submit a timesheet for ${dayForTimesheet} via Harvest.
-    
-    Some data gathering has already been done for you by other agents.
-    These are summaries of:
-    - The recently updated ClickUp tickets
-    - Any calendar events on that day
-    - A summary of desktop activity throughout the day. This is powerful!
+    Please create and submit a timesheet for last Tuesday via Harvest.
 
-    You will need to gather more data to accomplish this.
-    In addition to what's given, you will need to gather:
-    - All Slack messages sent on that day
-    - The projects in Harvest. You will need this to be able to submit the timesheet
-    - All Git reflogs for that day
+    Use:
+    - Slack messages sent on that day.
+    - Harvest.
+    - The git reflogs.
+    - Recently updated ClickUp tickets (provided for you).
+    - Calendar events (provided for you).
+    - Desktop activity summary (provided for you).
 
-    Here is the data that has already been gathered:
-    --- START RELATED TICKETS ---
+    <ClickUp Tickets>
     ${relatedTickets}
-    --- END RELATED TICKETS ---
+    </ClickUp Tickets>
 
-    --- START CALENDAR EVENTS ---
+    <Calendar Events>
     ${calendarEvents}
-    --- END CALENDAR EVENTS ---
+    </Calendar Events>
 
-    --- START DESKTOP ACTIVITY ---
+    <Desktop Activity>
     ${desktopActivity}
-    --- END DESKTOP ACTIVITY ---
+    </Desktop Activity>
 
-    <approval>
-    JUST submit the timesheet via Harvest.
-    DO NOT ask for approval.
-    </approval>
+    <Slack Messages>
+    ${slackMessages}
+    </Slack Messages>
+    
 
-    <time_entries_format>
-    When making a time entry, ALWAYS:
-    1. Create seperate time entries when possible, instead of merging multiple entries into one.
-    2. Create time entries for the correct client and project.
-    3. Round time entries to the nearest 30 minutes.
-    4. Ensure time entries sum to between 7.5 and 8 hours.
-    5. Refer to the data used nonspecifically. eg. "Refer to git commits" or "Refer to Slack messages"
-    6. Keep descriptions short and sharp. Just what was being worked on and for what.
-    7. Avoid filling in detail where there is none.
-    </time_entries_format
+    Then submit the timesheet via Harvest.
 
-    <projects_and_clients>
+    Write concise and obvious entries that whenever possible, refer to a ClickUp custom ID and card title.
+
     Meetings which are not related to any particular client should be listed as "Staff meeting".
-
     Meetings which are related to a client should be listed as billable client time.
 
     Client time should be billed under "Senior Developer".
-    </projects_and_clients>
   `);
 };
 
-const DAYS_REQUIRING_TIMESHEET = [];
+const DAYS_REQUIRING_TIMESHEET = [
+  "22 July 2025",
+  // "24 July 2025",
+  // "25 July 2025",
+  // "29 July 2025",
+  // "30 July 2025",
+];
 
 Promise.all(DAYS_REQUIRING_TIMESHEET.map(generateAndSubmitTimesheet)).then(() =>
   console.log("finished 🎉"),

@@ -38,7 +38,6 @@ const Task = z.object({
   date_created: DateInMillis,
   date_updated: DateInMillis,
   date_closed: DateInMillis,
-  url: z.string(),
   project: Project,
   folder: Folder,
   list: List,

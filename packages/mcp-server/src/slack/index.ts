@@ -30,7 +30,6 @@ const Channel = z.object({
 
 const Message = z.object({
   channel: Channel,
-  iid: z.string().optional().nullable(),
   text: z.string().optional().nullable(),
   user: z.string().optional().nullable(),
   username: z.string().optional().nullable(),
@@ -147,56 +146,4 @@ export const getMessages = async (params: MessagesFromUserInput) => {
   }
 
   return messages.map(formatMessageForToolResponse);
-};
-
-const Conversation = z.object({
-  id: z.string(),
-  name: z.string().optional(),
-  user: z.string().optional(),
-  created: z.number(),
-  is_archived: z.boolean(),
-  updated: z.number(),
-  topic: z
-    .object({
-      value: z.string(),
-    })
-    .optional(),
-});
-
-const ConversationsResponse = z.object({
-  channels: Conversation.array(),
-  ok: z.boolean().optional(),
-});
-
-type GetAllConversationsInput = {
-  includeArchived: boolean;
-  includeGroupMessages: boolean;
-  includeDirectMessages: boolean;
-  includePublicChannels: boolean;
-  includePrivateChannels: boolean;
-};
-
-const buildChannelTypesQuery = ({
-  includeDirectMessages,
-  includeGroupMessages,
-  includePublicChannels,
-  includePrivateChannels,
-}: GetAllConversationsInput) => {
-  const types: string[] = [];
-
-  if (includeDirectMessages) types.push("im");
-  if (includeGroupMessages) types.push("mpim");
-  if (includePublicChannels) types.push("public_channel");
-  if (includePrivateChannels) types.push("private_channel");
-
-  return types.join(",");
-};
-
-const getAllConversations = async (params: GetAllConversationsInput) => {
-  const conversations = await web.conversations.list({
-    exclude_archived: !params.includeArchived,
-    types: buildChannelTypesQuery(params),
-  });
-
-  return ConversationsResponse.parse(conversations);
 };

@@ -58,33 +58,6 @@ const start = async () => {
     },
   );
 
-  // server.tool(
-  //   "getAllSlackConversations",
-  //   "Get all available Slack conversations",
-  //   {
-  //     includeArchived: z
-  //       .boolean()
-  //       .describe(
-  //         "Whether to include archived channels or not. Default to true",
-  //       ),
-  //     includeDirectMessages: z
-  //       .boolean()
-  //       .describe("Whether to include direct messages"),
-  //     includeGroupMessages: z
-  //       .boolean()
-  //       .describe("Whether to include group messages"),
-  //     includePublicChannels: z
-  //       .boolean()
-  //       .describe("Whether to include public channels"),
-  //     includePrivateChannels: z
-  //       .boolean()
-  //       .describe("Whether to include private channels"),
-  //   },
-  //   async (params) => {
-  //     return createToolResult(await getAllConversations(params));
-  //   },
-  // );
-
   server.tool(
     "getSlackMessages",
     "Get Slack messages on a particular date range. Can filter to messages sent in particular channels, sent by particular users, or that contain a particular substring. To get messages on a single day, call both tools with the same day.",
@@ -107,7 +80,9 @@ const start = async () => {
         .optional(),
       userIds: z
         .array(z.string())
-        .describe("List of user IDs to filter to.")
+        .describe(
+          "If omitted, return messages from all users. If specified, ONLY return results from that use.",
+        )
         .optional(),
     },
     async (params) => {

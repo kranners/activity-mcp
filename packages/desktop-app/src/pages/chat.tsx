@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useMessages } from "@/hooks/use-messages";
 import { MessageBubble } from "@/components/message-bubble";
+import { Textarea } from "@/components/ui/textarea";
 
 export function ChatPage() {
   const { messages, sendUserMessage, isTyping } = useMessages();
@@ -51,7 +52,7 @@ export function ChatPage() {
       {/* Input */}
       <div className="bg-white border-t border-gray-200 p-4">
         <div className="flex gap-2">
-          <Input
+          <Textarea
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
