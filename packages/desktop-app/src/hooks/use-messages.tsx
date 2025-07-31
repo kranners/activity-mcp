@@ -32,8 +32,8 @@ export const TOOL_TO_SPLASH = {
     description: "Fetching ClickUp tasks",
     icon: SiClickup,
   },
-  getDesktopActivitiesForTimeRange: {
-    description: "Getting desktop activities",
+  getHourlyActivitySummary: {
+    description: "Getting your desktop activity",
     icon: Monitor,
   },
   getHarvestUser: {

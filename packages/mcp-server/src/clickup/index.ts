@@ -45,8 +45,6 @@ const Task = z.object({
   space: Space,
 });
 
-const Tasks = z.array(Task);
-
 export type ClickUpTasksAPIInputBody = {
   page?: number;
   assignees?: string[];
