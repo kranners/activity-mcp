@@ -137,15 +137,3 @@ export function getHourlyActivitySummary(
   const activities = getActivitiesFromDb(timeRange);
   return summarizeActivitiesByHour(activities);
 }
-
-const now = dayjs();
-console.log(
-  JSON.stringify(
-    getHourlyActivitySummary({
-      start: now.hour(9).startOf("hour").toISOString(),
-      end: now.endOf("day").toISOString(),
-    }),
-    null,
-    2,
-  ),
-);
