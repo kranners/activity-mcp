@@ -28,7 +28,7 @@ const generateTimesheetSupportingInformation = async (
   `);
 
   const relatedTickets = run(`
-    Please summarize any ClickUp tickets that have been updated between the week prior to ${dayForTimesheet} up to the day after.
+    Please summarize any ClickUp tickets that have been updated between 3 days prior to ${dayForTimesheet} up to the day after.
     
     ONLY include tickets that the USER is involved in some way.
     NEVER use the assignees filter. This will filter out tickets the USER is a watcher on.
