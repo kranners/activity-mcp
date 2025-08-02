@@ -9,11 +9,6 @@ import {
   getMessages as getSlackMessages,
   getSlackUser,
 } from "./slack/index.js";
-import {
-  ClickUpTasksAPIInputBody,
-  getClickUpUser,
-  getClickUpTasks,
-} from "./clickup/index.js";
 import { getHourlyActivitySummary } from "./timing/index.js";
 import { getTime } from "./time/index.js";
 import {
@@ -35,6 +30,10 @@ import {
   ResponseStatus,
   getGoogleColors,
 } from "./google/index.js";
+import { getClickUpSprint } from "./clickup/get-sprint-tasks/index.js";
+import { getClickUpUser } from "./clickup/get-clickup-user/index.js";
+import { searchClickUpTasks } from "./clickup/search-clickup-tasks/index.js";
+import { getClickUpTask } from "./clickup/get-clickup-task/index.js";
 
 const createToolResult = (result: unknown) => {
   return CallToolResultSchema.parse({
@@ -100,8 +99,8 @@ const start = async () => {
   );
 
   server.tool(
-    "getClickUpTasks",
-    "Get ClickUp tasks.",
+    "searchClickUpTasks",
+    "Search all ClickUp tickets. Recommend filtering unless specified otherwise.",
     {
       assignees: z
         .array(z.string())
@@ -130,8 +129,45 @@ const start = async () => {
         .describe("ISO timestamp for maximum updated time to filter tickets to")
         .optional(),
     },
-    async (params: ClickUpTasksAPIInputBody) => {
-      return createToolResult(await getClickUpTasks(params));
+    async (params) => {
+      return createToolResult(await searchClickUpTasks(params));
+    },
+  );
+
+  server.tool(
+    "getClickUpTask",
+    "Get detailed information, including description about a task. Use this on tasks that you are interested to know more about.",
+    {
+      id: z.string().describe("Task ID."),
+    },
+    async (params) => {
+      return createToolResult(await getClickUpTask(params));
+    },
+  );
+
+  server.tool(
+    "getClickUpSprint",
+    "Get a sprint from ClickUp. This includes any tasks, sprint names, or goals. But not task descriptions.",
+    {
+      datetime: z
+        .string()
+        .describe(
+          "Get the sprint that includes this date time as an ISO timestamp. Defaults to now.",
+        )
+        .optional(),
+      spaceNameCaseSentitive: z
+        .string()
+        .describe(
+          "The name of the space the sprint is for. Usually the same as the name of your team.",
+        ),
+    },
+    async ({ datetime, spaceNameCaseSentitive }) => {
+      return createToolResult(
+        await getClickUpSprint({
+          day: datetime,
+          space: spaceNameCaseSentitive,
+        }),
+      );
     },
   );
 

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { makeClickUpRequest } from "..";
+import { makeClickUpRequest } from "../index.js";
 
 const AuthorizedUser = z.object({
   id: z.number(),

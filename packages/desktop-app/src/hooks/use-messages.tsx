@@ -28,8 +28,16 @@ export const TOOL_TO_SPLASH = {
     description: "Getting ClickUp user info",
     icon: SiClickup,
   },
-  getClickUpTasks: {
-    description: "Fetching ClickUp tasks",
+  searchClickUpTasks: {
+    description: "Searching all ClickUp tasks",
+    icon: SiClickup,
+  },
+  getClickUpTask: {
+    description: "Getting detailed information about a task",
+    icon: SiClickup,
+  },
+  getClickUpSprint: {
+    description: "Getting a sprint from ClickUp",
     icon: SiClickup,
   },
   getHourlyActivitySummary: {
