@@ -1,8 +1,6 @@
-import clickup from "@api/clickup";
 import { GetFilteredTeamTasksMetadataParam } from "@api/clickup/types";
-import { auth } from "../auth";
-import { Task, User } from "../models";
-import { getTeamId } from "../lib";
+import { Space, Task, User } from "../models";
+import { getTeamId, makeClickUpRequest } from "..";
 
 export type ClickUpTasksAPIInputBody = {
   assignees?: string[];
@@ -27,31 +25,22 @@ const purposelyDuplicateListsInParams = (
   return params;
 };
 
-type ClickUpTasksResponse = Awaited<
-  ReturnType<typeof clickup.getFilteredTeamTasks>
->;
-
 const optionalIsoToOptionalMillis = (iso?: string) => {
   if (iso === undefined) {
     return;
   }
 
-  return new Date(iso).getTime();
+  return new Date(iso).getTime().toString();
 };
 
 const buildTaskIndexer = async () => {
-  const spacesResponse = await clickup.getSpaces({
-    order_by: "updated",
-    team_id: getTeamId(),
-  });
+  const { spaces } = await makeClickUpRequest(`/team/${getTeamId()}/space`);
 
-  const { spaces } = spacesResponse.data;
-
-  const parseClickUpTasksResponse = (
-    tasks: ClickUpTasksResponse["data"]["tasks"],
-  ) => {
+  const parseClickUpTasksResponse = (tasks: Task[]) => {
     return tasks.map((task) => {
-      const taskSpace = spaces.find((space) => space.id === task.space?.id);
+      const taskSpace = spaces.find(
+        (space: Space) => space.id === task.space?.id,
+      );
 
       if (taskSpace !== undefined && task.space !== undefined) {
         task.space.name = taskSpace.name;
@@ -99,8 +88,6 @@ const indexTaskList = (tasks: Task[]) => {
 };
 
 export const searchClickUpTasks = async (params: ClickUpTasksAPIInputBody) => {
-  auth();
-
   const parseClickUpTasksResponse = await buildTaskIndexer();
 
   const purposelyDuplicatedParams = purposelyDuplicateListsInParams(
@@ -109,22 +96,25 @@ export const searchClickUpTasks = async (params: ClickUpTasksAPIInputBody) => {
 
   let currentPage = 0;
   let isLastPage = false;
-  const pages: ClickUpTasksResponse["data"]["tasks"][] = [];
+  const pages = [];
 
   while (isLastPage === false) {
-    const { data: page } = await clickup.getFilteredTeamTasks({
-      ...purposelyDuplicatedParams,
-      date_updated_lt: optionalIsoToOptionalMillis(params.date_updated_lt),
-      date_updated_gt: optionalIsoToOptionalMillis(params.date_updated_gt),
-      order_by: "updated",
-      include_closed: true,
-      include_markdown_description: true,
-      team_Id: getTeamId(),
-      page: currentPage,
-    });
+    const { tasks = [], last_page } = await makeClickUpRequest(
+      `/team/${getTeamId()}/task`,
+      {
+        ...purposelyDuplicatedParams,
+        date_updated_lt: optionalIsoToOptionalMillis(params.date_updated_lt),
+        date_updated_gt: optionalIsoToOptionalMillis(params.date_updated_gt),
+        order_by: "updated",
+        include_closed: true,
+        include_markdown_description: true,
+        team_Id: getTeamId(),
+        page: currentPage,
+      },
+    );
 
-    pages.push(page.tasks);
-    isLastPage = page.last_page as boolean;
+    pages.push(tasks);
+    isLastPage = last_page;
     currentPage++;
   }
 

@@ -1,6 +1,5 @@
 import { z } from "zod";
-import clickup from "@api/clickup";
-import { auth } from "../auth";
+import { makeClickUpRequest } from "..";
 
 const AuthorizedUser = z.object({
   id: z.number(),
@@ -9,10 +8,7 @@ const AuthorizedUser = z.object({
 });
 
 export const getClickUpUser = async () => {
-  auth();
-
-  const response = await clickup.getAuthorizedUser();
-  const { user } = response.data;
+  const { user } = await makeClickUpRequest("/user");
 
   if (user === undefined) {
     throw new Error(
