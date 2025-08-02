@@ -1,6 +1,5 @@
-import { GetFilteredTeamTasksMetadataParam } from "@api/clickup/types";
 import { Space, Task, User } from "../models";
-import { getTeamId, makeClickUpRequest } from "..";
+import { getTeamId, makeClickUpRequest, makePaginatedClickUpRequest } from "..";
 
 export type ClickUpTasksAPIInputBody = {
   assignees?: string[];
@@ -11,20 +10,6 @@ export type ClickUpTasksAPIInputBody = {
   date_updated_lt?: string;
 };
 
-// The ClickUp library thinks that if you pass an array with one string, that
-// makes it just a string. So, if you want to filter by one thing, then you
-// need to specify it twice.
-const purposelyDuplicateListsInParams = (
-  params: ClickUpTasksAPIInputBody,
-): ClickUpTasksAPIInputBody => {
-  params?.assignees?.push(params?.assignees?.[0]);
-  params?.project_ids?.push(params?.project_ids?.[0]);
-  params?.space_ids?.push(params?.space_ids?.[0]);
-  params?.list_ids?.push(params?.list_ids?.[0]);
-
-  return params;
-};
-
 const optionalIsoToOptionalMillis = (iso?: string) => {
   if (iso === undefined) {
     return;
@@ -33,10 +18,10 @@ const optionalIsoToOptionalMillis = (iso?: string) => {
   return new Date(iso).getTime().toString();
 };
 
-const buildTaskIndexer = async () => {
+const buildTaskToSpaceJoiner = async () => {
   const { spaces } = await makeClickUpRequest(`/team/${getTeamId()}/space`);
 
-  const parseClickUpTasksResponse = (tasks: Task[]) => {
+  const joinTasksToTheirSpace = (tasks: Task[]) => {
     return tasks.map((task) => {
       const taskSpace = spaces.find(
         (space: Space) => space.id === task.space?.id,
@@ -50,10 +35,10 @@ const buildTaskIndexer = async () => {
     });
   };
 
-  return parseClickUpTasksResponse;
+  return joinTasksToTheirSpace;
 };
 
-const indexTaskList = (tasks: Task[]) => {
+const indexTasks = (tasks: Task[]) => {
   const spaces: Record<string, string> = {};
   const users: Record<string, string> = {};
   const projects: Record<string, string> = {};
@@ -88,38 +73,24 @@ const indexTaskList = (tasks: Task[]) => {
 };
 
 export const searchClickUpTasks = async (params: ClickUpTasksAPIInputBody) => {
-  const parseClickUpTasksResponse = await buildTaskIndexer();
+  const tasks = await makePaginatedClickUpRequest(
+    `/team/${getTeamId()}/task`,
+    "tasks",
+    {
+      order_by: "updated",
+      include_closed: true,
+      include_markdown_description: true,
 
-  const purposelyDuplicatedParams = purposelyDuplicateListsInParams(
-    params,
-  ) as GetFilteredTeamTasksMetadataParam;
+      ...params,
 
-  let currentPage = 0;
-  let isLastPage = false;
-  const pages = [];
+      date_updated_lt: optionalIsoToOptionalMillis(params.date_updated_lt),
+      date_updated_gt: optionalIsoToOptionalMillis(params.date_updated_gt),
+      team_Id: getTeamId(),
+    },
+  );
 
-  while (isLastPage === false) {
-    const { tasks = [], last_page } = await makeClickUpRequest(
-      `/team/${getTeamId()}/task`,
-      {
-        ...purposelyDuplicatedParams,
-        date_updated_lt: optionalIsoToOptionalMillis(params.date_updated_lt),
-        date_updated_gt: optionalIsoToOptionalMillis(params.date_updated_gt),
-        order_by: "updated",
-        include_closed: true,
-        include_markdown_description: true,
-        team_Id: getTeamId(),
-        page: currentPage,
-      },
-    );
+  const joinTasksToTheirSpace = await buildTaskToSpaceJoiner();
+  const parsed = indexTasks(joinTasksToTheirSpace(tasks));
 
-    pages.push(tasks);
-    isLastPage = last_page;
-    currentPage++;
-  }
-
-  const joinedTasks = pages.flat();
-  const tasks = parseClickUpTasksResponse(joinedTasks);
-
-  return indexTaskList(tasks);
+  return parsed;
 };

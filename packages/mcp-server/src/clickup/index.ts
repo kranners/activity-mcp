@@ -61,3 +61,27 @@ export async function makeClickUpRequest(
 
   return response.json();
 }
+
+export const makePaginatedClickUpRequest = async (
+  path: string,
+  resultKey: string,
+  params?: Record<string, unknown | undefined>,
+) => {
+  let currentPage = 0;
+  let isLastPage = false;
+  const pages = [];
+
+  while (isLastPage === false) {
+    const { last_page, ...rest } = await makeClickUpRequest(path, {
+      ...params,
+      page: currentPage,
+    });
+
+    pages.push(rest[resultKey] ?? []);
+
+    isLastPage = last_page;
+    currentPage++;
+  }
+
+  return pages.flat();
+};
