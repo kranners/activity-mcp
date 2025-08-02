@@ -116,3 +116,7 @@ As of now, there isn't a unified way to run the whole stack at once.
 Each package requires independant setup and has a unique way to run.
 
 `desktop-app` is the simplest to run.
+
+Prompt:
+Could you summarize some of the tickets I have to me in the current sprint? I
+am on the Autobots team.

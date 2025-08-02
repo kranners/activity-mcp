@@ -21,6 +21,7 @@ const config: Config = {
     "/.{git,cache,output,temp}/",
     "/.config/",
   ],
+  setupFiles: ["<rootDir>/jest.setup.ts"],
 };
 
 export default config;

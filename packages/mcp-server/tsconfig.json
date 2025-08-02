@@ -26,7 +26,7 @@
   "exclude": [
     "eslint.config.ts",
     "jest.config.ts",
-    ".api",
+    "jest.setup.ts",
     "dist",
     "node_modules"
   ]

@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useMessages } from "@/hooks/use-messages";
 import { MessageBubble } from "@/components/message-bubble";
 import { Textarea } from "@/components/ui/textarea";

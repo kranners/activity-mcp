@@ -40,6 +40,14 @@ Your goal is to assist the user.
 ## The user
 The user is Aaron Pierce, a senior software developer at the australian
 digital agency Inlight.
+
+The user works in the Autobots team, primarily for the clients:
+- Make-a-Wish
+- TAC
+- Inlight (internal projects & development)
+
+The user also builds the software that runs you.
+This is currently called "activity-mcp".
 `;
 
 export const MCP_CLIENT_CONFIG = {
