@@ -1,51 +1,10 @@
-import { z } from "zod";
-import "dotenv/config";
 import clickup from "@api/clickup";
 import { GetFilteredTeamTasksMetadataParam } from "@api/clickup/types";
-
-const auth = () => {
-  if (process.env.CLICKUP_TOKEN === undefined) {
-    throw new Error("CLICKUP_TOKEN must be set.");
-  }
-
-  clickup.auth(process.env.CLICKUP_TOKEN);
-};
-
-const ID = z.union([z.number(), z.string()]);
-
-const User = z.object({ id: ID, username: z.string() });
-
-const Status = z.object({ status: z.string() });
-
-const Project = z.object({ id: ID, name: z.string() });
-const List = z.object({ id: ID, name: z.string() });
-const Folder = z.object({ id: ID, name: z.string() });
-const Space = z.object({ id: ID, name: z.string() });
-
-const DateInMillis = z.preprocess(
-  (value: unknown) => new Date(Number(value)).toISOString(),
-  z.string(),
-);
-
-const Task = z.object({
-  name: z.string(),
-  custom_id: z.string().nullable(),
-  description: z.string().nullable(),
-  status: Status,
-  creator: User,
-  assignees: z.array(User),
-  watchers: z.array(User),
-  date_created: DateInMillis,
-  date_updated: DateInMillis,
-  date_closed: DateInMillis,
-  project: Project,
-  folder: Folder,
-  list: List,
-  space: Space,
-});
+import { auth } from "../auth";
+import { Task, User } from "../models";
+import { getTeamId } from "../lib";
 
 export type ClickUpTasksAPIInputBody = {
-  page?: number;
   assignees?: string[];
   project_ids?: string[];
   space_ids?: string[];
@@ -68,6 +27,10 @@ const purposelyDuplicateListsInParams = (
   return params;
 };
 
+type ClickUpTasksResponse = Awaited<
+  ReturnType<typeof clickup.getFilteredTeamTasks>
+>;
+
 const optionalIsoToOptionalMillis = (iso?: string) => {
   if (iso === undefined) {
     return;
@@ -76,27 +39,14 @@ const optionalIsoToOptionalMillis = (iso?: string) => {
   return new Date(iso).getTime();
 };
 
-const getTeamId = () => {
-  const teamId = Number(process.env.CLICKUP_TEAM_ID);
-
-  if (teamId === undefined || Number.isNaN(teamId)) {
-    throw new Error("CLICKUP_TEAM_ID must be set to a number.");
-  }
-
-  return teamId;
-};
-
-type ClickUpTasksResponse = Awaited<
-  ReturnType<typeof clickup.getFilteredTeamTasks>
->;
-
-const getConnectClickupTaskToSpaces = async () => {
+const buildTaskIndexer = async () => {
   const spacesResponse = await clickup.getSpaces({
     order_by: "updated",
     team_id: getTeamId(),
   });
 
   const { spaces } = spacesResponse.data;
+
   const parseClickUpTasksResponse = (
     tasks: ClickUpTasksResponse["data"]["tasks"],
   ) => {
@@ -114,14 +64,14 @@ const getConnectClickupTaskToSpaces = async () => {
   return parseClickUpTasksResponse;
 };
 
-const indexTaskList = (tasks: z.infer<typeof Task>[]) => {
+const indexTaskList = (tasks: Task[]) => {
   const spaces: Record<string, string> = {};
   const users: Record<string, string> = {};
   const projects: Record<string, string> = {};
   const lists: Record<string, string> = {};
   const folders: Record<string, string> = {};
 
-  const recordUser = ({ id, username }: z.infer<typeof User>) => {
+  const recordUser = ({ id, username }: User) => {
     users[id] = username;
     return username;
   };
@@ -148,10 +98,10 @@ const indexTaskList = (tasks: z.infer<typeof Task>[]) => {
   return { spaces, users, projects, lists, folders, tasks: strippedTasks };
 };
 
-export const getClickUpTasks = async (params: ClickUpTasksAPIInputBody) => {
+export const searchClickUpTasks = async (params: ClickUpTasksAPIInputBody) => {
   auth();
 
-  const parseClickUpTasksResponse = await getConnectClickupTaskToSpaces();
+  const parseClickUpTasksResponse = await buildTaskIndexer();
 
   const purposelyDuplicatedParams = purposelyDuplicateListsInParams(
     params,
@@ -182,25 +132,4 @@ export const getClickUpTasks = async (params: ClickUpTasksAPIInputBody) => {
   const tasks = parseClickUpTasksResponse(joinedTasks);
 
   return indexTaskList(tasks);
-};
-
-const ClickUpUser = z.object({
-  id: z.number(),
-  username: z.string(),
-  email: z.string(),
-});
-
-export const getClickUpUser = async () => {
-  auth();
-
-  const response = await clickup.getAuthorizedUser();
-  const { user } = response.data;
-
-  if (user === undefined) {
-    throw new Error(
-      "Was unable to read current ClickUp user. Please check your CLICKUP_TOKEN.",
-    );
-  }
-
-  return ClickUpUser.parse(user);
 };
